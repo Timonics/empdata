@@ -81,10 +81,10 @@ const adminAuthSlice = createSlice({
     );
 
     builder.addCase(loginAdmin.rejected, (state, action) => {
+      state.loading = false;
       if (action.payload) {
         state.error = action.payload as ApiError;
       } else {
-        state.loading = false;
         state.error = action.error.message || "Login failed";
       }
     });

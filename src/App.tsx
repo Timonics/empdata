@@ -8,20 +8,53 @@ import Clients from "./pages/admin/dashboard/clients";
 import CompanyLogin from "./pages/corporate-client/auth/login";
 import CompanyDashboardLayout from "./layouts/company/DashboardLayout";
 import AdminWatcher from "./components/auth-watchers/AdminWatcher";
+import {
+  ProtectedRoutes,
+  RedirectRoutes,
+} from "./components/protected-routes/AdminProtectedRoutes";
 
 function App() {
   const router = createBrowserRouter([
+    //Admin Routes
     {
       path: "/admin/auth",
-      element: <AuthLayout />,
+      element: <RedirectRoutes />,
       children: [
         {
           path: "",
-          element: <Login />,
+          element: <AuthLayout />,
+          children: [
+            {
+              path: "",
+              element: <Login />,
+            },
+          ],
         },
       ],
     },
 
+    {
+      path: "/admin",
+      element: <ProtectedRoutes />,
+      children: [
+        {
+          path: "",
+          element: <AdminDashboardLayout />,
+          children: [
+            {
+              path: "",
+              element: <Home />,
+            },
+            {
+              path: "company",
+              element: <Clients />,
+            },
+          ],
+        },
+      ],
+    },
+
+    // Corporate Client Routes
     {
       path: "/company/auth",
       element: <AuthLayout />,
@@ -29,21 +62,6 @@ function App() {
         {
           path: "",
           element: <CompanyLogin />,
-        },
-      ],
-    },
-
-    {
-      path: "/admin",
-      element: <AdminDashboardLayout />,
-      children: [
-        {
-          path: "",
-          element: <Home />,
-        },
-        {
-          path: "company",
-          element: <Clients />,
         },
       ],
     },
@@ -59,6 +77,7 @@ function App() {
       ],
     },
 
+    // Catch-all route for undefined paths
     {
       path: "*",
       element: <ErrorPage />,

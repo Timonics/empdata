@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import type { LoginData } from "@/interfaces/auth.interface";
+import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
-import { Link } from "react-router";
 
 const Login: React.FC = () => {
   const { login, loading } = useAuth("admin");
@@ -50,14 +50,14 @@ const Login: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <Link to={"/admin"} className="w-full" onClick={handleLogin}>
-        <Button
-          size={"xl"}
-          className="w-full text-xl font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
-        >
-          Log in
-        </Button>
-      </Link>
+
+      <Button
+        size={"xl"}
+        className="w-full text-xl font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
+        onClick={handleLogin}
+      >
+        {loading ? <LoaderCircle className="animate-spin size-8"/> : "Log in"}
+      </Button>
     </div>
   );
 };
