@@ -27,11 +27,7 @@ export const loginAdmin = createAsyncThunk<
   { rejectValue: ApiError }
 >("adminLogin", async (loginData: LoginData, thunkAPI) => {
   try {
-    const response = await api.post("/auth/login", loginData, {
-      headers: {
-        "x-auth-type": "admin",
-      },
-    });
+    const response = await api.post("/auth/login", loginData);
     return response.data;
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err);
