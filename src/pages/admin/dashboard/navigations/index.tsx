@@ -63,7 +63,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
                     isActive
                       ? "bg-sky-100 text-sky-600 font-bold"
                       : "opacity-75 font-medium"
-                  } p-2 rounded-lg ${
+                  } p-2 rounded-lg relative ${
                     navIsOpen ? "pl-4" : "px-4 hover:bg-sky-100"
                   } ${!openNavChildren && "transition duration-300"} flex items-center gap-2 relative ${
                     openIndex !== index && "hover:scale-95"
@@ -77,7 +77,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   (!openNavChildren ? (
                     <ChevronDown
                       size={18}
-                      className="ml-auto"
+                      className="ml-auto absolute right-4"
                       onClick={() => {
                         setOpenNavChildren(true);
                         setOpenIndex(index);
@@ -86,15 +86,15 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   ) : (
                     <ChevronUp
                       size={18}
-                      className="ml-auto"
+                      className="ml-auto absolute right-4"
                       onClick={() => {
                         setOpenNavChildren(false);
                         setOpenIndex(null);
                       }}
                     />
                   ))}
-                {openNavChildren && openIndex === index && nav.children && (
-                  <div className="absolute px-2 py-4 text-black/85 border-2 border-black/20 gap-2 top-11 font-medium rounded-xl left-0 w-full flex flex-col backdrop-blur-sm z-50 shadow-xl text-sm">
+                {navIsOpen && openNavChildren && openIndex === index && nav.children && (
+                  <div className="absolute px-2 py-4 text-black/85 border-2 border-black/20 gap-2 top-11 font-medium rounded-xl left-0 w-full flex flex-col backdrop-blur-sm z-10 shadow-xl text-sm">
                     {nav.children.map((item) => (
                       <button className="hover:bg-sky-100 p-2 rounded-lg border-2 border-black/20">{item.name}</button>
                     ))}

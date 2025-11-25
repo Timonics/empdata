@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import Navigations from "@/pages/admin/dashboard/navigations";
-import { Outlet, useLocation } from "react-router";
-import { PanelRight, X } from "lucide-react";
-import { navigations } from "@/lib/admin/adminNav";
-import { NavLink } from "react-router";
 import Logo from "@/components/logo";
+import { navigations } from "@/lib/admin/adminNav";
+import Navigations from "@/pages/admin/dashboard/navigations";
+import { PanelRight, X } from "lucide-react";
+import React, { useState } from "react";
+import { useLocation, Outlet, NavLink } from "react-router";
 
-const AdminDashboardLayout: React.FC = () => {
+const CompanyDashboardLayout: React.FC = () => {
   const location = useLocation();
   const [navIsOpen, setNavIsOpen] = useState(true);
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
@@ -19,9 +18,13 @@ const AdminDashboardLayout: React.FC = () => {
             !navIsOpen ? "w-20" : "w-2/10"
           } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-2 bg-black/2 rounded-l-xl border-black/10 px-2`}
         >
-          <Navigations navIsOpen={navIsOpen} />
-        </div>
-        <div className={`${!navIsOpen ? "w-full" : "xl:w-8/10"} w-full transition-all duration-300 ease-in-out flex flex-col rounded-r-xl`}>
+          <Navigations navIsOpen={navIsOpen} /> 
+        </div> 
+        <div
+          className={`${
+            !navIsOpen ? "w-full" : "xl:w-8/10"
+          } w-full transition-all duration-300 ease-in-out flex flex-col rounded-r-xl`}
+        >
           <div className="border-b-2 border-black/10 p-4 text-start flex items-center gap-6">
             <div className="max-xl:hidden">
               <PanelRight onClick={() => setNavIsOpen(!navIsOpen)} />
@@ -86,4 +89,4 @@ const AdminDashboardLayout: React.FC = () => {
   );
 };
 
-export default AdminDashboardLayout;
+export default CompanyDashboardLayout;

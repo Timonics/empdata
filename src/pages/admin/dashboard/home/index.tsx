@@ -3,7 +3,7 @@ import { dashboardData } from "@/lib/admin/dashboardData";
 import AddCorporateClient from "../clients/component/AddCorporateClient";
 import { Button } from "@/components/ui/button";
 
-const DashboardHome: React.FC = () => {
+const Home: React.FC = () => {
   const [addClient, setAddClient] = useState(false);
   return (
     <div>
@@ -56,4 +56,4 @@ const DashboardHome: React.FC = () => {
   );
 };
 
-export default DashboardHome;
+export default Home;

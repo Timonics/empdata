@@ -1,0 +1,1 @@
+export type AuthType = "admin" | "company" | "employee"

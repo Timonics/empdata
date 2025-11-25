@@ -24,7 +24,7 @@ export const navigations: Navigations[] = [
   },
   {
     name: "Corporate Clients",
-    link: "clients",
+    link: "company",
     icon: TbBuilding,
     children: [
       { name: "Add Corporate Clients ", link: "" },
