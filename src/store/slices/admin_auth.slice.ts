@@ -59,7 +59,7 @@ export const adminForgotPassword = createAsyncThunk(
   }
 );
 
-export const resetPassword = createAsyncThunk(
+export const adminResetPassword = createAsyncThunk(
   "resetPassword",
   async (resetData: IResetPassword, thunkAPI) => {
     try {
@@ -140,19 +140,19 @@ const adminAuthSlice = createSlice({
     });
 
     //Reset Password Cases
-    builder.addCase(resetPassword.pending, (state) => {
+    builder.addCase(adminResetPassword.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
 
     builder.addCase(
-      resetPassword.fulfilled,
+      adminResetPassword.fulfilled,
       (state, _: PayloadAction<Omit<ApiResponse, "data" | "token">>) => {
         state.loading = false;
         state.error = null;
       }
     );
-    builder.addCase(resetPassword.rejected, (state, action) => {
+    builder.addCase(adminResetPassword.rejected, (state, action) => {
       state.loading = false;
       if (action.payload) {
         state.error = action.payload as ApiError;

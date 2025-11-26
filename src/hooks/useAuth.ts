@@ -1,8 +1,9 @@
-import type { LoginData } from "@/interfaces/auth.interface";
+import type { IResetPassword, LoginData } from "@/interfaces/auth.interface";
 import {
   loginAdmin,
   logoutAdmin,
   adminForgotPassword,
+  adminResetPassword,
 } from "@/store/slices/admin_auth.slice";
 import type { AppDispatch, RootState } from "@/store/store";
 import type { AuthType } from "@/types/auth.types";
@@ -45,6 +46,12 @@ export const useAuth = (authType: AuthType) => {
     employee: adminForgotPassword,
   };
 
+  const resetPasswordMap = {
+    admin: adminResetPassword,
+    company: adminResetPassword,
+    employee: adminResetPassword,
+  };
+
   const login = useCallback(
     (loginData: LoginData) => {
       const action = loginMap[authType] ?? loginAdmin;
@@ -66,10 +73,19 @@ export const useAuth = (authType: AuthType) => {
     [dispatch, authType]
   );
 
+  const resetPassword = useCallback(
+    (resetData: IResetPassword) => {
+      const action = resetPasswordMap[authType] ?? adminResetPassword;
+      return dispatch(action(resetData));
+    },
+    [dispatch, authType]
+  );
+
   return {
     login,
     logout,
     forgotPassword,
+    resetPassword,
     isAuthenticated: authState.isAuthenticated,
     loading: authState.loading,
     error: authState.error,

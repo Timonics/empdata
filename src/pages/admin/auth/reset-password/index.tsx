@@ -4,9 +4,10 @@ import type { IResetPassword } from "@/interfaces/auth.interface";
 import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
 import { useLocation } from "react-router";
+import { toast } from "sonner";
 
 const ResetPassword: React.FC = () => {
-  const { loading } = useAuth("admin");
+  const { loading, resetPassword } = useAuth("admin");
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -27,12 +28,12 @@ const ResetPassword: React.FC = () => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (passwordDetails.new_password !== passwordDetails.confirm_new_password)
       return;
 
     if (!reset_token || !user_email) {
-        return
+      return;
     }
 
     const resetData: IResetPassword = {
@@ -42,7 +43,14 @@ const ResetPassword: React.FC = () => {
       password_confirmation: passwordDetails.confirm_new_password,
     };
 
-
+    try {
+      const result = await resetPassword(resetData).unwrap();
+      toast.success(result.message || "Password has been reset successfully.");
+    } catch (error: any) {
+      toast.error(
+        error.message || "Failed to reset password. Please try again."
+      );
+    }
   };
 
   return (
@@ -83,6 +91,7 @@ const ResetPassword: React.FC = () => {
       <Button
         size={"xl"}
         className="w-full text-xl font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
+        onClick={handleSubmit}
       >
         {loading ? (
           <LoaderCircle className="animate-spin size-8" />
