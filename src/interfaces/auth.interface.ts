@@ -5,7 +5,7 @@ export interface LoginData {
   password: string;
 }
 
-export interface Auth {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -13,7 +13,7 @@ export interface Auth {
 }
 
 export interface AuthState {
-  authData: Auth | null;
+  authData: User | null;
   isAuthenticated: boolean;
   token: string | null;
   expiresAt: number | null;
@@ -21,22 +21,22 @@ export interface AuthState {
   error: string | ApiError | null;
 }
 
-export interface AuthResponse {
+export interface ApiResponse {
   success: boolean;
   message: string;
-  data?: Auth;
+  data?: { user: User };
   token: string;
 }
 
 export interface UnauthorizedErrorResponse
-  extends Omit<AuthResponse, "data" | "token"> {
+  extends Omit<ApiResponse, "data" | "token"> {
   errors: {
     credientials: string[];
   };
 }
 
 export interface UnprrocessableErrorResponse
-  extends Omit<AuthResponse, "data" | "token"> {
+  extends Omit<ApiResponse, "data" | "token"> {
   errors: {
     email?: string[];
     password?: string[];
@@ -44,4 +44,11 @@ export interface UnprrocessableErrorResponse
 }
 
 export interface ForbiddenErrorResponse
-  extends Omit<AuthResponse, "data" | "token"> {}
+  extends Omit<ApiResponse, "data" | "token"> {}
+
+export interface IResetPassword {
+  token: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}

@@ -12,6 +12,10 @@ import {
   ProtectedRoutes,
   RedirectRoutes,
 } from "./components/protected-routes/AdminProtectedRoutes";
+import ForgotPassword from "./pages/admin/auth/forgot-password";
+import ResetPassword from "./pages/admin/auth/reset-password";
+import { Toaster } from "./components/ui/sonner";
+import EmailConfirmation from "./pages/admin/auth/forgot-password/EmailConfirmation";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +31,18 @@ function App() {
             {
               path: "",
               element: <Login />,
+            },
+            {
+              path: "forgot-password",
+              element: <ForgotPassword />,
+            },
+            {
+              path: "forgot-password/confirm-email",
+              element: <EmailConfirmation />,
+            },
+            {
+              path: "reset-password",
+              element: <ResetPassword />,
             },
           ],
         },
@@ -86,6 +102,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <AdminWatcher />
       <RouterProvider router={router} />
     </>

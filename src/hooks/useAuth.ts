@@ -1,5 +1,9 @@
 import type { LoginData } from "@/interfaces/auth.interface";
-import { loginAdmin, logoutAdmin } from "@/store/slices/admin_auth.slice";
+import {
+  loginAdmin,
+  logoutAdmin,
+  adminForgotPassword,
+} from "@/store/slices/admin_auth.slice";
 import type { AppDispatch, RootState } from "@/store/store";
 import type { AuthType } from "@/types/auth.types";
 import { useCallback } from "react";
@@ -13,8 +17,10 @@ export const useAuth = (authType: AuthType) => {
       case "admin":
         return state.adminAuth;
       case "company":
+        //company auth slice to be implemented
         return state.adminAuth;
       case "employee":
+        //employee auth slice to be implemented
         return state.adminAuth;
       default:
         return state.adminAuth;
@@ -33,6 +39,12 @@ export const useAuth = (authType: AuthType) => {
     employee: logoutAdmin,
   };
 
+  const forgotPasswordMap = {
+    admin: adminForgotPassword,
+    company: adminForgotPassword,
+    employee: adminForgotPassword,
+  };
+
   const login = useCallback(
     (loginData: LoginData) => {
       const action = loginMap[authType] ?? loginAdmin;
@@ -46,9 +58,18 @@ export const useAuth = (authType: AuthType) => {
     return dispatch(action());
   }, [dispatch, authType]);
 
+  const forgotPassword = useCallback(
+    (email: string) => {
+      const action = forgotPasswordMap[authType] ?? adminForgotPassword;
+      return dispatch(action(email));
+    },
+    [dispatch, authType]
+  );
+
   return {
     login,
     logout,
+    forgotPassword,
     isAuthenticated: authState.isAuthenticated,
     loading: authState.loading,
     error: authState.error,

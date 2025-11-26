@@ -3,6 +3,8 @@ import { useAuth } from "@/hooks/useAuth";
 import type { LoginData } from "@/interfaces/auth.interface";
 import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
+import { Link } from "react-router";
+import { toast } from "sonner";
 
 const Login: React.FC = () => {
   const { login, loading } = useAuth("admin");
@@ -20,8 +22,13 @@ const Login: React.FC = () => {
     }));
   };
 
-  const handleLogin = () => {
-    login(loginData);
+  const handleLogin = async () => {
+    try {
+      const result = await login(loginData).unwrap();
+      toast.success(result.message || "Login successful");
+    } catch (error: any) {
+      toast.error(error.message || "Login failed");
+    }
   };
 
   return (
@@ -56,8 +63,17 @@ const Login: React.FC = () => {
         className="w-full text-xl font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
         onClick={handleLogin}
       >
-        {loading ? <LoaderCircle className="animate-spin size-8"/> : "Log in"}
+        {loading ? <LoaderCircle className="animate-spin size-8" /> : "Log in"}
       </Button>
+
+      <div className="text-sm ml-auto">
+        <p>
+          Forgot Password? Click here to{" "}
+          <span className="text-sky-400 underline">
+            <Link to={"forgot-password"}>Reset</Link>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

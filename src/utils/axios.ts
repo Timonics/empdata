@@ -34,7 +34,7 @@ api.interceptors.response.use(
     if (error.response?.status >= 500) {
       return {
         success: false,
-        status: 401,
+        status: error.response.status,
         message: "Server Error",
       };
     }
