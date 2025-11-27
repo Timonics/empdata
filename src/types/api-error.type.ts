@@ -2,7 +2,7 @@ import type {
   ForbiddenErrorResponse,
   UnauthorizedErrorResponse,
   UnprrocessableErrorResponse,
-} from "@/interfaces/auth.interface";
+} from "@/interfaces/error.interface";
 
 export type ApiError =
   | UnauthorizedErrorResponse

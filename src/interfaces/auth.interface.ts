@@ -9,7 +9,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  email_verified_at: null;
+  email_verified_at?: string;
 }
 
 export interface AuthState {
@@ -21,30 +21,21 @@ export interface AuthState {
   error: string | ApiError | null;
 }
 
-export interface ApiResponse {
+export interface Client extends User {
+  role: "company_admin" | "employee";
+  created_at?: string;
+}
+
+export interface ClientsAuthState extends Omit<AuthState, "authData"> {
+  clientsAuthData: Client | null;
+}
+
+export interface ApiResponse<T = unknown> {
   success: boolean;
   message: string;
-  data?: { user: User };
+  data?: { user: T };
   token: string;
 }
-
-export interface UnauthorizedErrorResponse
-  extends Omit<ApiResponse, "data" | "token"> {
-  errors: {
-    credientials: string[];
-  };
-}
-
-export interface UnprrocessableErrorResponse
-  extends Omit<ApiResponse, "data" | "token"> {
-  errors: {
-    email?: string[];
-    password?: string[];
-  };
-}
-
-export interface ForbiddenErrorResponse
-  extends Omit<ApiResponse, "data" | "token"> {}
 
 export interface IResetPassword {
   token: string;

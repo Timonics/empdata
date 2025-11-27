@@ -1,8 +1,7 @@
 // store/store.ts
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import adminAuthReducer from "./slices/admin_auth.slice";
-// import companyAuthReducer from "./slices/company_auth.slice";
-// import employeeAuthReducer from "./slices/employee_auth.slice";
+import clientsAuthReducer from "./slices/clients_auth.slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
@@ -13,28 +12,21 @@ const adminAuthPersistConfig = {
   blacklist: ["loading", "error"],
 };
 
-// const companyAuthPersistConfig = {
-//   key: "companyAuth", 
-//   storage,
-//   blacklist: ["loading", "error"],
-// };
-
-// const employeeAuthPersistConfig = {
-//   key: "employeeAuth",
-//   storage,
-//   blacklist: ["loading", "error"],
-// };
+const clientsAuthPersistConfig = {
+  key: "clientsAuth",
+  storage,
+  blacklist: ["loading", "error"],
+};
 
 const rootPersistConfig = {
   key: "root",
   storage,
-  whitelist: [], // Handle persistence at slice level
+  whitelist: [],
 };
 
 const rootReducer = combineReducers({
   adminAuth: persistReducer(adminAuthPersistConfig, adminAuthReducer),
-  // companyAuth: persistReducer(companyAuthPersistConfig, companyAuthReducer),
-  // employeeAuth: persistReducer(employeeAuthPersistConfig, employeeAuthReducer),
+  clientsAuth: persistReducer(clientsAuthPersistConfig, clientsAuthReducer),
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
@@ -44,7 +36,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
     }),
 });

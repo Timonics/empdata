@@ -59,7 +59,7 @@ const AdminDashboardLayout: React.FC = () => {
         <div className="flex justify-between items-center">
           <Logo />
           <X
-            className="text-black/75 mr-2"
+            className="text-black/75 mr-2 cursor-pointer hover:text-red-600 transition duration-300"
             onClick={() => setMobileNavIsOpen(false)}
           />
         </div>
@@ -70,7 +70,7 @@ const AdminDashboardLayout: React.FC = () => {
                 `${
                   isActive
                     ? `text-2xl font-bold ml-2`
-                    : "font-light hover:scale-125"
+                    : "font-light hover:scale-110"
                 } transition-all duration-500 ease-in-out`
               }
               onClick={() => setMobileNavIsOpen(false)}

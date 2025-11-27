@@ -3,6 +3,7 @@ import type {
   AuthState,
   LoginData,
   IResetPassword,
+  User,
 } from "@/interfaces/auth.interface";
 import type { ApiError } from "@/types/api-error.type";
 import { setAdminAuthToken } from "@/utils/authToken";
@@ -23,7 +24,7 @@ const adminInitialState: AuthState = {
 };
 
 export const loginAdmin = createAsyncThunk<
-  ApiResponse,
+  ApiResponse<User>,
   LoginData,
   { rejectValue: ApiError }
 >("adminLogin", async (loginData: LoginData, thunkAPI) => {
@@ -97,7 +98,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(
       loginAdmin.fulfilled,
-      (state, action: PayloadAction<ApiResponse>) => {
+      (state, action: PayloadAction<ApiResponse<User>>) => {
         state.loading = false;
         state.authData = action.payload.data?.user || null;
         state.expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour expiry
@@ -125,7 +126,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(
       adminForgotPassword.fulfilled,
-      (state, _: PayloadAction<Omit<ApiResponse, "data" | "token">>) => {
+      (state, _: PayloadAction<Omit<ApiResponse<User>, "data" | "token">>) => {
         state.loading = false;
         state.error = null;
       }
@@ -147,7 +148,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(
       adminResetPassword.fulfilled,
-      (state, _: PayloadAction<Omit<ApiResponse, "data" | "token">>) => {
+      (state, _: PayloadAction<Omit<ApiResponse<User>, "data" | "token">>) => {
         state.loading = false;
         state.error = null;
       }

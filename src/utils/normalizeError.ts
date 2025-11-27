@@ -2,7 +2,7 @@ import type {
   ForbiddenErrorResponse,
   UnauthorizedErrorResponse,
   UnprrocessableErrorResponse,
-} from "@/interfaces/auth.interface";
+} from "@/interfaces/error.interface";
 import type { ApiError } from "@/types/api-error.type";
 import type { AxiosError } from "axios";
 
