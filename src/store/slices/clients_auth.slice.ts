@@ -158,4 +158,5 @@ const clientsAuthSlice = createSlice({
   },
 });
 
+export const { logoutClients } = clientsAuthSlice.actions;
 export default clientsAuthSlice.reducer;

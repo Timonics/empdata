@@ -5,6 +5,12 @@ import {
   adminForgotPassword,
   adminResetPassword,
 } from "@/store/slices/admin_auth.slice";
+import {
+  loginCompany,
+  loginEmployee,
+  setPassword,
+  logoutClients,
+} from "@/store/slices/clients_auth.slice";
 import type { AppDispatch, RootState } from "@/store/store";
 import type { AuthType } from "@/types/auth.types";
 import { useCallback } from "react";
@@ -12,44 +18,38 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const useAuth = (authType: AuthType) => {
   const dispatch: AppDispatch = useDispatch();
+  const rootState = useSelector((state: RootState) => state);
 
-  const authState = useSelector((state: RootState) => {
-    switch (authType) {
-      case "admin":
-        return state.adminAuth;
-      case "company":
-        //company auth slice to be implemented
-        return state.adminAuth;
-      case "employee":
-        //employee auth slice to be implemented
-        return state.adminAuth;
-      default:
-        return state.adminAuth;
-    }
-  });
+  const authState =
+    authType === "admin"
+      ? rootState.adminAuth
+      : rootState.clientsAuth ?? {
+          isAuthenticated: false,
+          loading: false,
+          error: null,
+          clientsAuthData: null,
+        };
 
   const loginMap = {
     admin: loginAdmin,
-    company: loginAdmin,
-    employee: loginAdmin,
+    company: loginCompany,
+    employee: loginEmployee,
   };
 
   const logoutMap = {
     admin: logoutAdmin,
-    company: logoutAdmin,
-    employee: logoutAdmin,
+    company: logoutClients,
+    employee: logoutClients,
   };
 
   const forgotPasswordMap = {
     admin: adminForgotPassword,
-    company: adminForgotPassword,
-    employee: adminForgotPassword,
   };
 
   const resetPasswordMap = {
     admin: adminResetPassword,
-    company: adminResetPassword,
-    employee: adminResetPassword,
+    company: setPassword,
+    employee: setPassword,
   };
 
   const login = useCallback(
@@ -67,7 +67,7 @@ export const useAuth = (authType: AuthType) => {
 
   const forgotPassword = useCallback(
     (email: string) => {
-      const action = forgotPasswordMap[authType] ?? adminForgotPassword;
+      const action = forgotPasswordMap["admin"] ?? adminForgotPassword;
       return dispatch(action(email));
     },
     [dispatch, authType]
@@ -89,6 +89,7 @@ export const useAuth = (authType: AuthType) => {
     isAuthenticated: authState.isAuthenticated,
     loading: authState.loading,
     error: authState.error,
-    authData: authState.authData,
+    authData: "authData" in authState ? authState.authData : null,
+    clientsAuthData: "clientsAuthData" in authState ? authState.clientsAuthData : null
   };
 };
