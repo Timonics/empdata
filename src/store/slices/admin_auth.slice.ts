@@ -103,7 +103,7 @@ const adminAuthSlice = createSlice({
         state.expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour expiry
         state.isAuthenticated = true;
         state.error = null;
-        state.token = action.payload.data!.token;
+        state.token = action.payload.data ? action.payload.data.token : null;
       }
     );
 

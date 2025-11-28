@@ -95,7 +95,7 @@ const clientsAuthSlice = createSlice({
         state.loading = false;
         state.clientsAuthData = action.payload.data?.user || null;
         state.isAuthenticated = true;
-        state.token = action.payload.token;
+        state.token = action.payload.data ? action.payload.data.token : null;
         state.expiresAt = Date.now() + 60 * 60 * 1000;
       }
     );
@@ -119,7 +119,7 @@ const clientsAuthSlice = createSlice({
         state.loading = false;
         state.clientsAuthData = action.payload.data?.user || null;
         state.isAuthenticated = true;
-        state.token = action.payload.token;
+        state.token = action.payload.data ? action.payload.data.token : null;
         state.expiresAt = Date.now() + 60 * 60 * 1000;
       }
     );
