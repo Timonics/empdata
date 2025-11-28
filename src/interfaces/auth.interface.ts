@@ -33,8 +33,7 @@ export interface ClientsAuthState extends Omit<AuthState, "authData"> {
 export interface ApiResponse<T = unknown> {
   success: boolean;
   message: string;
-  data?: { user: T };
-  token: string;
+  data?: { user: T; token: string };
 }
 
 export interface IResetPassword {

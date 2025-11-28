@@ -6,7 +6,6 @@ import type {
   User,
 } from "@/interfaces/auth.interface";
 import type { ApiError } from "@/types/api-error.type";
-import { setAdminAuthToken } from "@/utils/authToken";
 import { api } from "@/utils/axios";
 import {
   createAsyncThunk,
@@ -104,8 +103,7 @@ const adminAuthSlice = createSlice({
         state.expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour expiry
         state.isAuthenticated = true;
         state.error = null;
-        state.token = action.payload.token;
-        setAdminAuthToken(action.payload.token);
+        state.token = action.payload.data!.token;
       }
     );
 
@@ -126,7 +124,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(
       adminForgotPassword.fulfilled,
-      (state, _: PayloadAction<Omit<ApiResponse<User>, "data" | "token">>) => {
+      (state, _: PayloadAction<Omit<ApiResponse<User>, "data">>) => {
         state.loading = false;
         state.error = null;
       }
@@ -148,7 +146,7 @@ const adminAuthSlice = createSlice({
 
     builder.addCase(
       adminResetPassword.fulfilled,
-      (state, _: PayloadAction<Omit<ApiResponse<User>, "data" | "token">>) => {
+      (state, _: PayloadAction<Omit<ApiResponse<User>, "data">>) => {
         state.loading = false;
         state.error = null;
       }
