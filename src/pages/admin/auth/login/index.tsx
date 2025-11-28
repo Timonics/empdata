@@ -25,6 +25,7 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const result = await login(loginData).unwrap();
+      console.log(result);
       toast.success(result.message || "Login successful");
     } catch (error: any) {
       toast.error(error.message || "Login failed");

@@ -6,7 +6,7 @@ let _employee_token: string | null = null;
 
 export const setAdminAuthToken = (token: string) => (_admin_token = token);
 export const setCompanyAuthToken = (token: string) => (_company_token = token);
-export const setRmployeeAuthToken = (token: string) =>
+export const setEmployeeAuthToken = (token: string) =>
   (_employee_token = token);
 
 export const getAuthToken = (type: AuthType): string | null => {
