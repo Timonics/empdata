@@ -1,8 +1,7 @@
 import { API_URL } from "@/utils/db_Url";
 import axios from "axios";
 import { normalizeError } from "./normalizeError";
-import { getAuthToken } from "./authToken";
-import type { AuthType } from "@/types/auth.types";
+import { store } from "@/store/store";
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -20,8 +19,22 @@ api.interceptors.request.use(
     console.log("Interceptor - All headers:", config.headers);
 
     if (authType) {
-      const token = getAuthToken(authType as AuthType);
+      const state = store.getState();
+      let token: string | null = null;
 
+      switch (authType) {
+        case "admin":
+          token = state.adminAuth.token;
+          break;
+        case "company":
+          token = state.clientsAuth.token;
+          break;
+        case "employee":
+          token = state.clientsAuth.token;
+          break;
+        default:
+          token = null;
+      }
       console.log(token);
 
       if (token) {
