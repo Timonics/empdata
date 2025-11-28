@@ -21,8 +21,11 @@ import {
   ClientProtectedRoute,
   ClientRedirectRoutes,
 } from "./components/protected-routes/ClientProtectedRoute";
+import { setStore } from "./utils/axios";
+import { store } from "./store/store";
 
 function App() {
+  setStore(store);
   const router = createBrowserRouter([
     //Admin Routes
     {

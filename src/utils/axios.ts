@@ -1,7 +1,6 @@
 import { API_URL } from "@/utils/db_Url";
 import axios from "axios";
 import { normalizeError } from "./normalizeError";
-import { store } from "@/store/store";
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -11,6 +10,12 @@ export const api = axios.create({
   },
 });
 
+let _store: any = null;
+
+export const setStore = (store: any) => {
+  _store = store;
+};
+
 api.interceptors.request.use(
   (config) => {
     const authType = config.headers["x-auth-type"];
@@ -18,8 +23,8 @@ api.interceptors.request.use(
     console.log("Interceptor - x-auth-type:", authType);
     console.log("Interceptor - All headers:", config.headers);
 
-    if (authType) {
-      const state = store.getState();
+    if (authType && _store) {
+      const state = _store.getState();
       let token: string | null = null;
 
       switch (authType) {
