@@ -21,16 +21,23 @@ const useCreateCompany = () => {
       companyApi.createCompany(companyData),
 
     onMutate: (variables) => {
-      toast.loading(`Creating ${variables.company_name} Company`);
+      const toastId = toast.loading(
+        `Creating ${variables.company_name} Company`
+      );
+      return { toastId };
     },
 
-    onSuccess: (data: ApiResponse<Client>) => {
-      toast.success(data.message);
+    onSuccess: (data: ApiResponse<Client>, _, context) => {
+      toast.success(data.message, {
+        id: context.toastId,
+      });
       query.invalidateQueries({ queryKey: companyKeys.lists() });
     },
 
-    onError: (error) => {
-      toast.error(error.message || "Failed to create company")
+    onError: (error, _, context) => {
+      toast.error(error.message || "Failed to create company", {
+        id: context?.toastId,
+      });
     },
   });
 };

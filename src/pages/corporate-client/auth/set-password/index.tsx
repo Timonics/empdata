@@ -46,7 +46,7 @@ const CompanyResetPassword: React.FC = () => {
     try {
       const result = await resetPassword(resetData).unwrap();
       toast.success(result.message || "Password has been set successfully.");
-      navigate("/company/auth")
+      navigate("/portal/auth")
     } catch (error: any) {
       toast.error(
         error.message || "Failed to reset password. Please try again."

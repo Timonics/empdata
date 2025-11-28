@@ -80,7 +80,7 @@ function App() {
 
     // Corporate Client Routes
     {
-      path: "/company/auth",
+      path: "/portal/auth",
       element: <ClientRedirectRoutes />,
       children: [
         {
@@ -101,7 +101,7 @@ function App() {
     },
 
     {
-      path: "/company",
+      path: "/portal",
       element: <ClientProtectedRoute />,
       children: [
         {

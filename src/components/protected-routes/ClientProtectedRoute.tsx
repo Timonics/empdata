@@ -5,11 +5,11 @@ import { Outlet, Navigate } from "react-router";
 export const ClientProtectedRoute: React.FC = () => {
   const { isAuthenticated } = useAuth("company");
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={"/company/auth"} />;
+  return isAuthenticated ? <Outlet /> : <Navigate to={"/portal/auth"} />;
 };
 
 export const ClientRedirectRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth("company");
 
-  return !isAuthenticated ? <Outlet /> : <Navigate to={"/company"} />;
+  return !isAuthenticated ? <Outlet /> : <Navigate to={"/portal"} />;
 };
