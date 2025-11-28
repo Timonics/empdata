@@ -3,16 +3,17 @@ import { useAuth } from "@/hooks/useAuth";
 import type { IResetPassword } from "@/interfaces/auth.interface";
 import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
-const ResetPassword: React.FC = () => {
-  const { loading, resetPassword } = useAuth("admin");
+const CompanyResetPassword: React.FC = () => {
+  const { loading, resetPassword } = useAuth("company");
   const location = useLocation();
+  const navigate = useNavigate()
   const queryParams = new URLSearchParams(location.search);
 
-  const reset_token = queryParams.get("reset_token");
-  const user_email = queryParams.get("user_email");
+  const reset_token = queryParams.get("token");
+  const user_email = queryParams.get("email");
 
   const [passwordDetails, setPasswordDetails] = useState({
     new_password: "",
@@ -44,7 +45,8 @@ const ResetPassword: React.FC = () => {
 
     try {
       const result = await resetPassword(resetData).unwrap();
-      toast.success(result.message || "Password has been reset successfully.");
+      toast.success(result.message || "Password has been set successfully.");
+      navigate("/company/auth")
     } catch (error: any) {
       toast.error(
         error.message || "Failed to reset password. Please try again."
@@ -55,7 +57,7 @@ const ResetPassword: React.FC = () => {
   return (
     <div className="flex flex-col items-start gap-6">
       <div>
-        <h2 className="font-bold text-3xl md:text-4xl">Reset Password</h2>
+        <h2 className="font-bold text-3xl md:text-4xl">Set Company Password</h2>
         {/* <p className="text-sm md:text-base font-light text-black/70">
           Secure login access for administrators.
         </p> */}
@@ -64,7 +66,7 @@ const ResetPassword: React.FC = () => {
         <input
           name="new_password"
           value={passwordDetails.new_password}
-          placeholder="New Password"
+          placeholder="Password"
           type="text"
           className="p-4 rounded-xl w-full bg-black/10 "
           onChange={handleChange}
@@ -72,7 +74,7 @@ const ResetPassword: React.FC = () => {
         <input
           name="confirm_new_password"
           value={passwordDetails.confirm_new_password}
-          placeholder="Confirm New Password"
+          placeholder="Confirm Password"
           type="text"
           className="p-4 rounded-xl w-full bg-black/10 "
           onChange={handleChange}
@@ -87,11 +89,11 @@ const ResetPassword: React.FC = () => {
         {loading ? (
           <LoaderCircle className="animate-spin size-8" />
         ) : (
-          "Reset Password"
+          "Set Password"
         )}
       </Button>
     </div>
   );
 };
 
-export default ResetPassword;
+export default CompanyResetPassword;

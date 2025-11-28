@@ -16,6 +16,11 @@ import ForgotPassword from "./pages/admin/auth/forgot-password";
 import ResetPassword from "./pages/admin/auth/reset-password";
 import { Toaster } from "./components/ui/sonner";
 import EmailConfirmation from "./pages/admin/auth/forgot-password/EmailConfirmation";
+import CompanyResetPassword from "./pages/corporate-client/auth/set-password";
+import {
+  ClientProtectedRoute,
+  ClientRedirectRoutes,
+} from "./components/protected-routes/ClientProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -73,22 +78,38 @@ function App() {
     // Corporate Client Routes
     {
       path: "/company/auth",
-      element: <AuthLayout />,
+      element: <ClientRedirectRoutes />,
       children: [
         {
           path: "",
-          element: <CompanyLogin />,
+          element: <AuthLayout />,
+          children: [
+            {
+              path: "",
+              element: <CompanyLogin />,
+            },
+            {
+              path: "set-password",
+              element: <CompanyResetPassword />,
+            },
+          ],
         },
       ],
     },
 
     {
       path: "/company",
-      element: <CompanyDashboardLayout />,
+      element: <ClientProtectedRoute />,
       children: [
         {
-          path: "",
-          element: <Home />,
+          path: "/company",
+          element: <CompanyDashboardLayout />,
+          children: [
+            {
+              path: "",
+              element: <Home />,
+            },
+          ],
         },
       ],
     },

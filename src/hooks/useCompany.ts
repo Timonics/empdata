@@ -1,5 +1,8 @@
 import { companyApi } from "@/api/company";
+import type { ApiResponse, Client } from "@/interfaces/auth.interface";
+import type { CreateCompany } from "@/types/company.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 //Query keys factory pattern
 const companyKeys = {
@@ -14,12 +17,20 @@ const useCreateCompany = () => {
   const query = useQueryClient();
 
   return useMutation({
-    mutationFn: companyApi.createCompany,
-    onSuccess: () => {
+    mutationFn: (companyData: CreateCompany) =>
+      companyApi.createCompany(companyData),
+
+    onMutate: (variables) => {
+      toast.loading(`Creating ${variables.company_name} Company`);
+    },
+
+    onSuccess: (data: ApiResponse<Client>) => {
+      toast.success(data.message);
       query.invalidateQueries({ queryKey: companyKeys.lists() });
     },
+
     onError: (error) => {
-      console.error("Error creating company:", error);
+      toast.error(error.message || "Failed to create company")
     },
   });
 };
