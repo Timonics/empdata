@@ -105,7 +105,7 @@ function App() {
       element: <ClientProtectedRoute />,
       children: [
         {
-          path: "/company",
+          path: "",
           element: <CompanyDashboardLayout />,
           children: [
             {
