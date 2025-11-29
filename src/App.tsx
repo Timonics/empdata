@@ -29,6 +29,7 @@ import {
   EmployeeProtectedRoute,
   EmployeeRedirectRoutes,
 } from "./components/protected-routes/EmployeeProtectedRoutes";
+import ClientWatcher from "./components/auth-watchers/ClientWatcher";
 
 function App() {
   setStore(store);
@@ -159,6 +160,7 @@ function App() {
     <>
       <Toaster />
       <AdminWatcher />
+      <ClientWatcher />
       <RouterProvider router={router} />
     </>
   );
