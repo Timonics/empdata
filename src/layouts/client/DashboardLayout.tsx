@@ -5,7 +5,7 @@ import { PanelRight, X } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation, Outlet, NavLink } from "react-router";
 
-const CompanyDashboardLayout: React.FC = () => {
+const DashboardLayout: React.FC = () => {
   const location = useLocation();
   const [navIsOpen, setNavIsOpen] = useState(true);
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
@@ -89,4 +89,4 @@ const CompanyDashboardLayout: React.FC = () => {
   );
 };
 
-export default CompanyDashboardLayout;
+export default DashboardLayout;

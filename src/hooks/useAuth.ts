@@ -54,14 +54,14 @@ export const useAuth = (authType: AuthType) => {
 
   const login = useCallback(
     (loginData: LoginData) => {
-      const action = loginMap[authType] ?? loginAdmin;
+      const action = loginMap[authType!] ?? loginAdmin;
       return dispatch(action(loginData));
     },
     [dispatch, authType]
   );
 
   const logout = useCallback(() => {
-    const action = logoutMap[authType] ?? loginAdmin;
+    const action = logoutMap[authType!] ?? loginAdmin;
     return dispatch(action());
   }, [dispatch, authType]);
 
@@ -75,7 +75,7 @@ export const useAuth = (authType: AuthType) => {
 
   const resetPassword = useCallback(
     (resetData: IResetPassword) => {
-      const action = resetPasswordMap[authType] ?? adminResetPassword;
+      const action = resetPasswordMap[authType!] ?? adminResetPassword;
       return dispatch(action(resetData));
     },
     [dispatch, authType]

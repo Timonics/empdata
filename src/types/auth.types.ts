@@ -1,1 +1,1 @@
-export type AuthType = "admin" | "company" | "employee"
+export type AuthType = "admin" | "company" | "employee" | null
