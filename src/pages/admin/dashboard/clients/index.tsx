@@ -70,21 +70,26 @@ const Clients: React.FC = () => {
               >
                 <p className="col-span-2 text-black/80">{company.name}</p>
                 {/* <p className="text-black/80">{company.industry}</p> */}
-                <p className="text-black/80">{company.status}</p>
-                <p className="text-black/80">{company.created_at}</p>
+                <p className="text-black/80">
+                  {company.status.charAt(0).toUpperCase() +
+                    company.status.slice(1)}
+                </p>
+                <p className="text-black/80">
+                  {company.created_at.split("T")[0]}
+                </p>
                 <p className="text-black/80">{company.portal_users_count}</p>
                 <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
                   <Edit
                     size={30}
-                    className="hover:cursor-pointer hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
+                    className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
                   />
                   <Eye
                     size={30}
-                    className="hover:cursor-pointer hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
+                    className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
                   />
                   <Trash
                     size={30}
-                    className="hover:cursor-pointer hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
+                    className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
                   />
                 </div>
               </div>
