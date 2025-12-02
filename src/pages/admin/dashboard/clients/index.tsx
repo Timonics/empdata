@@ -12,6 +12,8 @@ const Clients: React.FC = () => {
 
   const { data, isLoading, error } = useCompanies();
 
+  console.log(data);
+
   if (error) {
     toast.error(error.message || "Failed to load companies");
   }
