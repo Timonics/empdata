@@ -20,9 +20,6 @@ api.interceptors.request.use(
   (config) => {
     const authType = config.headers["x-auth-type"];
 
-    console.log("Interceptor - x-auth-type:", authType);
-    console.log("Interceptor - All headers:", config.headers);
-
     if (authType && _store) {
       const state = _store.getState();
       let token: string | null = null;
@@ -40,8 +37,7 @@ api.interceptors.request.use(
         default:
           token = null;
       }
-      console.log(token);
-
+      
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

@@ -1,5 +1,6 @@
 import { companyApi } from "@/api/company";
 import type { ApiResponse, Client } from "@/interfaces/auth.interface";
+import type { Company, CompanyResponse } from "@/interfaces/company.interface";
 import type { CreateCompany } from "@/types/company.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -46,6 +47,7 @@ const useCompanies = () => {
   return useQuery({
     queryKey: companyKeys.lists(),
     queryFn: companyApi.getCompanies,
+    select: (data: CompanyResponse) => data.data as Company[]
   });
 };
 

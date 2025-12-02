@@ -1,15 +1,27 @@
-import { Download, Ellipsis } from "lucide-react";
+import { Download, Edit, Eye, LoaderCircle, Trash } from "lucide-react";
 import React, { useState } from "react";
-import { clientsData } from "@/lib/admin/clientsData";
 import AddCorporateClient from "./component/AddCorporateClient";
 import { TbSearch } from "react-icons/tb";
 import { PaginationDemo } from "@/components/pagination";
+import { useCompanies } from "@/hooks/useCompany";
+import { toast } from "sonner";
 
 const Clients: React.FC = () => {
   const [addClient, setAddClient] = useState(false);
   const [openActionsIndex, setOpenActionsIndex] = useState<number | null>(null);
+
+  const { data, isLoading, error } = useCompanies();
+
+  if (error) {
+    toast.error(error.message || "Failed to load companies");
+  }
+
   return (
-    <div>
+    <div
+      onClick={() => {
+        openActionsIndex !== null && setOpenActionsIndex(null);
+      }}
+    >
       <div className="w-full p-4 mt-4">
         <div className="rounded-xl p-4 bg-black/5">
           <div className="space-y-1 w-full">
@@ -33,33 +45,53 @@ const Clients: React.FC = () => {
       </div>
       <hr className="border border-black/10 my-4" />
       <div className="flex flex-col p-4">
-        <div className="p-4 grid grid-cols-1 md:grid-cols-7 border-2 border-black/10 rounded-t-xl bg-black/5 font-bold">
+        <div className="p-4 grid grid-cols-1 md:grid-cols-6 border-2 border-black/10 rounded-t-xl bg-black/5 font-bold">
           <h5 className="col-span-2">Company Name</h5>
-          <h5>Industry</h5>
+          {/* <h5>Industry</h5> */}
           <h5>Status</h5>
           <h5>Created On</h5>
           <h5>Employees</h5>
           <h5> Action</h5>
         </div>
-        {clientsData.map((data, index) => (
-          <div
-            className={`px-4 py-3 grid grid-cols-1 md:grid-cols-7 border-x-2 border-b-2 border-black/10 outfit text-sm ${
-              index === clientsData.length - 1 && "rounded-b-xl"
-            }`}
-          >
-            <p className="col-span-2 text-black/80">{data.companyName}</p>
-            <p className="text-black/80">{data.industry}</p>
-            <p className="text-black/80">{data.status}</p>
-            <p className="text-black/80">{data.createdOn}</p>
-            <p className="text-black/80">{data.employees}</p>
-            <div className="text-black/80 relative">
-              <Ellipsis onClick={() => setOpenActionsIndex(index)} />
-              {openActionsIndex === index && (
-                <div className="top-2 border p-4 absolute bg-black z-50"></div>
-              )}
-            </div>
+        {isLoading && (
+          <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 text-3xl border-b-2 border-black/10 rounded-b-xl">
+            <LoaderCircle className="animate-spin" />
+            <p>Loading clients...</p>
           </div>
-        ))}
+        )}
+        {data
+          ? data.map((company, index) => (
+              <div
+                className={`px-4 py-3 grid grid-cols-1 md:grid-cols-6 border-x-2 border-b-2 border-black/10 outfit text-sm ${
+                  index === data.length - 1 && "rounded-b-xl"
+                }`}
+              >
+                <p className="col-span-2 text-black/80">{company.name}</p>
+                {/* <p className="text-black/80">{company.industry}</p> */}
+                <p className="text-black/80">{company.status}</p>
+                <p className="text-black/80">{company.created_at}</p>
+                <p className="text-black/80">{company.portal_users_count}</p>
+                <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
+                  <Edit
+                    size={30}
+                    className="hover:cursor-pointer hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
+                  />
+                  <Eye
+                    size={30}
+                    className="hover:cursor-pointer hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
+                  />
+                  <Trash
+                    size={30}
+                    className="hover:cursor-pointer hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
+                  />
+                </div>
+              </div>
+            ))
+          : !isLoading && (
+              <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
+                <p className="text-3xl">No Company found.</p>
+              </div>
+            )}
         <div className="mt-2">
           <PaginationDemo />
         </div>
