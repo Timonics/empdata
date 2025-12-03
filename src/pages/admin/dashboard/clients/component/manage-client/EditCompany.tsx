@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import SlideDrawer from "@/components/slider-drawer";
 import { useCompany } from "@/hooks/useCompany";
 import { LoaderCircle, X } from "lucide-react";
 import React from "react";
@@ -22,90 +23,46 @@ const EditCompany: React.FC<IProps> = ({
   }
 
   return (
-    <div className="">
-      <div
-        className={`
-          fixed inset-0 bg-black/30 backdrop-blur-sm bg-opacity-50
-          transition-opacity duration-300 ease-in-out
-          ${showEditCompany ? "opacity-100" : "opacity-0 pointer-events-none"}
-          `}
-        onClick={() => setShowEditCompany(false)}
-      />
-      <div
-        className={`fixed right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white rounded-r-lg transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
-          showEditCompany
-            ? "translate-x-0 shadow-2xl shadow-sky-50"
-            : "translate-x-full"
-        }`}
-      >
-        <div className="flex justify-between items-center">
-          <Logo />
-          <X
-            className="text-black/75 mr-2 cursor-pointer hover:text-red-600 transition duration-300"
-            onClick={() => setShowEditCompany(false)}
+    <SlideDrawer
+      open={showEditCompany}
+      onClose={() => setShowEditCompany(false)}
+      title="Edit Company"
+    >
+      {isLoading && (
+        <div className="flex items-center gap-2">
+          <LoaderCircle className="animate-spin" />
+          <p>Loading company…</p>
+        </div>
+      )}
+
+      {data && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input className="input" placeholder={data.name} />
+          <input className="input" placeholder={data.email} />
+          <input
+            className="input"
+            placeholder={data.rc_number || "RC Number"}
           />
+          <input className="input" placeholder={data.address || "Address"} />
+          <input className="input" placeholder={data.city || "City"} />
+          <input className="input" placeholder={data.state || "State"} />
+          <input className="input" placeholder={data.country || "Country"} />
+          <input
+            className="input"
+            placeholder={data.insurance_type || "Insurance"}
+          />
+          <input
+            className="input"
+            placeholder={data.registration_date || "Registration"}
+          />
+          <input
+            className="input"
+            placeholder={data.license_number || "License"}
+          />
+          <input className="input" placeholder={data.status} />
         </div>
-        <div className="flex flex-col h-full overflow-hidden items-center justify-center">
-          {isLoading && (
-            <div className="flex items-center gap-2">
-              <LoaderCircle className="animate-spin" />
-              <p>Loading client...</p>
-            </div>
-          )}
-          <h2 className="mt-4 text-3xl font-semibold">Edit Company Details</h2>
-          {data ? (
-            <div className="mt-2 w-full p-2 gap-4 grid grid-cols-1 md:grid-cols-2 h-full overflow-auto">
-              <input
-                placeholder={data.name}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.email}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.rc_number || "Set RC Number"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.address || "Add Address"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.city || "Add City"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.state || "Add State"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.country || "Add Country"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.insurance_type || "Add Insurance type"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.registration_date || "Add Registration Date"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.license_number || "Add Licence Number"}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-              <input
-                placeholder={data.status}
-                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
-              />
-            </div>
-          ) : (
-            !isLoading && <p>Company details not found</p>
-          )}
-        </div>
-      </div>
-    </div>
+      )}
+    </SlideDrawer>
   );
 };
 
