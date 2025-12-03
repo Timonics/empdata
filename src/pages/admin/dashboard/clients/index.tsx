@@ -5,15 +5,24 @@ import { TbSearch } from "react-icons/tb";
 import { PaginationDemo } from "@/components/pagination";
 import { useCompanies } from "@/hooks/useCompany";
 import { toast } from "sonner";
-import Status from "./component/Status";
+import EditCompany from "./component/manage-client/EditCompany";
 
 const Clients: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [addClient, setAddClient] = useState(false);
-  const [showStatus, setShowStatus] = useState(false);
+  // const [showStatus, setShowStatus] = useState(false);
   const [openActionsIndex, setOpenActionsIndex] = useState<number | null>(null);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<number | null>(
+    null
+  );
+
+  const [showEditCompany, setShowEditCompany] = useState(false);
+  const [showViewCompany, setShowViewCompany] = useState(false);
+  const [showDeleteCompany, setShowDeleteCompany] = useState(false);
 
   const { data, isLoading, error } = useCompanies();
+
+  console.log(showDeleteCompany, showViewCompany);
 
   if (error) {
     toast.error(error.message || "Failed to load companies");
@@ -58,14 +67,26 @@ const Clients: React.FC = () => {
               <Edit
                 size={30}
                 className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
+                onClick={() => {
+                  setSelectedCompanyId(company.id);
+                  setShowEditCompany(true);
+                }}
               />
               <Eye
                 size={30}
                 className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
+                onClick={() => {
+                  setSelectedCompanyId(company.id);
+                  setShowViewCompany(true);
+                }}
               />
               <Trash
                 size={30}
                 className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
+                onClick={() => {
+                  setSelectedCompanyId(company.id);
+                  setShowDeleteCompany(true);
+                }}
               />
             </div>
           </div>
@@ -108,7 +129,10 @@ const Clients: React.FC = () => {
         <div className="border border-muted-foreground/50 rounded-lg flex items-center">
           {companyFilters}
         </div>
-        <button onClick={() => setAddClient(true)} className="flex p-4 rounded-lg items-center gap-2 shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400">
+        <button
+          onClick={() => setAddClient(true)}
+          className="flex p-4 rounded-lg items-center gap-2 shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400"
+        >
           <Plus />
           Add New Company
         </button>
@@ -134,11 +158,11 @@ const Clients: React.FC = () => {
         </div>
       </div>
       <hr className="border border-black/10 my-4" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+      <div className="flex p-2 flex-col w-full lg:w-[90%] mx-auto items-center justify-center md:flex-row gap-4">
         {[
           { name: "Add Corporate Client" },
           { name: "Activate/Deactivate" },
-          { name: "Assign HR Managers" },
+          // { name: "Assign HR Managers" },
           { name: "View Employees" },
         ].map((item, index) => (
           <div
@@ -146,19 +170,20 @@ const Clients: React.FC = () => {
               if (index === 0) {
                 setAddClient(true);
               }
-              if (index === 1) {
-                setShowStatus(true);
-              }
             }}
-            className="p-6 rounded-xl shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400"
+            className="p-6 w-full lg:w-1/3 rounded-xl shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-95 transition duration-300 ease-in-out hover:text-sky-400"
           >
             <h4 className="text-center">{item.name}</h4>
           </div>
         ))}
       </div>
       {addClient && <AddCorporateClient setAddClient={setAddClient} />}
-      {showStatus && data && (
-        <Status setShowStatus={setShowStatus} companies={data} />
+      {showEditCompany && (
+        <EditCompany
+          companyId={selectedCompanyId!}
+          showEditCompany={showEditCompany}
+          setShowEditCompany={setShowEditCompany}
+        />
       )}
     </div>
   );

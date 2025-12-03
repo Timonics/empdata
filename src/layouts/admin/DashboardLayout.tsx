@@ -55,7 +55,7 @@ const AdminDashboardLayout: React.FC = () => {
         onClick={() => setMobileNavIsOpen(false)}
       />
       <div
-        className={`absolute left-0 top-0 h-full w-64 bg-white xl:hidden transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
+        className={`absolute left-0 top-0 h-full w-64 sm:w-70 bg-white xl:hidden transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
           mobileNavIsOpen
             ? "translate-x-0 shadow-2xl shadow-sky-100"
             : "-translate-x-full"

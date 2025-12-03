@@ -46,7 +46,7 @@ const useCompanies = () => {
   return useQuery({
     queryKey: companyKeys.lists(),
     queryFn: companyApi.getCompanies,
-    select: (data: CompanyResponse) => data.data as Company[]
+    select: (data: CompanyResponse) => data.data as Company[],
   });
 };
 
@@ -54,6 +54,7 @@ const useCompany = (companyId: number) => {
   return useQuery({
     queryKey: companyKeys.details(),
     queryFn: () => companyApi.getCompanyById(companyId),
+    select: (data: CompanyResponse) => data.data as Company,
   });
 };
 
