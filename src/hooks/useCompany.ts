@@ -1,5 +1,4 @@
 import { companyApi } from "@/api/company";
-import type { ApiResponse, Client } from "@/interfaces/auth.interface";
 import type { Company, CompanyResponse } from "@/interfaces/company.interface";
 import type { CreateCompany } from "@/types/company.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,7 +27,7 @@ const useCreateCompany = () => {
       return { toastId };
     },
 
-    onSuccess: (data: ApiResponse<Client>, _, context) => {
+    onSuccess: (data: CompanyResponse, _, context) => {
       toast.success(data.message, {
         id: context.toastId,
       });

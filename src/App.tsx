@@ -30,6 +30,7 @@ import {
   EmployeeRedirectRoutes,
 } from "./components/protected-routes/EmployeeProtectedRoutes";
 import ClientWatcher from "./components/auth-watchers/ClientWatcher";
+import Employees from "./pages/admin/dashboard/employees";
 
 function App() {
   setStore(store);
@@ -79,6 +80,10 @@ function App() {
             {
               path: "company",
               element: <Clients />,
+            },
+            {
+              path: "Employees",
+              element: <Employees />,
             },
           ],
         },

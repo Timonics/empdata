@@ -1,22 +1,80 @@
-import { Download, Edit, Eye, LoaderCircle, Trash } from "lucide-react";
+import { Download, Edit, Eye, LoaderCircle, Plus, Trash } from "lucide-react";
 import React, { useState } from "react";
 import AddCorporateClient from "./component/AddCorporateClient";
 import { TbSearch } from "react-icons/tb";
 import { PaginationDemo } from "@/components/pagination";
 import { useCompanies } from "@/hooks/useCompany";
 import { toast } from "sonner";
+import Status from "./component/Status";
 
 const Clients: React.FC = () => {
+  const [activeFilter, setActiveFilter] = useState<string>("All");
   const [addClient, setAddClient] = useState(false);
+  const [showStatus, setShowStatus] = useState(false);
   const [openActionsIndex, setOpenActionsIndex] = useState<number | null>(null);
 
   const { data, isLoading, error } = useCompanies();
 
-  console.log(data);
-
   if (error) {
     toast.error(error.message || "Failed to load companies");
   }
+
+  const companyFilters = ["All", "Active", "Pending", "Inactive"].map(
+    (filter) => (
+      <button
+        key={filter}
+        className={`not-last:border-r first:rounded-l-lg last:rounded-r-lg border-muted-foreground/50 py-2 px-4 hover:bg-muted-foreground/10 ${
+          activeFilter === filter ? "bg-sky-100 hover:bg-sky-100" : ""
+        }`}
+        onClick={() => setActiveFilter(filter)}
+      >
+        {filter}
+      </button>
+    )
+  );
+
+  const baseFilter = data
+    ? activeFilter === "All"
+      ? data
+      : data.filter((company) => company.status === activeFilter.toLowerCase())
+    : [];
+
+  const companiesElements =
+    baseFilter.length !== 0
+      ? baseFilter.map((company, index) => (
+          <div
+            className={`px-4 py-3 grid grid-cols-1 md:grid-cols-6 border-x-2 border-b-2 border-black/10 items-center outfit text-sm ${
+              index === baseFilter.length - 1 && "rounded-b-xl"
+            }`}
+          >
+            <p className="col-span-2 text-black/80">{company.name}</p>
+            {/* <p className="text-black/80">{company.industry}</p> */}
+            <p className="text-black/80">
+              {company.status.charAt(0).toUpperCase() + company.status.slice(1)}
+            </p>
+            <p className="text-black/80">{company.created_at.split("T")[0]}</p>
+            <p className="text-black/80">{company.portal_users_count}</p>
+            <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
+              <Edit
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
+              />
+              <Eye
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
+              />
+              <Trash
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
+              />
+            </div>
+          </div>
+        ))
+      : !isLoading && (
+          <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
+            <p className="text-3xl">No Company found.</p>
+          </div>
+        );
 
   return (
     <div
@@ -46,6 +104,15 @@ const Clients: React.FC = () => {
         </div>
       </div>
       <hr className="border border-black/10 my-4" />
+      <div className="w-full p-4 flex items-center justify-between">
+        <div className="border border-muted-foreground/50 rounded-lg flex items-center">
+          {companyFilters}
+        </div>
+        <button onClick={() => setAddClient(true)} className="flex p-4 rounded-lg items-center gap-2 shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400">
+          <Plus />
+          Add New Company
+        </button>
+      </div>
       <div className="flex flex-col p-4">
         <div className="p-4 grid grid-cols-1 md:grid-cols-6 border-2 border-black/10 rounded-t-xl bg-black/5 font-bold">
           <h5 className="col-span-2">Company Name</h5>
@@ -61,45 +128,8 @@ const Clients: React.FC = () => {
             <p>Loading clients...</p>
           </div>
         )}
-        {data
-          ? data.map((company, index) => (
-              <div
-                className={`px-4 py-3 grid grid-cols-1 md:grid-cols-6 border-x-2 border-b-2 border-black/10 outfit text-sm ${
-                  index === data.length - 1 && "rounded-b-xl"
-                }`}
-              >
-                <p className="col-span-2 text-black/80">{company.name}</p>
-                {/* <p className="text-black/80">{company.industry}</p> */}
-                <p className="text-black/80">
-                  {company.status.charAt(0).toUpperCase() +
-                    company.status.slice(1)}
-                </p>
-                <p className="text-black/80">
-                  {company.created_at.split("T")[0]}
-                </p>
-                <p className="text-black/80">{company.portal_users_count}</p>
-                <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
-                  <Edit
-                    size={30}
-                    className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
-                  />
-                  <Eye
-                    size={30}
-                    className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
-                  />
-                  <Trash
-                    size={30}
-                    className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          : !isLoading && (
-              <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
-                <p className="text-3xl">No Company found.</p>
-              </div>
-            )}
-        <div className="mt-2">
+        {companiesElements}
+        <div className="mt-4">
           <PaginationDemo />
         </div>
       </div>
@@ -116,6 +146,9 @@ const Clients: React.FC = () => {
               if (index === 0) {
                 setAddClient(true);
               }
+              if (index === 1) {
+                setShowStatus(true);
+              }
             }}
             className="p-6 rounded-xl shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400"
           >
@@ -124,6 +157,9 @@ const Clients: React.FC = () => {
         ))}
       </div>
       {addClient && <AddCorporateClient setAddClient={setAddClient} />}
+      {showStatus && data && (
+        <Status setShowStatus={setShowStatus} companies={data} />
+      )}
     </div>
   );
 };
