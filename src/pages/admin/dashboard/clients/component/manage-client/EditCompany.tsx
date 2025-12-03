@@ -1,7 +1,6 @@
-import Logo from "@/components/logo";
 import SlideDrawer from "@/components/slider-drawer";
 import { useCompany } from "@/hooks/useCompany";
-import { LoaderCircle, X } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 
