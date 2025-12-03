@@ -25,14 +25,14 @@ const EditCompany: React.FC<IProps> = ({
     <div className="">
       <div
         className={`
-          absolute inset-0 bg-black/30 backdrop-blur-sm bg-opacity-50
+          fixed inset-0 bg-black/30 backdrop-blur-sm bg-opacity-50
           transition-all duration-300 ease-in-out
           ${showEditCompany ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         onClick={() => setShowEditCompany(false)}
       />
       <div
-        className={`absolute right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white rounded-r-lg transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
+        className={`fixed right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white rounded-r-lg transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
           showEditCompany
             ? "translate-x-0 shadow-2xl shadow-sky-50"
             : "-translate-x-full"
