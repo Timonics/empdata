@@ -1,20 +1,77 @@
 import { PaginationDemo } from "@/components/pagination";
 import { useEmployees } from "@/hooks/useEmployee";
-import { Download, Edit, Eye, LoaderCircle, Trash } from "lucide-react";
-import React from "react";
+import { Download, Edit, Eye, LoaderCircle, Plus, Trash } from "lucide-react";
+import React, { useState } from "react";
 import { TbSearch } from "react-icons/tb";
 import { toast } from "sonner";
 
 const Employees: React.FC = () => {
+  const [activeFilter, setActiveFilter] = useState<string>("All");
   const { isLoading, data, error } = useEmployees();
 
   if (error) {
     toast.error(error.message || "Failed to load companies");
   }
 
+  const employeeFilters = ["All", "Active", "Pending", "Inactive"].map(
+    (filter) => (
+      <button
+        key={filter}
+        className={`not-last:border-r first:rounded-l-lg last:rounded-r-lg border-muted-foreground/50 py-2 px-4 hover:bg-muted-foreground/10 ${
+          activeFilter === filter ? "bg-sky-100 hover:bg-sky-100" : ""
+        }`}
+        onClick={() => setActiveFilter(filter)}
+      >
+        {filter}
+      </button>
+    )
+  );
 
-  console.log(data);
-  console.log(error);
+  const baseFilter = data
+    ? activeFilter === "All"
+      ? data
+      : data.filter(
+          (employee) =>
+            employee.employment_status === activeFilter.toLowerCase()
+        )
+    : [];
+
+  const employeesElements =
+    baseFilter.length !== 0
+      ? baseFilter.map((employee, index) => (
+          <div
+            className={`px-4 py-3 grid grid-cols-1 md:grid-cols-6 border-x-2 border-b-2 border-black/10 items-center outfit text-sm ${
+              index === baseFilter.length - 1 && "rounded-b-xl"
+            }`}
+          >
+            <p className="col-span-2 text-black/80">{employee.full_name}</p>
+            <p className="text-black/80">
+              {employee.employment_status.charAt(0).toUpperCase() +
+                employee.employment_status.slice(1)}
+            </p>
+            <p className="text-black/80">{employee.email}</p>
+            <p className="text-black/80">--</p>
+            <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
+              <Edit
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
+              />
+              <Eye
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
+              />
+              <Trash
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
+              />
+            </div>
+          </div>
+        ))
+      : !isLoading && (
+          <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
+            <p className="text-3xl">No Company found.</p>
+          </div>
+        );
 
   return (
     <div>
@@ -40,6 +97,18 @@ const Employees: React.FC = () => {
         </div>
       </div>
       <hr className="border border-black/10 my-4" />
+      <div className="w-full p-4 flex items-center justify-between">
+        <div className="border border-muted-foreground/50 rounded-lg flex items-center">
+          {employeeFilters}
+        </div>
+        <button
+          // onClick={() => setAddClient(true)}
+          className="flex p-4 rounded-lg items-center gap-2 shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400"
+        >
+          <Plus />
+          Add New Employee
+        </button>
+      </div>
       <div className="flex flex-col p-4">
         <div className="p-4 grid grid-cols-1 md:grid-cols-6 border-2 border-black/10 rounded-t-xl bg-black/5 font-bold">
           <h5 className="col-span-2">Employee Name</h5>
@@ -54,41 +123,7 @@ const Employees: React.FC = () => {
             <p>Loading Employees...</p>
           </div>
         )}
-        {data
-          ? data.map((employee, index) => (
-              <div
-                className={`px-4 py-3 grid grid-cols-1 md:grid-cols-6 border-x-2 border-b-2 border-black/10 items-center outfit text-sm ${
-                  index === data.length - 1 && "rounded-b-xl"
-                }`}
-              >
-                <p className="col-span-2 text-black/80">{employee.full_name}</p>
-                <p className="text-black/80">
-                  {employee.employment_status.charAt(0).toUpperCase() +
-                    employee.employment_status.slice(1)}
-                </p>
-                <p className="text-black/80">{employee.email}</p>
-                <p className="text-black/80">--</p>
-                <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
-                  <Edit
-                    size={30}
-                    className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
-                  />
-                  <Eye
-                    size={30}
-                    className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
-                  />
-                  <Trash
-                    size={30}
-                    className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
-                  />
-                </div>
-              </div>
-            ))
-          : !isLoading && (
-              <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
-                <p className="text-3xl">No Company found.</p>
-              </div>
-            )}
+        {employeesElements}
         <div className="mt-4">
           <PaginationDemo />
         </div>
