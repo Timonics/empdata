@@ -1,4 +1,4 @@
-import { employeeApi } from "@/api/employee";
+import { adminEmployeeApi } from "@/api/admin";
 import type {
   Employee,
   EmployeeResponse,
@@ -20,7 +20,7 @@ const useCreateEmployee = () => {
 
   return useMutation({
     mutationFn: (employeeData: CreateEmployee) =>
-      employeeApi.createEmployee(employeeData),
+      adminEmployeeApi.createEmployeeFromAdmin(employeeData),
 
     onMutate: () => {
       const toastId = toast.loading(`Creating Employee`);
@@ -45,7 +45,7 @@ const useCreateEmployee = () => {
 const useEmployees = () => {
   return useQuery({
     queryKey: employeeKeys.lists(),
-    queryFn: employeeApi.getEmployees,
+    queryFn: adminEmployeeApi.getEmployeesFromAdmin,
     select: (data: EmployeeResponse) => data.data as Employee[],
   });
 };
@@ -53,7 +53,7 @@ const useEmployees = () => {
 const useEmployee = (employeeId: number) => {
   return useQuery({
     queryKey: employeeKeys.details(),
-    queryFn: () => employeeApi.getEmployeeById(employeeId),
+    queryFn: () => adminEmployeeApi.getEmployeeByIdFromAdmin(employeeId),
   });
 };
 

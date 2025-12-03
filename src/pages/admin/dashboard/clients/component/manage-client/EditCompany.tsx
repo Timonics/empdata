@@ -26,13 +26,13 @@ const EditCompany: React.FC<IProps> = ({
       <div
         className={`
           fixed inset-0 bg-black/30 backdrop-blur-sm bg-opacity-50
-          transition-all duration-300 ease-in-out
+          transition-opacity duration-300 ease-in-out
           ${showEditCompany ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         onClick={() => setShowEditCompany(false)}
       />
       <div
-        className={`fixed right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white rounded-r-lg transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
+        className={`fixed right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white rounded-r-lg transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
           showEditCompany
             ? "translate-x-0 shadow-2xl shadow-sky-50"
             : "translate-x-full"
@@ -57,47 +57,47 @@ const EditCompany: React.FC<IProps> = ({
             <div className="mt-2 w-full p-2 gap-4 grid grid-cols-1 md:grid-cols-2 h-full overflow-auto">
               <input
                 placeholder={data.name}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.email}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.rc_number || "Set RC Number"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.address || "Add Address"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.city || "Add City"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.state || "Add State"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.country || "Add Country"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.insurance_type || "Add Insurance type"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.registration_date || "Add Registration Date"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.license_number || "Add Licence Number"}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.status}
-                className="w-full p-1 border-muted-foreground border rounded-lg"
+                className="w-full h-20 p-1 px-4 border-muted-foreground border rounded-lg"
               />
             </div>
           ) : (
