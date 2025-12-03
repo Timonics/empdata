@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import Logo from "../logo";
 
 type DrawerProps = {
   open: boolean;
@@ -31,25 +32,24 @@ const SlideDrawer: React.FC<DrawerProps> = ({
       {/* Drawer Panel */}
       <div
         className={`
-          fixed top-0 right-0 h-full bg-white shadow-2xl ${width}
-          rounded-l-xl transition-transform duration-300 ease-in-out
+          fixed top-0 right-0 h-full bg-white shadow-2xl ${width} transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "translate-x-full"}
-          z-50 flex flex-col
+          z-50 flex flex-col gap-4
         `}
       >
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-semibold">{title}</h2>
+          <Logo />
           <X
             className="cursor-pointer hover:text-red-500 transition"
             onClick={onClose}
           />
         </div>
 
+        <h2 className="text-xl font-semibold text-center">{title}</h2>
+
         {/* Content */}
-        <div className="flex-1 overflow-auto p-4">
-          {children}
-        </div>
+        <div className="flex-1 overflow-auto p-4">{children}</div>
       </div>
     </div>
   );

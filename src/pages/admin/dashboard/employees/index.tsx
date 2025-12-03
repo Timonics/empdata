@@ -12,6 +12,10 @@ const Employees: React.FC = () => {
     toast.error(error.message || "Failed to load companies");
   }
 
+
+  console.log(data);
+  console.log(error);
+
   return (
     <div>
       <div className="w-full p-4 mt-4">

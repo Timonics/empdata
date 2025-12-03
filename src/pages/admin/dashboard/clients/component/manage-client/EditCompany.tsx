@@ -30,35 +30,56 @@ const EditCompany: React.FC<IProps> = ({
       {isLoading && (
         <div className="flex items-center gap-2">
           <LoaderCircle className="animate-spin" />
-          <p>Loading company…</p>
+          <p className="text-3xl">Loading company…</p>
         </div>
       )}
 
       {data && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input className="input" placeholder={data.name} />
-          <input className="input" placeholder={data.email} />
           <input
-            className="input"
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.name}
+          />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.email}
+          />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
             placeholder={data.rc_number || "RC Number"}
           />
-          <input className="input" placeholder={data.address || "Address"} />
-          <input className="input" placeholder={data.city || "City"} />
-          <input className="input" placeholder={data.state || "State"} />
-          <input className="input" placeholder={data.country || "Country"} />
           <input
-            className="input"
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.address || "Address"}
+          />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.city || "City"}
+          />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.state || "State"}
+          />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.country || "Country"}
+          />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
             placeholder={data.insurance_type || "Insurance"}
           />
           <input
-            className="input"
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
             placeholder={data.registration_date || "Registration"}
           />
           <input
-            className="input"
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
             placeholder={data.license_number || "License"}
           />
-          <input className="input" placeholder={data.status} />
+          <input
+            className="w-full h-14 px-4 border border-gray-300 rounded-lg"
+            placeholder={data.status}
+          />
         </div>
       )}
     </SlideDrawer>
