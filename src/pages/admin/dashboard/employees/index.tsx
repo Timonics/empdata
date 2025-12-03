@@ -69,7 +69,7 @@ const Employees: React.FC = () => {
         ))
       : !isLoading && (
           <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
-            <p className="text-3xl">No Company found.</p>
+            <p className="text-3xl">No Employee found.</p>
           </div>
         );
 

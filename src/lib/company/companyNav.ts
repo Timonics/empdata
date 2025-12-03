@@ -2,7 +2,7 @@ import type { Navigations } from "@/interfaces/navigations.interface";
 import { Logs } from "lucide-react";
 import { GrStatusInfo } from "react-icons/gr";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { TbBuilding, TbReport, TbSettings, TbUsers } from "react-icons/tb";
+import { TbReport, TbSettings, TbUsers } from "react-icons/tb";
 
 export const navigations: Navigations[] = [
   {
@@ -11,27 +11,18 @@ export const navigations: Navigations[] = [
     icon: LuLayoutDashboard,
   },
   {
-    name: "Corporate Clients",
-    link: "company",
-    icon: TbBuilding,
-    children: [
-      { name: "Add Corporate Clients ", link: "" },
-      { name: "View Client Details", link: "" },
-    ],
-  },
-  {
-    name: "Client Employees",
+    name: "Employees",
     link: "employees",
     icon: TbUsers,
   },
   {
-    name: "Verification Status",
-    link: "verification-status",
+    name: "Invitations",
+    link: "invitations",
     icon: GrStatusInfo,
   },
   {
-    name: "Audit Logs",
-    link: "audit-logs",
+    name: "Documents",
+    link: "documents",
     icon: Logs,
   },
   {

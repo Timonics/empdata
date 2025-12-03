@@ -38,7 +38,7 @@ const SlideDrawer: React.FC<DrawerProps> = ({
         `}
       >
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b">
+        <div className="flex justify-between items-center p-4">
           <Logo />
           <X
             className="cursor-pointer hover:text-red-500 transition"
@@ -46,7 +46,7 @@ const SlideDrawer: React.FC<DrawerProps> = ({
           />
         </div>
 
-        <h2 className="text-xl font-semibold text-center">{title}</h2>
+        <h2 className="text-3xl font-semibold text-center">{title}</h2>
 
         {/* Content */}
         <div className="flex-1 overflow-auto p-4">{children}</div>

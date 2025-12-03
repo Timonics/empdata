@@ -82,6 +82,9 @@ const EditCompany: React.FC<IProps> = ({
           />
         </div>
       )}
+      <button className="px-6 py-3 rounded-lg bg-black text-sky-300 hover:bg-sky-200 hover:text-black">
+        Edit {data ? data.name : "Company"}
+      </button>
     </SlideDrawer>
   );
 };
