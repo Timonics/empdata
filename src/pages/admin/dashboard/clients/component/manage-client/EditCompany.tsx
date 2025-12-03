@@ -25,14 +25,14 @@ const EditCompany: React.FC<IProps> = ({
     <div className="">
       <div
         className={`
-          fixed inset-0 bg-black/30 backdrop-blur-sm bg-opacity-50 xl:hidden
+          absolute inset-0 bg-black/30 backdrop-blur-sm bg-opacity-50
           transition-all duration-300 ease-in-out
           ${showEditCompany ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         onClick={() => setShowEditCompany(false)}
       />
       <div
-        className={`absolute right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
+        className={`absolute right-0 top-0 h-full w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white rounded-r-lg transform transition-transform ease-in-out duration-300 p-2 flex flex-col gap-4 ${
           showEditCompany
             ? "translate-x-0 shadow-2xl shadow-sky-50"
             : "-translate-x-full"
@@ -53,50 +53,50 @@ const EditCompany: React.FC<IProps> = ({
             </div>
           )}
           {data ? (
-            <div className="w-full p-2 grid grid-col-1 md:grid-col-2 h-full overflow-auto">
+            <div className="w-full p-2 gap-2 grid grid-col-1 md:grid-col-2 h-full overflow-auto">
               <input
                 placeholder={data.name}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.email}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.rc_number || "Set RC Number"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.address || "Add Address"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.city || "Add City"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.state || "Add State"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.country || "Add Country"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.insurance_type || "Add Insurance type"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.registration_date || "Add Registration Date"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.license_number || "Add Licence Number"}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
               <input
                 placeholder={data.status}
-                className="w-full p-4 border-muted-foreground border rounded-lg"
+                className="w-full p-2 border-muted-foreground border rounded-lg"
               />
             </div>
           ) : (
