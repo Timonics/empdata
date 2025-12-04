@@ -18,12 +18,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const useAuth = (authType: AuthType) => {
   const dispatch: AppDispatch = useDispatch();
-  const rootState = useSelector((state: RootState) => state);
 
   const authState =
     authType === "admin"
-      ? rootState.adminAuth
-      : rootState.clientsAuth ?? {
+      ? useSelector((state: RootState) => state.adminAuth)
+      : useSelector((state: RootState) => state.clientsAuth) ?? {
           isAuthenticated: false,
           loading: false,
           error: null,
@@ -90,6 +89,7 @@ export const useAuth = (authType: AuthType) => {
     loading: authState.loading,
     error: authState.error,
     authData: "authData" in authState ? authState.authData : null,
-    clientsAuthData: "clientsAuthData" in authState ? authState.clientsAuthData : null
+    clientsAuthData:
+      "clientsAuthData" in authState ? authState.clientsAuthData : null,
   };
 };

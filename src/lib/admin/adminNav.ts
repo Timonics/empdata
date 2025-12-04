@@ -11,16 +11,16 @@ export const navigations: Navigations[] = [
     icon: LuLayoutDashboard,
   },
   {
-    name: "Corporate Clients",
+    name: "Company",
     link: "company",
     icon: TbBuilding,
     children: [
-      { name: "Add Corporate Clients ", link: "" },
-      { name: "View Client Details", link: "" },
+      { name: "Add Company ", link: "" },
+      { name: "View Company Details", link: "" },
     ],
   },
   {
-    name: "Client Employees",
+    name: "Employees",
     link: "employees",
     icon: TbUsers,
   },

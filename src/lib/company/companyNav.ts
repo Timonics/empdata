@@ -2,7 +2,7 @@ import type { Navigations } from "@/interfaces/navigations.interface";
 import { Logs } from "lucide-react";
 import { GrStatusInfo } from "react-icons/gr";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { TbReport, TbSettings, TbUsers } from "react-icons/tb";
+import { TbReport, TbUsers } from "react-icons/tb";
 
 export const navigations: Navigations[] = [
   {
@@ -12,27 +12,22 @@ export const navigations: Navigations[] = [
   },
   {
     name: "Employees",
-    link: "employees",
+    link: "company/employees",
     icon: TbUsers,
   },
   {
     name: "Invitations",
-    link: "invitations",
+    link: "company/invitations",
     icon: GrStatusInfo,
   },
   {
     name: "Documents",
-    link: "documents",
+    link: "company/documents",
     icon: Logs,
   },
   {
     name: "Reports",
-    link: "reports",
+    link: "company/reports",
     icon: TbReport,
-  },
-  {
-    name: "Settings",
-    link: "settings",
-    icon: TbSettings,
   },
 ];

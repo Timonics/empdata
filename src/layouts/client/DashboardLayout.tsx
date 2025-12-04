@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-import Navigations from "@/pages/admin/dashboard/navigations";
 import { Outlet, useLocation } from "react-router";
 import { LogOut, PanelRight, X } from "lucide-react";
 import { NavLink } from "react-router";
 import Logo from "@/components/logo";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { navigations } from "@/lib/company/companyNav";
+import { navigations as company_nav } from "@/lib/company/companyNav";
+import { navigations as employee_nav } from "@/lib/employee/employeeNav";
+import CompanyNavigations from "@/pages/corporate-client/dashboard/navigations";
+import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import EmployeeNavigations from "@/pages/employee/dashboard/navigations";
 
 const DashboardLayout: React.FC = () => {
   const location = useLocation();
   const [navIsOpen, setNavIsOpen] = useState(true);
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
+
+  const locationPathName = location.pathname.split("/")[2];
+  const mobileNav = locationPathName === "company" ? company_nav : employee_nav;
+
+  const logOut =
+    locationPathName === "company" ? useAuth("company") : useAuth("employee");
 
   return (
     <div className="w-full h-screen overflow-hidden p-4">
@@ -20,7 +30,11 @@ const DashboardLayout: React.FC = () => {
             !navIsOpen ? "w-20" : "w-2/10"
           } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-2 bg-black/2 rounded-l-xl border-black/10 px-2`}
         >
-          <Navigations navIsOpen={navIsOpen} />
+          {locationPathName === "company" ? (
+            <CompanyNavigations navIsOpen={navIsOpen} />
+          ) : (
+            <EmployeeNavigations navIsOpen={navIsOpen} />
+          )}
         </div>
         <div
           className={`${
@@ -71,7 +85,7 @@ const DashboardLayout: React.FC = () => {
         <div className="mt-5 flex flex-col h-full items-start gap-4 outfit text-black">
           <NavLink
             end
-            to={``}
+            to={`${locationPathName === "company" ? "company" : "employee"}`}
             onClick={() => setMobileNavIsOpen(false)}
             className={({ isActive }) =>
               `${
@@ -86,11 +100,12 @@ const DashboardLayout: React.FC = () => {
             <LuLayoutDashboard size={20} />
             {navIsOpen && <h5>Dashboard</h5>}
           </NavLink>
-          <h4 className="mt-6 pl-2 text-sm opacity-50">ORGANISATIONS</h4>
+          <h4 className="mt-6 pl-2 text-sm opacity-50">{locationPathName === "company" ? "ORGANISATIONS" : "EMPLOYEE"}</h4>
           <div className="flex flex-col gap-1 w-full">
-            {navigations.slice(1, 2).map((nav) => (
+            {mobileNav.slice(1, 3).map((nav) => (
               <NavLink
                 end
+                key={nav.name}
                 to={`${nav.link}`}
                 onClick={() => setMobileNavIsOpen(false)}
                 className={({ isActive }) =>
@@ -107,12 +122,13 @@ const DashboardLayout: React.FC = () => {
             ))}
           </div>
           <h4 className="mt-6 pl-2 text-sm opacity-50">
-            REPORTS AND COMPLIANCE
+            {locationPathName === "company" ? "REPORTS AND COMPLIANCE" : "COMPANY"}
           </h4>
           <div className="flex flex-col gap-1 w-full">
-            {navigations.slice(2, navigations.length - 1).map((nav) => (
+            {mobileNav.slice(3).map((nav) => (
               <NavLink
                 end
+                key={nav.name}
                 to={`${nav.link}`}
                 onClick={() => setMobileNavIsOpen(false)}
                 className={({ isActive }) =>
@@ -130,25 +146,14 @@ const DashboardLayout: React.FC = () => {
           </div>
           <h4 className="mt-auto pl-2 text-sm opacity-50">SYSTEM</h4>
           <div className="flex flex-col gap-1 w-full mb-2">
-            {navigations.slice(navigations.length - 1).map((nav) => (
-              <NavLink
-                end
-                to={`${nav.link}`}
-                onClick={() => setMobileNavIsOpen(false)}
-                className={({ isActive }) =>
-                  `flex w-full items-center hover:scale-95 transition duration-300 gap-2 p-2 rounded-lg ${
-                    isActive
-                      ? "bg-sky-100 text-sky-600 font-bold"
-                      : "opacity-75 font-medium"
-                  }`
-                }
-              >
-                <nav.icon size={20} />
-                <h5 className="">{nav.name}</h5>
-              </NavLink>
-            ))}
-            <button className="w-full flex items-center gap-2 p-2 rounded-lg opacity-75 font-medium hover:bg-red-100 hover:text-red-600 transition duration-300">
-              <LogOut size={20}/>
+            <button
+              onClick={() => {
+                logOut.logout();
+                toast.success("Successfully Logged Out");
+              }}
+              className="w-full flex items-center gap-2 p-2 rounded-lg opacity-75 font-medium hover:bg-red-100 hover:text-red-600 transition duration-300"
+            >
+              <LogOut size={20} />
               <h5>Logout</h5>
             </button>
           </div>

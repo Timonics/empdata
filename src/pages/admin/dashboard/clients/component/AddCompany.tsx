@@ -1,5 +1,6 @@
 import { useCreateCompany } from "@/hooks/useCompany";
 import type { CreateCompany } from "@/types/company.type";
+import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
 import { toast } from "sonner";
 
@@ -80,9 +81,13 @@ const AddCorporateClient: React.FC<IProps> = ({ setAddClient }) => {
 
           <button
             onClick={handleSubmit}
-            className="outfit p-4 rounded-xl bg-black text-white font-bold mt-4 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
+            className="outfit p-4 rounded-xl bg-black text-white font-bold mt-4 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary flex items-center justify-center"
           >
-            Add Client
+            {createCompany.isPending ? (
+              <LoaderCircle className="animate-spin size-8" />
+            ) : (
+              "Submit"
+            )}
           </button>
         </div>
       </div>

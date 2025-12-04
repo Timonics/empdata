@@ -24,13 +24,17 @@ import {
 import { setStore } from "./utils/axios";
 import { store } from "./store/store";
 import EmployeeLogin from "./pages/employee/auth/login";
-import PortalAuthRedirect from "./components/portal-auth";
+// import PortalAuthRedirect from "./components/portal-auth";
 import {
   EmployeeProtectedRoute,
   EmployeeRedirectRoutes,
 } from "./components/protected-routes/EmployeeProtectedRoutes";
 import ClientWatcher from "./components/auth-watchers/ClientWatcher";
 import Employees from "./pages/admin/dashboard/employees";
+import CompanyHome from "./pages/corporate-client/dashboard/home";
+import CompanyEmployees from "./pages/corporate-client/dashboard/employees";
+import VerificationStatus from "./pages/admin/dashboard/verification-status";
+import EmployeeHome from "./pages/employee/dashboard/home";
 
 function App() {
   setStore(store);
@@ -82,8 +86,12 @@ function App() {
               element: <Clients />,
             },
             {
-              path: "Employees",
+              path: "employees",
               element: <Employees />,
+            },
+            {
+              path: "verification-status",
+              element: <VerificationStatus />,
             },
           ],
         },
@@ -95,12 +103,12 @@ function App() {
       path: "/portal/auth",
       element: <AuthLayout />,
       children: [
+        // {
+        //   path: "",
+        //   element: <PortalAuthRedirect />,
+        // },
         {
           path: "",
-          element: <PortalAuthRedirect />,
-        },
-        {
-          path: "company",
           element: <CompanyRedirectRoutes />,
           children: [
             {
@@ -137,7 +145,11 @@ function App() {
           children: [
             {
               path: "",
-              element: <Home />,
+              element: <CompanyHome />,
+            },
+            {
+              path: "employees",
+              element: <CompanyEmployees />,
             },
           ],
         },
@@ -147,7 +159,7 @@ function App() {
           children: [
             {
               path: "",
-              element: <Home />,
+              element: <EmployeeHome />,
             },
           ],
         },

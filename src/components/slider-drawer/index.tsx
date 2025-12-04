@@ -23,7 +23,7 @@ const SlideDrawer: React.FC<DrawerProps> = ({
       <div
         className={`
           fixed inset-0 bg-black/30 backdrop-blur-sm
-          transition-opacity duration-300
+          transition-opacity duration-300 z-40
           ${open ? "opacity-100" : "opacity-0 pointer-events-none"}
         `}
         onClick={onClose}
@@ -32,7 +32,7 @@ const SlideDrawer: React.FC<DrawerProps> = ({
       {/* Drawer Panel */}
       <div
         className={`
-          fixed top-0 right-0 h-full bg-white shadow-2xl ${width} transition-transform duration-300 ease-in-out
+          fixed top-0 right-0 h-full bg-white shadow-2xl shadow-sky-100 ${width} transform transition-all duration-300 ease-in-out
           ${open ? "translate-x-0" : "translate-x-full"}
           z-50 flex flex-col gap-4
         `}
@@ -46,10 +46,10 @@ const SlideDrawer: React.FC<DrawerProps> = ({
           />
         </div>
 
-        <h2 className="text-3xl font-semibold text-center">{title}</h2>
+        <h2 className="text-4xl font-semibold text-center">{title}</h2>
 
         {/* Content */}
-        <div className="flex-1 overflow-auto p-4">{children}</div>
+        <div className="flex-1 overflow-auto p-4 items-center flex flex-col gap-6">{children}</div>
       </div>
     </div>
   );

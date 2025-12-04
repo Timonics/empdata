@@ -49,7 +49,11 @@ const ClientResetPassword: React.FC = () => {
     try {
       const result = await resetPassword(resetData).unwrap();
       toast.success(result.message || "Password has been set successfully.");
-      navigate(`/portal/auth/${selectedUserType}`);
+      navigate(
+        selectedUserType === "company"
+          ? "/portal/auth"
+          : `/portal/auth/${selectedUserType}`
+      );
     } catch (error: any) {
       toast.error(
         error.message || "Failed to reset password. Please try again."
@@ -74,7 +78,9 @@ const ClientResetPassword: React.FC = () => {
               setSelectedUserType("company");
             }}
             className={`${
-              selectedUserType === "company" ? "bg-sky-100 font-semibold border-none" : ""
+              selectedUserType === "company"
+                ? "bg-sky-100 font-semibold border-none"
+                : ""
             } border hover:bg-sky-100 text-lg font-medium border-muted-foreground w-full p-4 rounded-xl text-center`}
           >
             Company
@@ -84,7 +90,9 @@ const ClientResetPassword: React.FC = () => {
               setSelectedUserType("employee");
             }}
             className={`${
-              selectedUserType === "employee" ? "bg-sky-100 font-semibold border-none" : ""
+              selectedUserType === "employee"
+                ? "bg-sky-100 font-semibold border-none"
+                : ""
             } border hover:bg-sky-100 text-lg font-medium border-muted-foreground w-full p-4 rounded-xl text-center`}
           >
             Employee

@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router";
 import Logo from "@/components/logo";
-import { navigations } from "@/lib/admin/adminNav";
-import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
-import { LuLayoutDashboard } from "react-icons/lu";
 import { useAuth } from "@/hooks/useAuth";
+import { navigations } from "@/lib/employee/employeeNav";
+import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
+import React, { useState } from "react";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { NavLink } from "react-router";
 import { toast } from "sonner";
 
 type NavProps = {
   navIsOpen: boolean;
 };
 
-const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
+const EmployeeNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
   const [openNavChildren, setOpenNavChildren] = useState<boolean>(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const { logout } = useAuth("admin");
+  const { logout } = useAuth("employee");
 
   return (
     <div
@@ -37,7 +37,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
       >
         <NavLink
           end
-          to={``}
+          to={`company`}
           className={({ isActive }) =>
             `${
               isActive
@@ -52,7 +52,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
           {navIsOpen && <h5>Dashboard</h5>}
         </NavLink>
         {navIsOpen ? (
-          <h4 className="mt-6 pl-2 text-sm opacity-50">ORGANISATIONS</h4>
+          <h4 className="mt-6 pl-2 text-sm opacity-50">EMPLOYEE</h4>
         ) : (
           <hr className="text-center border w-full mt-6 opacity-30" />
         )}
@@ -119,13 +119,13 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
         </div>
         {navIsOpen ? (
           <h4 className="mt-6 pl-2 text-sm opacity-50">
-            REPORTS AND COMPLIANCE
+            COMPANY
           </h4>
         ) : (
           <hr className="text-center border w-full mt-6 opacity-30" />
         )}
         <div className="flex flex-col gap-1">
-          {navigations.slice(3, navigations.length - 1).map((nav, index) => {
+          {navigations.slice(3).map((nav, index) => {
             const Icon = nav.icon;
             return (
               <NavLink
@@ -161,40 +161,11 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
           <p className="text-center mt-auto opacity-50">S</p>
         )}
         <div className="flex flex-col gap-1 mr-2">
-          {navigations.slice(navigations.length - 1).map((nav, index) => {
-            const Icon = nav.icon;
-            return (
-              <NavLink
-                end
-                key={nav.name}
-                to={`${nav.link}`}
-                className={({ isActive }) =>
-                  `${index === navigations.length - 1 ? "mt-auto" : ""} ${
-                    isActive
-                      ? "bg-sky-100 text-sky-600 font-bold"
-                      : "opacity-75 font-medium"
-                  } p-2 rounded-lg ${
-                    navIsOpen ? "pl-4" : "px-4 hover:bg-sky-100"
-                  } transition duration-300 hover:scale-95 flex text- items-center gap-2`
-                }
-              >
-                <Icon size={20} />
-                {navIsOpen && <h5 className="">{nav.name}</h5>}
-                {nav.children && (
-                  <ChevronDown
-                    size={18}
-                    className="ml-auto"
-                    onClick={() => setOpenNavChildren(!openNavChildren)}
-                  />
-                )}
-              </NavLink>
-            );
-          })}
           <button
             className="w-full ml-2 flex items-center cursor-pointer gap-2 p-2 rounded-lg opacity-75 font-medium hover:bg-red-100 hover:text-red-600 transition duration-300"
             onClick={() => {
               logout();
-              toast.success("Successfully Logged Out")
+              toast.success("Successfully Logged Out");
             }}
           >
             <LogOut size={20} />
@@ -206,4 +177,4 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
   );
 };
 
-export default Navigations;
+export default EmployeeNavigations;

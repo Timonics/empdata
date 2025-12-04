@@ -1,8 +1,10 @@
 import { adminEmployeeApi } from "@/api/admin";
+import { employeeApi } from "@/api/employee";
 import type {
   Employee,
   EmployeeResponse,
 } from "@/interfaces/employee.interface";
+import type { AuthType } from "@/types/auth.types";
 import type { CreateEmployee } from "@/types/employee.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -15,12 +17,15 @@ const employeeKeys = {
   detail: (id: number) => [...employeeKeys.details(), id] as const,
 };
 
-const useCreateEmployee = () => {
+const useCreateEmployee = (authType: AuthType) => {
   const query = useQueryClient();
 
   return useMutation({
-    mutationFn: (employeeData: CreateEmployee) =>
-      adminEmployeeApi.createEmployeeFromAdmin(employeeData),
+    mutationFn: (employeeData: CreateEmployee) => {
+      return authType === "admin"
+        ? adminEmployeeApi.createEmployeeFromAdmin(employeeData)
+        : employeeApi.createEmployee(employeeData);
+    },
 
     onMutate: () => {
       const toastId = toast.loading(`Creating Employee`);
@@ -42,18 +47,28 @@ const useCreateEmployee = () => {
   });
 };
 
-const useEmployees = () => {
+const useEmployees = (authType: AuthType) => {
   return useQuery({
     queryKey: employeeKeys.lists(),
-    queryFn: adminEmployeeApi.getEmployeesFromAdmin,
+    queryFn:
+      authType === "admin"
+        ? adminEmployeeApi.getEmployeesFromAdmin
+        : employeeApi.getEmployees,
     select: (data: EmployeeResponse) => data.data as Employee[],
   });
 };
 
-const useEmployee = (employeeId: number) => {
+const useEmployee = (employeeId: number, authType: AuthType) => {
   return useQuery({
-    queryKey: employeeKeys.details(),
-    queryFn: () => adminEmployeeApi.getEmployeeByIdFromAdmin(employeeId),
+    queryKey: employeeKeys.detail(employeeId),
+    queryFn:
+      authType === "admin"
+        ? () => adminEmployeeApi.getEmployeeByIdFromAdmin(employeeId)
+        : () => employeeApi.getEmployeeById(employeeId),
+    select: (data: EmployeeResponse) => data.data as Employee,
+    enabled: !!employeeId,
+    staleTime: 2 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 };
 

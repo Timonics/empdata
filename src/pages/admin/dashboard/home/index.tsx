@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { dashboardData } from "@/lib/admin/dashboardData";
-import AddCorporateClient from "../clients/component/AddCorporateClient";
+import AddCorporateClient from "../clients/component/AddCompany";
 import { Button } from "@/components/ui/button";
 
 const Home: React.FC = () => {
@@ -36,7 +36,7 @@ const Home: React.FC = () => {
         <h3 className="text-4xl pl-4">Quick Actions</h3>
         <div className="flex flex-col w-full items-center justify-center md:flex-row gap-4">
           {[
-            { name: "Add Corporate Client" },
+            { name: "Add Company" },
             { name: "Invite Company HR" },
             { name: "View Latest Reports" },
           ].map((item, index) => (

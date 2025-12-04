@@ -38,7 +38,11 @@ const AdminDashboardLayout: React.FC = () => {
               {location.pathname === "/admin"
                 ? "Dashboard"
                 : location.pathname.split("/").at(-1)![0].toUpperCase() +
-                  location.pathname.split("/").at(-1)?.slice(1)}
+                  location.pathname
+                    .split("/")
+                    .at(-1)
+                    ?.slice(1)
+                    .replace("-", " ")}
             </h2>
           </div>
           <div className="h-[calc(100vh-50px)] overflow-auto scrollbar">
@@ -91,6 +95,7 @@ const AdminDashboardLayout: React.FC = () => {
             {navigations.slice(1, 3).map((nav) => (
               <NavLink
                 end
+                key={nav.name}
                 to={`${nav.link}`}
                 onClick={() => setMobileNavIsOpen(false)}
                 className={({ isActive }) =>
@@ -113,6 +118,7 @@ const AdminDashboardLayout: React.FC = () => {
             {navigations.slice(3, navigations.length - 1).map((nav) => (
               <NavLink
                 end
+                key={nav.name}
                 to={`${nav.link}`}
                 onClick={() => setMobileNavIsOpen(false)}
                 className={({ isActive }) =>
@@ -133,6 +139,7 @@ const AdminDashboardLayout: React.FC = () => {
             {navigations.slice(navigations.length - 1).map((nav) => (
               <NavLink
                 end
+                key={nav.name}
                 to={`${nav.link}`}
                 onClick={() => setMobileNavIsOpen(false)}
                 className={({ isActive }) =>
@@ -148,7 +155,7 @@ const AdminDashboardLayout: React.FC = () => {
               </NavLink>
             ))}
             <button className="w-full flex items-center gap-2 p-2 rounded-lg opacity-75 font-medium hover:bg-red-100 hover:text-red-600 transition duration-300">
-              <LogOut size={20}/>
+              <LogOut size={20} />
               <h5>Logout</h5>
             </button>
           </div>

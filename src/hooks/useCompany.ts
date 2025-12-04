@@ -52,9 +52,12 @@ const useCompanies = () => {
 
 const useCompany = (companyId: number) => {
   return useQuery({
-    queryKey: companyKeys.details(),
+    queryKey: companyKeys.detail(companyId),
     queryFn: () => companyApi.getCompanyById(companyId),
     select: (data: CompanyResponse) => data.data as Company,
+    enabled: !!companyId,
+    staleTime: 2 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 };
 

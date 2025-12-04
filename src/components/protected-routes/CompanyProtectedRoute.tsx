@@ -5,7 +5,7 @@ import { Outlet, Navigate } from "react-router";
 export const CompanyProtectedRoute: React.FC = () => {
   const { isAuthenticated } = useAuth("company");
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={"/portal/auth/company"} />;
+  return isAuthenticated ? <Outlet /> : <Navigate to={"/portal/auth"} />;
 };
 
 export const CompanyRedirectRoutes: React.FC = () => {
