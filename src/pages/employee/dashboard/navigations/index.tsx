@@ -37,7 +37,7 @@ const EmployeeNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
       >
         <NavLink
           end
-          to={`company`}
+          to={`employee`}
           className={({ isActive }) =>
             `${
               isActive

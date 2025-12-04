@@ -54,7 +54,7 @@ const CompanyHome: React.FC = () => {
               onClick={() => {
                 if (index === 0) setAddEmployee(true);
               }}
-              className="p-6 rounded-xl border-2 border-black/30"
+              className="p-6 rounded-xl border-2 border-black/30 hover:bg-black hover:text-sky-400 transition duration-300"
             >
               <h4>{item.name}</h4>
             </button>

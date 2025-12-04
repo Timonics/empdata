@@ -5,8 +5,10 @@ import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
+import RedirectOnPasswordSet from "./RedirectOnPasswordSet";
 
 const ClientResetPassword: React.FC = () => {
+  const [redirect, setRedirect] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState<
     "employee" | "company" | null
   >(null);
@@ -48,12 +50,16 @@ const ClientResetPassword: React.FC = () => {
 
     try {
       const result = await resetPassword(resetData).unwrap();
+      setRedirect(true);
       toast.success(result.message || "Password has been set successfully.");
-      navigate(
-        selectedUserType === "company"
-          ? "/portal/auth"
-          : `/portal/auth/${selectedUserType}`
-      );
+      setTimeout(() => {
+        setRedirect(false);
+        navigate(
+          selectedUserType === "company"
+            ? "/portal/auth"
+            : `/portal/auth/${selectedUserType}`
+        );
+      }, 3000);
     } catch (error: any) {
       toast.error(
         error.message || "Failed to reset password. Please try again."
@@ -65,9 +71,9 @@ const ClientResetPassword: React.FC = () => {
     <div className="flex flex-col items-start gap-6">
       <div>
         <h2 className="font-bold text-3xl md:text-4xl">Set Password</h2>
-        {/* <p className="text-sm md:text-base font-light text-black/70">
-          Secure login access for administrators.
-        </p> */}
+        <p className="text-sm md:text-base font-light text-black/70">
+          Set your password to access portal.
+        </p>
       </div>
 
       <div className="flex flex-col gap-2 w-full">
@@ -131,6 +137,7 @@ const ClientResetPassword: React.FC = () => {
           "Set Password"
         )}
       </Button>
+      {redirect && <RedirectOnPasswordSet />}
     </div>
   );
 };

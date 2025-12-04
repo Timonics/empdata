@@ -10,6 +10,8 @@ import CompanyNavigations from "@/pages/corporate-client/dashboard/navigations";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import EmployeeNavigations from "@/pages/employee/dashboard/navigations";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 
 const DashboardLayout: React.FC = () => {
   const location = useLocation();
@@ -17,10 +19,17 @@ const DashboardLayout: React.FC = () => {
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
 
   const locationPathName = location.pathname.split("/")[2];
-  const mobileNav = locationPathName === "company" ? company_nav : employee_nav;
+  const isCompany = locationPathName === "company";
 
-  const logOut =
-    locationPathName === "company" ? useAuth("company") : useAuth("employee");
+  const mobileNav = isCompany ? company_nav : employee_nav;
+
+  const logOut = isCompany ? useAuth("company") : useAuth("employee");
+
+  const employeeName = isCompany
+    ? undefined
+    : useSelector(
+        (state: RootState) => state.clientsAuth.clientsAuthData?.name
+      );
 
   return (
     <div className="w-full h-screen overflow-hidden p-4">
@@ -30,7 +39,7 @@ const DashboardLayout: React.FC = () => {
             !navIsOpen ? "w-20" : "w-2/10"
           } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-2 bg-black/2 rounded-l-xl border-black/10 px-2`}
         >
-          {locationPathName === "company" ? (
+          {isCompany ? (
             <CompanyNavigations navIsOpen={navIsOpen} />
           ) : (
             <EmployeeNavigations navIsOpen={navIsOpen} />
@@ -48,9 +57,11 @@ const DashboardLayout: React.FC = () => {
             <div className="xl:hidden">
               <PanelRight onClick={() => setMobileNavIsOpen(true)} />
             </div>
-            <h2 className="text-3xl">
+            <h2 className="text-xl sm:text-2xl md:text-3xl ">
               {location.pathname === "/admin"
                 ? "Dashboard"
+                : !isCompany
+                ? `Welcome back, ${employeeName?.split(" ")[1]}`
                 : location.pathname.split("/").at(-1)![0].toUpperCase() +
                   location.pathname.split("/").at(-1)?.slice(1)}
             </h2>
@@ -85,7 +96,7 @@ const DashboardLayout: React.FC = () => {
         <div className="mt-5 flex flex-col h-full items-start gap-4 outfit text-black">
           <NavLink
             end
-            to={`${locationPathName === "company" ? "company" : "employee"}`}
+            to={`${isCompany ? "company" : "employee"}`}
             onClick={() => setMobileNavIsOpen(false)}
             className={({ isActive }) =>
               `${
@@ -100,7 +111,9 @@ const DashboardLayout: React.FC = () => {
             <LuLayoutDashboard size={20} />
             {navIsOpen && <h5>Dashboard</h5>}
           </NavLink>
-          <h4 className="mt-6 pl-2 text-sm opacity-50">{locationPathName === "company" ? "ORGANISATIONS" : "EMPLOYEE"}</h4>
+          <h4 className="mt-6 pl-2 text-sm opacity-50">
+            {isCompany ? "ORGANISATIONS" : "EMPLOYEE"}
+          </h4>
           <div className="flex flex-col gap-1 w-full">
             {mobileNav.slice(1, 3).map((nav) => (
               <NavLink
@@ -122,7 +135,7 @@ const DashboardLayout: React.FC = () => {
             ))}
           </div>
           <h4 className="mt-6 pl-2 text-sm opacity-50">
-            {locationPathName === "company" ? "REPORTS AND COMPLIANCE" : "COMPANY"}
+            {isCompany ? "REPORTS AND COMPLIANCE" : "COMPANY"}
           </h4>
           <div className="flex flex-col gap-1 w-full">
             {mobileNav.slice(3).map((nav) => (

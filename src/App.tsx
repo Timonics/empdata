@@ -35,6 +35,7 @@ import CompanyHome from "./pages/corporate-client/dashboard/home";
 import CompanyEmployees from "./pages/corporate-client/dashboard/employees";
 import VerificationStatus from "./pages/admin/dashboard/verification-status";
 import EmployeeHome from "./pages/employee/dashboard/home";
+import Invitations from "./pages/corporate-client/dashboard/invitations";
 
 function App() {
   setStore(store);
@@ -151,6 +152,10 @@ function App() {
               path: "employees",
               element: <CompanyEmployees />,
             },
+            {
+              path: "invitations",
+              element: <Invitations />
+            }
           ],
         },
         {
