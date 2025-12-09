@@ -12,7 +12,7 @@ const Home: React.FC = () => {
         <div className="flex flex-col w-full items-center justify-center sm:flex-row gap-4">
           {[
             { name: "Add Company" },
-            { name: "Invite Company HR" },
+            { name: "Invite Company Employee" },
             { name: "View Latest Reports" },
           ].map((item, index) => (
             <button
@@ -96,11 +96,6 @@ const Home: React.FC = () => {
             View All Employees
           </Link>
         </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-8 p-4 h-[400px]">
-        <div className="w-full md:w-1/2 h-full border-2 border-gray-200 shadow-xs rounded-lg bg-sky-50/20"></div>
-        <div className="w-full md:w-1/2 h-full border-2 border-gray-200 shadow-xs rounded-lg bg-sky-50/20"></div>
       </div>
 
       {/* <hr className="border border-black/10 my-4" /> */}

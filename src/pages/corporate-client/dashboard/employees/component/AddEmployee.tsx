@@ -25,6 +25,8 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
     date_of_birth: "",
   });
 
+  console.log(employeeData);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmployeeData((prevState) => {
@@ -44,8 +46,7 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
     if (
       !employeeData.first_name.trim() ||
       !employeeData.last_name.trim() ||
-      !employeeData.email.trim() ||
-      !employeeData.date_of_birth
+      !employeeData.email.trim()
     ) {
       toast.error("Please fill in all required fields");
       return;
@@ -109,7 +110,7 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
               onChange={handleChange}
             />
             <input
-              name="date_of_email"
+              name="date_of_birth"
               value={employeeData.date_of_birth}
               placeholder="YYYY-MM-DD"
               className="bg-black/10 p-4 rounded-xl"
