@@ -1,5 +1,5 @@
 import type { Navigations } from "@/interfaces/navigations.interface";
-import { Building2, User } from "lucide-react";
+import { Building2, User, Users2 } from "lucide-react";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbFile } from "react-icons/tb";
 
@@ -13,6 +13,11 @@ export const navigations: Navigations[] = [
     name: "Profile",
     link: "employee/profile",
     icon: User,
+  },
+  {
+    name: "Beneficiaries",
+    link: "employee/beneficiaries",
+    icon: Users2,
   },
   {
     name: "Documents",

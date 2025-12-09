@@ -14,7 +14,7 @@ const SlideDrawer: React.FC<DrawerProps> = ({
   open,
   onClose,
   title,
-  width = "w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%]",
+  width = "w-full sm:w-[90%] md:w-[80%] lg:w-[60%] xl:w-[50%]",
   children,
 }) => {
   return (
@@ -46,10 +46,14 @@ const SlideDrawer: React.FC<DrawerProps> = ({
           />
         </div>
 
-        <h2 className="text-4xl font-semibold text-center">{title}</h2>
+        {title && (
+          <h2 className="text-4xl font-semibold text-center">{title}</h2>
+        )}
 
         {/* Content */}
-        <div className="flex-1 overflow-auto p-4 items-center flex flex-col gap-6">{children}</div>
+        <div className="flex-1 overflow-auto p-4 items-center flex flex-col gap-6">
+          {children}
+        </div>
       </div>
     </div>
   );

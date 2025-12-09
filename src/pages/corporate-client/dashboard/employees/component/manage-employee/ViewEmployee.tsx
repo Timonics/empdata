@@ -28,7 +28,7 @@ const ViewEmployee: React.FC<IProps> = ({
     <SlideDrawer
       open={showViewEmployee}
       onClose={() => setShowViewEmployee(false)}
-      title={data ? data!.full_name : "View Employee"}
+      title="View Employee"
     >
       {isLoading && (
         <div className="flex items-center gap-2 h-[300px]">
@@ -51,7 +51,7 @@ const ViewEmployee: React.FC<IProps> = ({
 
       {data && (
         <div className="flex flex-col gap-6 w-full">
-          <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground shadow-xl">
+          <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground/50 shadow-xl bg-white">
             <h2 className="font-medium text-xl underline ">Company Profile</h2>
             <div className="space-y-4 p-2 pl-4 rounded-xl bg-sky-50">
               <h2>
@@ -109,6 +109,30 @@ const ViewEmployee: React.FC<IProps> = ({
                 </span>
               </h2>
             </div>
+            {/* <div className="bg-black/5 p-8 rounded-full">
+              <User size={30} />
+            </div>
+            <div className="w-full flex flex-col gap-2">
+              <h2 className="text-xl md:text-2xl font-semibold">
+                {data.full_name}
+              </h2>
+              <div className="flex items-center gap-4">
+                {data.email && (
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <Mail size={20} />
+                    {data.email}
+                  </div>
+                )}
+
+                {data.phone && (
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <Phone size={20} />
+                    {data.phone}
+                  </div>
+                )}
+              </div>
+              {data.hire_date && <p>{data.hire_date}</p>}
+            </div> */}
           </div>
           {/* <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground shadow-xl">
             <h2 className="font-medium text-xl underline ">Admin Users</h2>

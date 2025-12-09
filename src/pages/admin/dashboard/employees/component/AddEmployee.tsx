@@ -19,6 +19,7 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
     first_name: "",
     last_name: "",
     email: "",
+    date_of_birth: ""
   });
 
   const { isLoading, error, data } = useCompanies();
@@ -38,7 +39,8 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
       employeeData.company_id === 0 ||
       !employeeData.first_name.trim() ||
       !employeeData.last_name.trim() ||
-      !employeeData.email.trim()
+      !employeeData.email.trim() ||
+      !employeeData.date_of_birth
     ) {
       toast.error("Please fill in all required fields");
       return;
@@ -53,6 +55,7 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
       first_name: "",
       last_name: "",
       email: "",
+      date_of_birth: ""
     });
 
     setAddEmployee(false);
@@ -148,6 +151,13 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
               name="email"
               value={employeeData.email}
               placeholder="Email"
+              className="bg-black/10 p-4 rounded-xl"
+              onChange={handleChange}
+            />
+            <input
+              name="date_of_birth"
+              value={employeeData.date_of_birth}
+              placeholder="Date of Birth (YYYY-MM-DD)"
               className="bg-black/10 p-4 rounded-xl"
               onChange={handleChange}
             />

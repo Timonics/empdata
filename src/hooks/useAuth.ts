@@ -10,9 +10,11 @@ import {
   loginEmployee,
   setPassword,
   logoutClients,
+  verifyNIN,
 } from "@/store/slices/clients_auth.slice";
 import type { AppDispatch, RootState } from "@/store/store";
 import type { AuthType } from "@/types/auth.types";
+import type { VerifyNIN } from "@/types/employee.type";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -80,11 +82,26 @@ export const useAuth = (authType: AuthType) => {
     [dispatch, authType]
   );
 
+  const ninVerify = useCallback(
+    (employeeId: number, ninData: VerifyNIN) => {
+      if (authType !== "employee") {
+        throw new Error("NIN verification is only for employees");
+      }
+      return dispatch(verifyNIN({ employeeId, ninData }));
+    },
+    [dispatch, authType]
+  );
+
   return {
     login,
     logout,
     forgotPassword,
     resetPassword,
+    ninVerify,
+    isVerified:
+      authType === "employee" &&
+      "clientsAuthData" in authState &&
+      authState.clientsAuthData?.nin_verification?.is_nin_verified === true,
     isAuthenticated: authState.isAuthenticated,
     loading: authState.loading,
     error: authState.error,

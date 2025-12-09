@@ -7,6 +7,7 @@ import {
   LoaderCircle,
   Plus,
   Trash,
+  UserPlus,
 } from "lucide-react";
 import React, { useState } from "react";
 import { TbSearch } from "react-icons/tb";
@@ -14,6 +15,7 @@ import { toast } from "sonner";
 import AddEmployee from "./component/AddEmployee";
 import EditEmployee from "./component/manage-employee/EditEmployee";
 import ViewEmployee from "./component/manage-employee/ViewEmployee";
+import ResendInvite from "@/components/resend-invite";
 
 const Employees: React.FC = () => {
   const [addEmployee, setAddEmployee] = useState(false);
@@ -29,6 +31,8 @@ const Employees: React.FC = () => {
 
   const [showEditEmployee, setShowEditEmployee] = useState(false);
   const [showViewEmployee, setShowViewEmployee] = useState(false);
+  const [showResendEmployeeInvite, setShowResendEmployeeInvite] = useState(false);
+
   // const [showDeleteEmployee, setShowDeleteEmployee] = useState(false);
 
   const employeeFilters = ["All", "Active", "Pending", "Inactive"].map(
@@ -63,12 +67,12 @@ const Employees: React.FC = () => {
             }`}
           >
             <p className="col-span-2 text-black/80">{employee.full_name}</p>
-            <p className="text-black/80">
+            <p className="text-black/80 text-sm">
               {employee.employment_status.charAt(0).toUpperCase() +
                 employee.employment_status.slice(1)}
             </p>
-            <p className="text-black/80">{employee.email}</p>
-            <p className="text-black/80">--</p>
+            <p className="text-black/80 text-xs">{employee.email}</p>
+            <p className="text-black/80">----</p>
             <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
               <Edit
                 size={30}
@@ -84,6 +88,14 @@ const Employees: React.FC = () => {
                 onClick={() => {
                   setSelectedEmployeeId(employee.id);
                   setShowViewEmployee(true);
+                }}
+              />
+              <UserPlus
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-orange-500 hover:bg-black/10 p-1.5 rounded-full"
+                onClick={() => {
+                  setSelectedEmployeeId(employee.id);
+                  setShowResendEmployeeInvite(true);
                 }}
               />
               <Trash
@@ -174,6 +186,12 @@ const Employees: React.FC = () => {
           employeeId={selectedEmployeeId!}
           showViewEmployee={showViewEmployee}
           setShowViewEmployee={setShowViewEmployee}
+        />
+      )}
+      {showResendEmployeeInvite && (
+        <ResendInvite
+          portalUserId={selectedEmployeeId!}
+          setShowResendPortalUserInvite={setShowResendEmployeeInvite}
         />
       )}
     </div>

@@ -137,11 +137,11 @@ const EditCompany: React.FC<IProps> = ({
           </div>
         </div>
       )}
-      {!isLoading && !isError && data && (
+      {/* {!isLoading && !isError && data && (
         <button className="px-6 py-3 rounded-lg bg-black text-sky-300 hover:bg-sky-200 hover:text-black text-xl">
           Submit
         </button>
-      )}
+      )} */}
     </SlideDrawer>
   );
 };

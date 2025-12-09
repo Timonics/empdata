@@ -36,6 +36,8 @@ import CompanyEmployees from "./pages/corporate-client/dashboard/employees";
 import VerificationStatus from "./pages/admin/dashboard/verification-status";
 import EmployeeHome from "./pages/employee/dashboard/home";
 import Invitations from "./pages/corporate-client/dashboard/invitations";
+import NINValidation from "./pages/employee/components/NINValidation";
+import Beneficiaries from "./pages/employee/dashboard/beneficiaries";
 
 function App() {
   setStore(store);
@@ -108,27 +110,33 @@ function App() {
         //   path: "",
         //   element: <PortalAuthRedirect />,
         // },
-        {
-          path: "",
-          element: <CompanyRedirectRoutes />,
-          children: [
-            {
-              path: "",
-              element: <CompanyLogin />,
-            },
-          ],
-        },
 
         {
           path: "employee",
           element: <EmployeeRedirectRoutes />,
           children: [
             {
-              path: "",
+              index: true,
               element: <EmployeeLogin />,
+            },
+            {
+              path: "validation",
+              element: <NINValidation />,
             },
           ],
         },
+
+        {
+          path: "",
+          element: <CompanyRedirectRoutes />,
+          children: [
+            {
+              index: true,
+              element: <CompanyLogin />,
+            },
+          ],
+        },
+
         {
           path: "set-password",
           element: <ClientResetPassword />,
@@ -154,8 +162,8 @@ function App() {
             },
             {
               path: "invitations",
-              element: <Invitations />
-            }
+              element: <Invitations />,
+            },
           ],
         },
         {
@@ -165,6 +173,10 @@ function App() {
             {
               path: "",
               element: <EmployeeHome />,
+            },
+            {
+              path: "beneficiaries",
+              element: <Beneficiaries />,
             },
           ],
         },

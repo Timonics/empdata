@@ -2,13 +2,13 @@ import { Building2, ListCheck, ShieldCheck, ShieldX, Users2 } from "lucide-react
 
 export const dashboardData = [
   {
-    name: "Total Corporate Clients",
+    name: "Total Companies",
     amount: 520,
     icon: Building2
   },
   {
     name: "Total Employees Registered",
-    amount: 20500,
+    amount: 12500,
     icon: Users2
   },
   {

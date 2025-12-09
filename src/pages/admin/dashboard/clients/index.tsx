@@ -5,6 +5,7 @@ import {
   LoaderCircle,
   Plus,
   Trash,
+  UserPlus,
 } from "lucide-react";
 import React, { useState } from "react";
 import AddCorporateClient from "./component/AddCompany";
@@ -14,6 +15,7 @@ import { useCompanies } from "@/hooks/useCompany";
 import { toast } from "sonner";
 import EditCompany from "./component/manage-company/EditCompany";
 import ViewCompany from "./component/manage-company/ViewCompany";
+import ResendInvite from "@/components/resend-invite";
 
 const Clients: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>("All");
@@ -25,6 +27,7 @@ const Clients: React.FC = () => {
 
   const [showEditCompany, setShowEditCompany] = useState(false);
   const [showViewCompany, setShowViewCompany] = useState(false);
+  const [showResendCompanyInvite, setShowResendCompanyInvite] = useState(false);
   // const [showDeleteCompany, setShowDeleteCompany] = useState(false);
 
   const { data, isLoading, error } = useCompanies();
@@ -84,6 +87,14 @@ const Clients: React.FC = () => {
                 onClick={() => {
                   setSelectedCompanyId(company.id);
                   setShowViewCompany(true);
+                }}
+              />
+              <UserPlus
+                size={30}
+                className="hover:cursor-pointer text-gray-700 hover:text-orange-500 hover:bg-black/10 p-1.5 rounded-full"
+                onClick={() => {
+                  setSelectedCompanyId(company.id);
+                  setShowResendCompanyInvite(true);
                 }}
               />
               <Trash
@@ -197,6 +208,12 @@ const Clients: React.FC = () => {
           companyId={selectedCompanyId!}
           showViewCompany={showViewCompany}
           setShowViewCompany={setShowViewCompany}
+        />
+      )}
+      {showResendCompanyInvite && (
+        <ResendInvite
+          portalUserId={selectedCompanyId!}
+          setShowResendPortalUserInvite={setShowResendCompanyInvite}
         />
       )}
     </div>

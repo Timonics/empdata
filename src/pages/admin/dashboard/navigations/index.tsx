@@ -48,7 +48,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
             } transition duration-300 hover:scale-95 flex text- items-center gap-2`
           }
         >
-          <LuLayoutDashboard size={20} />
+          <LuLayoutDashboard size={25} />
           {navIsOpen && <h5>Dashboard</h5>}
         </NavLink>
         {navIsOpen ? (
@@ -78,7 +78,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   }`
                 }
               >
-                <Icon size={20} />
+                <Icon size={25} />
                 {navIsOpen && <h5 className="">{nav.name}</h5>}
                 {nav.children &&
                   navIsOpen &&
@@ -142,7 +142,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   } transition duration-300 hover:scale-95 flex text- items-center gap-2`
                 }
               >
-                <Icon size={20} />
+                <Icon size={25} />
                 {navIsOpen && <h5 className="">{nav.name}</h5>}
                 {nav.children && (
                   <ChevronDown
@@ -158,7 +158,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
         {navIsOpen ? (
           <h4 className="mt-auto pl-2 text-sm opacity-30">SYSTEM</h4>
         ) : (
-          <p className="text-center mt-auto opacity-50">S</p>
+          <hr className="text-center mt-auto border w-full opacity-30" />
         )}
         <div className="flex flex-col gap-1 mr-2">
           {navigations.slice(navigations.length - 1).map((nav, index) => {
@@ -178,7 +178,7 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   } transition duration-300 hover:scale-95 flex text- items-center gap-2`
                 }
               >
-                <Icon size={20} />
+                <Icon size={25} />
                 {navIsOpen && <h5 className="">{nav.name}</h5>}
                 {nav.children && (
                   <ChevronDown
@@ -194,11 +194,11 @@ const Navigations: React.FC<NavProps> = ({ navIsOpen }) => {
             className="w-full ml-2 flex items-center cursor-pointer gap-2 p-2 rounded-lg opacity-75 font-medium hover:bg-red-100 hover:text-red-600 transition duration-300"
             onClick={() => {
               logout();
-              toast.success("Successfully Logged Out")
+              toast.success("Successfully Logged Out");
             }}
           >
-            <LogOut size={20} />
-            <h5>Logout</h5>
+            <LogOut size={25} />
+            {navIsOpen && <h5>Logout</h5>}
           </button>
         </div>
       </div>

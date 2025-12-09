@@ -1,5 +1,8 @@
 import { portalUsersApi } from "@/api/portalUsers";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import type { ResendInvResponse } from "@/interfaces/portal_users.interface";
+import type { PortalUserId } from "@/types/portal_user.type";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const portalUsersKeys = {
   all: ["portalUsers"] as const,
@@ -24,8 +27,29 @@ const usePortalUser = (userId: number) => {
 };
 
 const useResendInvitation = () => {
+  const query = useQueryClient();
+
   return useMutation({
-    mutationFn: portalUsersApi.resendInvitation,
+    mutationFn: (portalUser: PortalUserId) =>
+      portalUsersApi.resendInvitation(portalUser),
+
+    onMutate: () => {
+      const toastId = toast.loading(`Resending invitation`);
+      return { toastId };
+    },
+
+    onSuccess: (data: ResendInvResponse, _, context) => {
+      toast.success(data.message, {
+        id: context.toastId,
+      });
+      query.invalidateQueries({ queryKey: portalUsersKeys.lists() });
+    },
+
+    onError: (error, _, context) => {
+      toast.error(error.message || "Failed to resend invitation", {
+        id: context?.toastId,
+      });
+    },
   });
 };
 

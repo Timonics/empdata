@@ -48,7 +48,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
             } transition duration-300 hover:scale-95 flex text- items-center gap-2`
           }
         >
-          <LuLayoutDashboard size={20} />
+          <LuLayoutDashboard size={25} />
           {navIsOpen && <h5>Dashboard</h5>}
         </NavLink>
         {navIsOpen ? (
@@ -78,7 +78,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   }`
                 }
               >
-                <Icon size={20} />
+                <Icon size={25} />
                 {navIsOpen && <h5 className="">{nav.name}</h5>}
                 {nav.children &&
                   navIsOpen &&
@@ -142,7 +142,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   } transition duration-300 hover:scale-95 flex text- items-center gap-2`
                 }
               >
-                <Icon size={20} />
+                <Icon size={25} />
                 {navIsOpen && <h5 className="">{nav.name}</h5>}
                 {nav.children && (
                   <ChevronDown
@@ -158,7 +158,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
         {navIsOpen ? (
           <h4 className="mt-auto pl-2 text-sm opacity-30">SYSTEM</h4>
         ) : (
-          <p className="text-center mt-auto opacity-50">S</p>
+          <hr className="text-center border w-full mt-auto opacity-30" />
         )}
         <div className="flex flex-col gap-1 mr-2">
           <button
@@ -168,8 +168,8 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
               toast.success("Successfully Logged Out");
             }}
           >
-            <LogOut size={20} />
-            <h5>Logout</h5>
+            <LogOut size={25} />
+            {navIsOpen && <h5>Logout</h5>}
           </button>
         </div>
       </div>

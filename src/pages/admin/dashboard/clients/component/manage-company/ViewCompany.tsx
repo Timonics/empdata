@@ -153,7 +153,9 @@ const ViewCompany: React.FC<IProps> = ({
             <h2 className="font-medium text-xl underline ">
               Documents Submitted
             </h2>
-            <div className="space-y-4 p-2 pl-4 rounded-xl bg-sky-50"></div>
+            <div className="space-y-4 p-2 pl-4 rounded-xl bg-sky-50">
+              No Documents Found
+            </div>
           </div>
           <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground shadow-xl">
             <h2 className="font-medium text-xl underline ">
@@ -167,11 +169,6 @@ const ViewCompany: React.FC<IProps> = ({
             </div>
           </div>
         </div>
-      )}
-      {!isLoading && !isError && data && (
-        <button className="px-6 py-3 rounded-lg bg-black text-sky-300 hover:bg-sky-200 hover:text-black text-xl">
-          Download CSV
-        </button>
       )}
     </SlideDrawer>
   );

@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 const EmployeeLogin: React.FC = () => {
   const { login, loading } = useAuth("employee");
+  const { logout } = useAuth("company");
 
   const [loginData, setLoginData] = useState<LoginData>({
     email: "",
@@ -24,7 +25,14 @@ const EmployeeLogin: React.FC = () => {
   const handleLogin = async () => {
     try {
       const result = await login(loginData).unwrap();
-      toast.success(result.message || "Login successful");
+      console.log(result);
+
+      if (result.data.user.role !== "employee") {
+        toast.error("Login attempt by a non employee");
+        logout();
+      } else {
+        toast.success(result.message || "Login successful");
+      }
     } catch (error: any) {
       toast.error(error.message || "Login failed");
     }

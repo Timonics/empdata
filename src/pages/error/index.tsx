@@ -1,19 +1,38 @@
-import React from "react";
-import { Link } from "react-router";
-
-import img from "@/assets/page-not-found.svg";
+import type { RootState } from "@/store/store";
+import { LoaderCircle } from "lucide-react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const ErrorPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const { authData } = useSelector((state: RootState) => state.adminAuth);
+  const { clientsAuthData } = useSelector(
+    (state: RootState) => state.clientsAuth
+  );
+  useEffect(() => {
+    if (authData && !clientsAuthData) {
+      navigate("/admin/auth");
+    }
+
+    if (clientsAuthData && clientsAuthData.role === "company_admin") {
+      navigate("/portal/auth");
+    }
+
+    if (clientsAuthData && clientsAuthData.role === "employee") {
+      navigate("/portal/auth/employee");
+    }
+
+    if (!authData && !clientsAuthData) {
+      navigate("/admin/auth");
+    }
+  }, [authData, clientsAuthData]);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-10">
-      <img src={img} alt="Page not found" className="h-[300px]"/>
-      <h1 className="text-4xl font-semibold">Page Not Found</h1>
-      <Link
-        to={"/admin"}
-        className="p-4 px-5 rounded-lg bg-sky-500 w-fit text-white text-lg"
-      >
-        Back to Home
-      </Link>
+    <div className="min-h-screen flex items-center justify-center gap-5 italic text-3xl">
+      <LoaderCircle size={30} className="animate-spin" />
+      Redirecting...
     </div>
   );
 };
