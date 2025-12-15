@@ -1,7 +1,10 @@
+import CompanyDocuments from "@/components/company-details/CompanyDocuments";
+import CompanyOverview from "@/components/company-details/CompanyOverview";
+import VerificationStatus from "@/components/company-details/VerificationStatus";
 import SlideDrawer from "@/components/slider-drawer";
 import { useCompany } from "@/hooks/useCompany";
 import { LoaderCircle } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 type IProps = {
@@ -20,6 +23,10 @@ const ViewCompany: React.FC<IProps> = ({
   if (error) {
     toast.error(error.message || "Failed to fetch company details");
   }
+
+  const [showNav, setShowNav] = useState<
+    "" | "Documents" | "Verification Status"
+  >("");
 
   return (
     <SlideDrawer
@@ -48,72 +55,47 @@ const ViewCompany: React.FC<IProps> = ({
 
       {data && (
         <div className="flex flex-col gap-6 w-full">
-          <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground shadow-xl">
-            <h2 className="font-medium text-xl underline ">Company Profile</h2>
-            <div className="space-y-4 p-2 pl-4 rounded-xl bg-sky-50">
-              <h2>
-                Name:{" "}
-                <span className="font-medium text-xl">
-                  {data.name || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                Email:{" "}
-                <span className="font-medium text-xl">
-                  {data.email || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                RC Number:{" "}
-                <span className="font-medium text-xl">
-                  {data.rc_number || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                Address:{" "}
-                <span className="font-medium text-xl">
-                  {data.address || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                City:{" "}
-                <span className="font-medium text-xl">
-                  {data.city || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                State:{" "}
-                <span className="font-medium text-xl">
-                  {data.state || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                Country:{" "}
-                <span className="font-medium text-xl">
-                  {data.country || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                Insurance Type:{" "}
-                <span className="font-medium text-xl">
-                  {data.insurance_type || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                Registration Date:{" "}
-                <span className="font-medium text-xl">
-                  {data.registration_date || "Not Set"}
-                </span>
-              </h2>
-              <h2>
-                License Number:{" "}
-                <span className="font-medium text-xl">
-                  {data.license_number || "Not Set"}
-                </span>
-              </h2>
+          <div className="flex flex-col border rounded-xl border-muted-foreground shadow-xl mt-4">
+            <div className="border-b-2 pl-6 border-black/5 flex gap-5 items-center">
+              {[
+                { name: "Overview" },
+                { name: "Documents" },
+                // { name: "Admin Users" },
+                { name: "Verification Status" },
+              ].map((nav) => (
+                <div
+                  onClick={() => {
+                    if (nav.name === "Overview") {
+                      setShowNav("");
+                    } else {
+                      setShowNav(
+                        nav.name as "Documents" | "Verification Status"
+                      );
+                    }
+                  }}
+                  className={`p-4 cursor-pointer jost transition duration-300  ${
+                    showNav === nav.name
+                      ? "border-b-2 border-sky-600 text-sky-500 font-medium"
+                      : showNav === "" && nav.name === "Overview"
+                      ? "border-b-2 border-sky-600 text-sky-500 font-medium"
+                      : ""
+                  }`}
+                >
+                  {nav.name}
+                </div>
+              ))}
+            </div>
+            <div className="p-4 mt-4">
+              {showNav === "Documents" ? (
+                <CompanyDocuments />
+              ) : showNav === "Verification Status" ? (
+                <VerificationStatus />
+              ) : (
+                <CompanyOverview companyData={data} />
+              )}
             </div>
           </div>
-          <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground shadow-xl">
+          {/* <div className="flex flex-col gap-4 border p-4 rounded-xl border-muted-foreground shadow-xl">
             <h2 className="font-medium text-xl underline ">Admin Users</h2>
             <div className="space-y-4">
               {data.admins?.map((user) => (
@@ -167,7 +149,7 @@ const ViewCompany: React.FC<IProps> = ({
                 <span className="font-medium text-xl">{data.status}</span>
               </h2>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </SlideDrawer>

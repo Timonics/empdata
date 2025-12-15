@@ -1,29 +1,67 @@
-import { Building2, ListCheck, ShieldCheck, ShieldX, Users2 } from "lucide-react";
+import {
+  Building2,
+  ListCheck,
+  Shield,
+  ShieldCheck,
+  ShieldX,
+  Users2,
+} from "lucide-react";
 
 export const dashboardData = [
   {
-    name: "Total Companies",
-    amount: 520,
-    icon: Building2
-  },
-  {
-    name: "Total Employees Registered",
-    amount: 12500,
-    icon: Users2
-  },
-  {
     name: "Pending Verifications",
     amount: 170,
-    icon: ListCheck
-  },
-  {
-    name: "Verification Success Rate",
-    amount: "97%",
-    icon: ShieldCheck
+    icon: ListCheck,
+    bgColor: "from-blue-50 to-blue-100",
+    borderColor: "border-blue-200",
+    iconColor: "text-blue-600",
   },
   {
     name: "Failed Verifications",
     amount: 24,
-    icon: ShieldX
+    icon: ShieldX,
+    bgColor: "from-orange-50 to-orange-100",
+    borderColor: "border-orange-200",
+    iconColor: "text-orange-600",
+  },
+  {
+    name: "Approved Verifications",
+    amount: 24,
+    icon: ShieldCheck,
+    bgColor: "from-stone-50 to-stone-100",
+    borderColor: "border-stone-200",
+    iconColor: "text-stone-600",
+  },
+  {
+    name: "Total Verifications",
+    amount: "97%",
+    icon: Shield,
+    bgColor: "from-teal-50 to-teal-100",
+    borderColor: "border-teal-200",
+    iconColor: "text-teal-600",
+  },
+  {
+    name: "Total Company Accounts",
+    amount: 520,
+    icon: Building2,
+    bgColor: "from-green-50 to-green-100",
+    borderColor: "border-green-200",
+    iconColor: "text-green-600",
+  },
+  {
+    name: "Total Individual Accounts",
+    amount: 520,
+    icon: Building2,
+    bgColor: "from-red-50 to-red-100",
+    borderColor: "border-red-200",
+    iconColor: "text-red-600",
+  },
+  {
+    name: "Total Employee Accounts",
+    amount: 12500,
+    icon: Users2,
+    bgColor: "from-purple-50 to-purple-100",
+    borderColor: "border-purple-200",
+    iconColor: "text-purple-600",
   },
 ];

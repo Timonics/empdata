@@ -13,19 +13,20 @@ const AdminDashboardLayout: React.FC = () => {
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
 
   return (
-    <div className="w-full h-screen overflow-hidden p-4 bg-sky-50">
-      <div className="flex h-full bg-white/90 shadow-lg rounded-xl relative border-4 border-black/15">
+    <div className="w-full h-screen overflow-hidden bg-white">
+      <div className="flex h-full bg-white/90 relative">
         <div
           className={`${
             !navIsOpen ? "w-24" : "w-70"
-          } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-2 bg-black/2 rounded-l-xl border-black/10 px-2`}
+          } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-4 bg-linear-to-b from-blue-600 via-blue-500 to-blue-400 border-gray-400 px-2`}
         >
           <Navigations navIsOpen={navIsOpen} />
         </div>
+
         <div
-          className={`w-full transition-all duration-300 ease-in-out flex flex-col rounded-r-xl`}
+          className={`w-full transition-all duration-300 ease-in-out flex flex-col bg-sky-50/50`}
         >
-          <div className="border-b-2 border-black/10 p-4 text-start flex items-center gap-6">
+          <div className="border-b-2 border-black/5 p-4 text-start flex items-center gap-6">
             <div className="max-xl:hidden">
               <PanelRight onClick={() => setNavIsOpen(!navIsOpen)} />
             </div>

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { LoaderCircle } from "lucide-react";
 import React, { useState, type ChangeEvent } from "react";
@@ -20,7 +19,9 @@ const ForgotPassword: React.FC = () => {
       await forgotPassword(email).unwrap();
       navigate("../forgot-password/confirm-email");
     } catch (error: any) {
-      toast.error(error.message || "Failed to send reset email. Please try again.");
+      toast.error(
+        error.message || "Failed to send reset email. Please try again."
+      );
     }
   };
 
@@ -37,14 +38,13 @@ const ForgotPassword: React.FC = () => {
           value={email}
           placeholder="Email"
           type="text"
-          className="p-4 rounded-xl w-full bg-black/10 "
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
           onChange={handleChange}
         />
       </div>
 
-      <Button
-        size={"xl"}
-        className="w-full text-xl font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
+      <button
+        className="text-lg px-6 py-2 rounded-md bg-black font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
         onClick={handleSubmit}
       >
         {loading ? (
@@ -52,7 +52,7 @@ const ForgotPassword: React.FC = () => {
         ) : (
           "Reset Password"
         )}
-      </Button>
+      </button>
 
       <div className="ml-auto">
         <p>

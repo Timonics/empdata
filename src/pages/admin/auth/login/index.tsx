@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import type { LoginData } from "@/interfaces/auth.interface";
 import { LoaderCircle } from "lucide-react";
@@ -45,7 +44,7 @@ const Login: React.FC = () => {
           value={loginData.email}
           placeholder="Email"
           type="text"
-          className="p-4 rounded-xl w-full bg-black/10 "
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
           onChange={handleChange}
         />
         <input
@@ -53,18 +52,17 @@ const Login: React.FC = () => {
           value={loginData.password}
           placeholder="Password"
           type="password"
-          className="p-4 rounded-xl w-full bg-black/10"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
           onChange={handleChange}
         />
       </div>
 
-      <Button
-        size={"xl"}
-        className="w-full text-xl font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
+      <button
+        className="text-lg px-8 py-2 rounded-md bg-black font-bold text-sky-300 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary"
         onClick={handleLogin}
       >
         {loading ? <LoaderCircle className="animate-spin size-8" /> : "Log in"}
-      </Button>
+      </button>
 
       <div className="text-sm ml-auto">
         <p>

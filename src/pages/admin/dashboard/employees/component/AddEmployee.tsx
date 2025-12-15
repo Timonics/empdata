@@ -76,7 +76,7 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
           if (openCompanies) setOpenCompanies(false);
         }}
       >
-        <div className="p-4 rounded-xl flex flex-col gap-6 bg-white shadow-2xl overflow-auto scrollbar h-[calc(100vh-100px)]g">
+        <div className="p-4 flex flex-col gap-6 bg-white shadow-2xl overflow-auto scrollbar h-[calc(100vh-100px)]g">
           <div className="space-y-1">
             <h3 className="text-3xl font-semibold">Add Employee</h3>
             <p className="text-lg font-light">
@@ -137,28 +137,28 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
               name="first_name"
               value={employeeData.first_name}
               placeholder="First Name"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
             <input
               name="last_name"
               value={employeeData.last_name}
               placeholder="Last Name"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
             <input
               name="email"
               value={employeeData.email}
               placeholder="Email"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
             <input
               name="date_of_birth"
               value={employeeData.date_of_birth}
               placeholder="Date of Birth (YYYY-MM-DD)"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
           </div>

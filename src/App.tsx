@@ -38,6 +38,11 @@ import EmployeeHome from "./pages/employee/dashboard/home";
 import Invitations from "./pages/corporate-client/dashboard/invitations";
 import NINValidation from "./pages/employee/components/NINValidation";
 import Beneficiaries from "./pages/employee/dashboard/beneficiaries";
+import OnBoardingForm from "./components/onboarding-form/OnBoardingForm";
+import Registrations from "@/pages/admin/dashboard/registrations";
+import GroupLifeRegistrations from "./pages/admin/dashboard/registrations/components/GroupLifeRegistrations";
+import CorporateRegistrations from "./pages/admin/dashboard/registrations/components/CorporateRegistrations";
+import IndividualRegistrations from "./pages/admin/dashboard/registrations/components/IndividualRegistrations";
 
 function App() {
   setStore(store);
@@ -83,6 +88,24 @@ function App() {
             {
               path: "",
               element: <Home />,
+            },
+            {
+              path: "registrations",
+              element: <Registrations />,
+              children: [
+                {
+                  path: "group-life",
+                  element: <GroupLifeRegistrations />
+                },
+                {
+                  path: "individual",
+                  element: <IndividualRegistrations />
+                },
+                {
+                  path: "group-life",
+                  element: <CorporateRegistrations />
+                },
+              ]
             },
             {
               path: "company",
@@ -183,6 +206,11 @@ function App() {
       ],
     },
 
+    {
+      path: "onboarding",
+      element: <OnBoardingForm />,
+    },
+
     // Catch-all route for undefined paths
     {
       path: "*",
@@ -190,9 +218,16 @@ function App() {
     },
   ]);
 
+  const location = window.location.href;
+
+  const hideToastRoutes = ["/onboarding"];
+  const shouldShowToast = !hideToastRoutes.some((route) =>
+    location.includes(route)
+  );
+
   return (
     <>
-      <Toaster />
+      {shouldShowToast && <Toaster />}
       <AdminWatcher />
       <ClientWatcher />
       <RouterProvider router={router} />

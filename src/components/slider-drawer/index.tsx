@@ -32,7 +32,7 @@ const SlideDrawer: React.FC<DrawerProps> = ({
       {/* Drawer Panel */}
       <div
         className={`
-          fixed top-0 right-0 h-full bg-white shadow-2xl shadow-sky-100 ${width} transform transition-all duration-300 ease-in-out
+          fixed top-0 right-0 h-full bg-white/95 shadow-2xl shadow-black/30 border-l-4 border-black/40 ${width} transform transition-all duration-300 ease-in-out
           ${open ? "translate-x-0" : "translate-x-full"}
           z-50 flex flex-col gap-4
         `}

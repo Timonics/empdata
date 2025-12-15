@@ -8,13 +8,13 @@ const CompanyHome: React.FC = () => {
 
   return (
     <div>
-      <div className="p-4 my-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="p-4 my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {dashboardData.map((data) => {
           const Icon = data.icon;
           return (
             <div
               key={data.name}
-              className="p-4 py-8 flex flex-col gap-1 rounded-xl border-2 border-black/10"
+              className={`bg-linear-to-br ${data.bgColor} border ${data.borderColor} rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 py-4 flex flex-col gap-1 border-2 border-black/10`}
             >
               <div className="flex flex-col font-medium text-black/50 items-start gap-2">
                 <Button

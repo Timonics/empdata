@@ -4,6 +4,7 @@ import {
   CloudDownload,
   Edit,
   Eye,
+  Filter,
   LoaderCircle,
   Plus,
   Trash,
@@ -35,7 +36,7 @@ const CompanyEmployees: React.FC = () => {
     (filter) => (
       <button
         key={filter}
-        className={`not-last:border-r first:rounded-l-lg last:rounded-r-lg border-muted-foreground/50 py-2 px-4 hover:bg-muted-foreground/10 ${
+        className={`not-last:border-r first:rounded-l-md text-sm last:rounded-r-md border-muted-foreground/50 py-2 px-4 hover:bg-muted-foreground/10 ${
           activeFilter === filter ? "bg-sky-100 hover:bg-sky-100" : ""
         }`}
         onClick={() => setActiveFilter(filter)}
@@ -58,7 +59,9 @@ const CompanyEmployees: React.FC = () => {
     baseFilter.length !== 0
       ? baseFilter.map((employee, index) => (
           <div
-            className={`px-4 py-3 grid grid-cols-1 md:grid-cols-5 border-x-2 border-b-2 border-black/10 items-center outfit text-sm ${
+            className={`px-4 py-3 grid grid-cols-1 md:grid-cols-5 border-x-2 border-b-2 border-black/10 ${
+              index === baseFilter.length - 1 && "shadow-md"
+            } bg-white items-center outfit text-sm ${
               index === baseFilter.length - 1 && "rounded-b-xl"
             }`}
           >
@@ -97,7 +100,7 @@ const CompanyEmployees: React.FC = () => {
           </div>
         ))
       : !isLoading && (
-          <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
+          <div className="h-[300px] bg-white shadow-md flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 border-b-2 border-black/10 rounded-b-xl">
             <p className="text-3xl">No Employee found.</p>
           </div>
         );
@@ -105,7 +108,7 @@ const CompanyEmployees: React.FC = () => {
   return (
     <div>
       <div className="w-full p-4 mt-4">
-        <div className="rounded-xl p-4 bg-black/5">
+        <div className="rounded-md shadow-md p-4 bg-black/5">
           <div className="space-y-1 w-full">
             <p className="text-[#344054] font-medium">Search for Employee</p>
             <div className="flex flex-col md:flex-row items-center gap-2">
@@ -123,18 +126,24 @@ const CompanyEmployees: React.FC = () => {
       </div>
       <hr className="border border-black/10 my-4" />
       <div className="w-full p-4 flex items-center justify-between">
-        <div className="border border-muted-foreground/50 rounded-lg flex items-center">
-          {employeeFilters}
+        <div className="space-y-1">
+          <div className="text-black/50 font-medium flex items-center justify-center gap-2">
+            <Filter className="w-5 h-5" />
+            Filter By:
+          </div>
+          <div className="border shadow-md bg-white border-muted-foreground/50 rounded-md flex items-center">
+            {employeeFilters}
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <button
             onClick={() => setAddEmployee(true)}
-            className="flex p-4 rounded-lg items-center gap-2 shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400"
+            className="flex p-4 rounded-lg items-center gap-2 shadow-lg bg-blue-500 font-semibold text-white hover:bg-blue-700 transition duration-300"
           >
             <Plus />
             Add New Employee
           </button>
-          <button className="flex items-center gap-2 p-4 rounded-full px-6 bg-sky-300 shadow-xl">
+          <button className="flex items-center gap-2 p-4 rounded-full px-6 bg-sky-300 shadow-lg bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400">
             <CloudDownload />
             Export
           </button>
@@ -148,7 +157,7 @@ const CompanyEmployees: React.FC = () => {
           <h5> Action</h5>
         </div>
         {isLoading && (
-          <div className="h-[300px] flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 text-3xl border-b-2 border-black/10 rounded-b-xl">
+          <div className="h-[300px] bg-white shadow-md flex w-full gap-2 items-center justify-center border border-t-0 border-x-2 text-3xl border-b-2 border-black/10 rounded-b-xl">
             <LoaderCircle className="animate-spin" />
             <p>Loading Employees...</p>
           </div>

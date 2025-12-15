@@ -77,7 +77,7 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
       />
 
       <div className="z-10 absolute left-1/2 top-1/2 p-4 -translate-x-1/2 -translate-y-1/2 max-w-2xl mx-auto w-full">
-        <div className="p-4 rounded-xl flex flex-col gap-6 bg-white shadow-2xl overflow-auto scrollbar h-[calc(100vh-100px)]g">
+        <div className="p-4 rounded-lg flex flex-col gap-6 bg-white shadow-2xl overflow-auto scrollbar h-[calc(100vh-100px)]g">
           <div className="space-y-1">
             <h3 className="text-3xl font-semibold">Add Employee</h3>
             <p className="text-lg font-light">
@@ -92,35 +92,35 @@ const AddEmployee: React.FC<IProps> = ({ setAddEmployee }) => {
               name="first_name"
               value={employeeData.first_name}
               placeholder="First Name"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
             <input
               name="last_name"
               value={employeeData.last_name}
               placeholder="Last Name"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
             <input
               name="email"
               value={employeeData.email}
               placeholder="Email"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
             <input
               name="date_of_birth"
               value={employeeData.date_of_birth}
               placeholder="YYYY-MM-DD"
-              className="bg-black/10 p-4 rounded-xl"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
               onChange={handleChange}
             />
           </div>
 
           <button
             onClick={handleSubmit}
-            className="outfit p-4 rounded-xl bg-black text-white font-bold mt-4 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary flex items-center justify-center"
+            className="outfit py-4 px-8 rounded-xl bg-black text-white font-bold mt-4 hover:bg-sky-400 hover:text-black transition duration-300 ease-in-out primary flex items-center justify-center w-fit"
           >
             {createEmployee.isPending ? (
               <LoaderCircle className="animate-spin size-8" />
