@@ -6,7 +6,6 @@ import {
   Eye,
   Filter,
   LoaderCircle,
-  Plus,
   Trash,
   UserPlus,
 } from "lucide-react";

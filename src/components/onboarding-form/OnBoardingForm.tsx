@@ -119,7 +119,38 @@ const OnBoardingForm: React.FC = () => {
     }));
   };
 
-  console.log(onBoardingData);
+  const buildFormData = (data: CompanyGroupLifeOnboarding) => {
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (value === undefined || value === null) return;
+
+      // Multiple files
+      if (key === "director_identity_cards" && Array.isArray(value)) {
+        value.forEach((file) => {
+          formData.append("director_identity_cards[]", file);
+        });
+        return;
+      }
+
+      // Single file fields
+      if (key === "cac_document" || key === "director_passport_photograph") {
+        formData.append(key, value as File);
+        return;
+      }
+
+      // Booleans
+      if (typeof value === "boolean") {
+        formData.append(key, value ? "true" : "false");
+        return;
+      }
+
+      // Everything else (strings, encrypted values, numbers)
+      formData.append(key, value as string);
+    });
+
+    return formData;
+  };
 
   const handleSubmit = async () => {
     if (
@@ -132,36 +163,41 @@ const OnBoardingForm: React.FC = () => {
       !onBoardingData.city ||
       !onBoardingData.director_national_identification_number
     ) {
-      return toast.error("Onboarding credientials in incomplete");
+      return toast.error("Onboarding credentials are incomplete");
     }
 
+    // Encrypt BVN
     const encryptedBvnData = await encryptData(
       "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
       onBoardingData.director_bvn_number
     );
 
-    setOnBoardingData((prevState) => ({
-      ...prevState,
+    let payload: CompanyGroupLifeOnboarding = {
+      ...onBoardingData,
       director_bvn_data: encryptedBvnData.data,
       director_bvn_iv: encryptedBvnData.iv,
       director_bvn_tag: encryptedBvnData.tag,
-    }));
+    };
 
-    if (onBoardingData.identity_card_type === "nin") {
+    // Encrypt NIN only if needed
+    if (payload.identity_card_type === "nin") {
       const encryptedNinData = await encryptData(
         "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
-        onBoardingData.director_national_identification_number
+        payload.director_national_identification_number!
       );
 
-      setOnBoardingData((prevState) => ({
-        ...prevState,
+      payload = {
+        ...payload,
         nin_number_data: encryptedNinData.data,
         nin_number_iv: encryptedNinData.iv,
         nin_number_tag: encryptedNinData.tag,
-      }));
+      };
     }
 
-    await onboardCompanyGroupLife.mutateAsync(onBoardingData);
+    // 🚀 Convert to multipart/form-data
+    const formData = buildFormData(payload);
+
+    await onboardCompanyGroupLife.mutateAsync(formData);
   };
 
   return (

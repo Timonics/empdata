@@ -1,5 +1,4 @@
 import { onboardingApi } from "@/api/onboarding";
-import type { CompanyGroupLifeOnboarding } from "@/types/onboarding.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import type { CompanyResponse } from "@/interfaces/company.interface";
@@ -16,12 +15,12 @@ const useOnboardGroupLifeCompany = () => {
   const query = useQueryClient();
 
   return useMutation({
-    mutationFn: (companyData: CompanyGroupLifeOnboarding) =>
+    mutationFn: (companyData: FormData) =>
       onboardingApi.companyGroupLifeOnboard(companyData),
 
-    onMutate: (variables) => {
+    onMutate: () => {
       const toastId = toast.loading(
-        `Onboarding ${variables.company_name} Company`
+        `Onboarding Company`
       );
       return { toastId };
     },
