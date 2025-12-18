@@ -4,7 +4,6 @@ import type { CreateCompany } from "@/types/company.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-//Query keys factory pattern
 const companyKeys = {
   all: ["companies"] as const,
   lists: () => [...companyKeys.all, "list"] as const,
