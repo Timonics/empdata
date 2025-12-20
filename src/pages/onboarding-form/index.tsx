@@ -344,7 +344,12 @@ const OnBoardingForm: React.FC = () => {
             id: crypto.randomUUID(),
             type: "individual",
             createdAt: new Date().toISOString(),
-            data: payload,
+            data: {
+              ...payload,
+              status: "pending-approval",
+              account_status: "pending",
+              verification_status: "not-verified",
+            },
           })
         );
 
@@ -395,13 +400,18 @@ const OnBoardingForm: React.FC = () => {
             id: crypto.randomUUID(),
             type: "individual",
             createdAt: new Date().toISOString(),
-            data: payload,
+            data: {
+              ...payload,
+              status: "pending-approval",
+              account_status: "pending",
+              verification_status: "not-verified",
+            },
           })
         );
 
         // You'll need a different hook for individual onboarding
         // await onboardIndividual.mutateAsync(formData);
-        toast.success("Individual submission would go here");
+        toast.success("You have successfully onboarded...");
       }
     } catch (error) {
       toast.error("An error occurred during submission");

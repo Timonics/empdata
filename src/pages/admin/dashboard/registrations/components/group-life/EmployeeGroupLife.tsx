@@ -5,7 +5,10 @@ import { useGroupLifeRegistrations } from "@/hooks/useGroupLifeRegistrations";
 import type { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import type { IndividualOnboarding } from "@/types/onboarding.type";
-import { updateRegistrationStatus } from "@/store/slices/onboarding.slice";
+import {
+  updateRegistration,
+  updateRegistrationStatus,
+} from "@/store/slices/onboarding.slice";
 import { getActions, getDisplayStatus } from "@/utils/registrations.helper";
 import ResendInvite from "../../../../../../components/resend-invite";
 import { getStatusColor } from "@/utils/statusColor";
@@ -81,11 +84,15 @@ const EmployeeGroupLife: React.FC = () => {
               <button
                 onClick={() =>
                   dispatch(
-                    updateRegistrationStatus({
+                    updateRegistration({
                       id: item.id,
                       updates: {
                         status: "approved",
                       },
+                    }),
+                    updateRegistrationStatus({
+                      id: item.id,
+                      status: "approved",
                     })
                   )
                 }
@@ -103,11 +110,15 @@ const EmployeeGroupLife: React.FC = () => {
               <button
                 onClick={() =>
                   dispatch(
-                    updateRegistrationStatus({
+                    updateRegistration({
                       id: item.id,
                       updates: {
                         status: "rejected",
                       },
+                    }),
+                    updateRegistrationStatus({
+                      id: item.id,
+                      status: "rejected",
                     })
                   )
                 }
@@ -168,7 +179,10 @@ const EmployeeGroupLife: React.FC = () => {
               )}
 
               {actions.canSendInvite && (
-                <button className="flex items-center gap-1 px-4 py-2 rounded-md bg-purple-500 text-white">
+                <button onClick={() => {
+                    setShowSendInvite(true);
+                    setSelectedEmployeeId(employee.id);
+                  }} className="flex items-center gap-1 px-4 py-2 rounded-md bg-purple-500 text-white">
                   <UserPlus size={15} />
                   Send Invite
                 </button>
@@ -176,10 +190,6 @@ const EmployeeGroupLife: React.FC = () => {
 
               {actions.canResendInvite && (
                 <button
-                  onClick={() => {
-                    setShowSendInvite(true);
-                    setSelectedEmployeeId(employee.id);
-                  }}
                   className="flex items-center gap-1 px-4 py-2 rounded-md bg-purple-500 text-white"
                 >
                   <UserPlus size={15} />

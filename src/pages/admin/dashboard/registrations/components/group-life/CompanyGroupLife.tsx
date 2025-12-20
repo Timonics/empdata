@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store/store";
 import type { CompanyGroupLifeOnboarding } from "@/types/onboarding.type";
 import { getDisplayStatus, getActions } from "@/utils/registrations.helper";
-import { updateRegistrationStatus } from "@/store/slices/onboarding.slice";
+import {
+  updateRegistration,
+  updateRegistrationStatus,
+} from "@/store/slices/onboarding.slice";
 import ResendInvite from "../../../../../../components/resend-invite";
 import ViewCompany from "../../../clients/component/manage-company/ViewCompany";
 import { getStatusColor } from "@/utils/statusColor";
@@ -78,16 +81,21 @@ const CompanyGroupLife: React.FC = () => {
             <p className=" text-black/80">--</p>
             <div className="col-span-2 flex items-center gap-2 font-medium">
               <button
-                onClick={() =>
-                  dispatch(
-                    updateRegistrationStatus({
+                onClick={() => {
+                  return dispatch(
+                    updateRegistration({
                       id: item.id,
                       updates: {
                         status: "approved",
                       },
+                    }),
+
+                    updateRegistrationStatus({
+                      id: item.id,
+                      status: "approved",
                     })
-                  )
-                }
+                  );
+                }}
                 className="flex items-center gap-1 px-4 py-2 rounded-md bg-green-500 text-white"
               >
                 <Check size={15} />
@@ -102,11 +110,15 @@ const CompanyGroupLife: React.FC = () => {
               <button
                 onClick={() =>
                   dispatch(
-                    updateRegistrationStatus({
+                    updateRegistration({
                       id: item.id,
                       updates: {
                         status: "rejected",
                       },
+                    }),
+                    updateRegistrationStatus({
+                      id: item.id,
+                      status: "approved",
                     })
                   )
                 }

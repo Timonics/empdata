@@ -243,8 +243,23 @@ const BioDataSection: React.FC<BioDataSectionProps> = ({
           </>
         )}
 
-        {/* Common fields for all account types */}
-        
+        <label className="space-y-1">
+          <h6 className="text-black/75 text-sm">
+            Phone Number <span className="text-red-500">*</span>
+          </h6>{" "}
+          <input
+            type="tel"
+            value={onBoardingData?.phone_number || ""}
+            onChange={(e) => {
+              setOnBoardingData((prevState: any) => ({
+                ...prevState,
+                phone_number: e.target.value,
+              }));
+            }}
+            placeholder="Phone number"
+            className="border rounded-sm border-black/10 w-full p-2 px-4  focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-transparent placeholder:text-sm"
+          />
+        </label>
         <label className="space-y-1">
           <h6 className="text-black/75 text-sm">
             Confirm Phone Number <span className="text-red-500">*</span>
