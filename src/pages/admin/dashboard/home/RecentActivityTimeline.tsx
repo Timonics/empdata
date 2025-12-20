@@ -216,7 +216,7 @@ const RecentActivitiesComponent: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className={`w-2 h-2 rounded-full ${
                   activity.type === "success" ? "bg-green-500" :
                   activity.type === "warning" ? "bg-yellow-500" :

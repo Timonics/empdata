@@ -15,12 +15,11 @@ import {
 
 interface DocumentsComponentProps {
   applicantType: "individual" | "corporate";
-  applicantData: any;
+  applicantData?: any;
 }
 
 const DocumentsComponent: React.FC<DocumentsComponentProps> = ({ 
   applicantType, 
-  applicantData = {} 
 }) => {
   // Dummy documents data
   const documents = {

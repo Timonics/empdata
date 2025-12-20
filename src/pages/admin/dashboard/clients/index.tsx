@@ -5,8 +5,6 @@ import {
   Eye,
   Filter,
   LoaderCircle,
-  Trash,
-  UserPlus,
 } from "lucide-react";
 import React, { useState } from "react";
 import AddCorporateClient from "./component/AddCompany";

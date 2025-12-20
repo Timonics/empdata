@@ -33,6 +33,10 @@ export type CompanyGroupLifeOnboarding = {
   cac_document?: string | File;
   director_passport_photograph?: string | File;
   consent_checkbox?: boolean;
+
+  status?: string;
+  verification_status?: string;
+  account_status?: string;
 };
 
 export type IndividualOnboarding = {
@@ -73,4 +77,8 @@ export type IndividualOnboarding = {
   identity_cards?: string[] | File[];
   passport_photograph?: string | File;
   consent_checkbox?: boolean;
+
+  status?: string;
+  verification_status?: string;
+  account_status?: string;
 };

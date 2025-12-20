@@ -44,9 +44,8 @@ const OnBoardingForm: React.FC = () => {
     CompanyGroupLifeOnboarding | IndividualOnboarding | null
   >(null);
 
-
   //For Dummy Data
-  const dispatch: AppDispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch();
 
   console.log(onBoardingData);
 
@@ -340,7 +339,14 @@ const OnBoardingForm: React.FC = () => {
         debugFormData(formData);
 
         //for Dummy Data
-        // dispatch(addRegistration()))
+        dispatch(
+          addRegistration({
+            id: crypto.randomUUID(),
+            type: "individual",
+            createdAt: new Date().toISOString(),
+            data: payload,
+          })
+        );
 
         await onboardCompanyGroupLife.mutateAsync(formData);
       } else {
@@ -382,6 +388,17 @@ const OnBoardingForm: React.FC = () => {
 
         const formData = buildFormData(payload, accountType || "");
         debugFormData(formData);
+
+        //for Dummy Data
+        dispatch(
+          addRegistration({
+            id: crypto.randomUUID(),
+            type: "individual",
+            createdAt: new Date().toISOString(),
+            data: payload,
+          })
+        );
+
         // You'll need a different hook for individual onboarding
         // await onboardIndividual.mutateAsync(formData);
         toast.success("Individual submission would go here");

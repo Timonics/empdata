@@ -18,12 +18,11 @@ import {
 
 interface OverviewComponentProps {
   applicantType: "individual" | "corporate";
-  applicantData: any; // You'll replace with actual type
+  applicantData?: any; // You'll replace with actual type
 }
 
 const OverviewComponent: React.FC<OverviewComponentProps> = ({ 
   applicantType, 
-  applicantData = {} 
 }) => {
   // Dummy data - replace with actual props
   const data = {
