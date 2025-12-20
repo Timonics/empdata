@@ -1,5 +1,6 @@
 import {
   CloudDownload,
+  CloudUpload,
   Edit,
   Eye,
   Filter,
@@ -39,10 +40,10 @@ const Clients: React.FC = () => {
 
   const companyFilters = [
     "All",
+    "Verified",
     "Active",
     "Invited",
     "Pending",
-    "Inactive",
   ].map((filter) => (
     <button
       key={filter}
@@ -83,9 +84,9 @@ const Clients: React.FC = () => {
             </p>
             <p className="text-black/80">{company.created_at.split("T")[0]}</p>
             <p className="text-black/80">{company.portal_users_count}</p>
-            <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-1">
+            <div className="border-2 border-muted-foreground/50 p-1 w-fit rounded-full flex items-center gap-2">
               <Edit
-                size={30}
+                size={32}
                 className="hover:cursor-pointer text-gray-700 hover:text-blue-500 hover:bg-black/10 p-1.5 rounded-full"
                 onClick={() => {
                   setSelectedCompanyId(company.id);
@@ -93,29 +94,21 @@ const Clients: React.FC = () => {
                 }}
               />
               <Eye
-                size={30}
+                size={32}
                 className="hover:cursor-pointer text-gray-700 hover:text-purple-500 hover:bg-black/10 p-1.5 rounded-full"
                 onClick={() => {
                   setSelectedCompanyId(company.id);
                   setShowViewCompany(true);
                 }}
               />
-              <UserPlus
-                size={30}
-                className="hover:cursor-pointer text-gray-700 hover:text-orange-500 hover:bg-black/10 p-1.5 rounded-full"
-                onClick={() => {
-                  setSelectedCompanyId(company.id);
-                  setShowResendCompanyInvite(true);
-                }}
-              />
-              <Trash
+              {/* <Trash
                 size={30}
                 className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
                 onClick={() => {
                   setSelectedCompanyId(company.id);
                   // setShowDeleteCompany(true);
                 }}
-              />
+              /> */}
             </div>
           </div>
         ))
@@ -160,15 +153,12 @@ const Clients: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {/* <button
-            onClick={() => setAddClient(true)}
-            className="flex p-4 rounded-lg items-center gap-2 shadow-lg bg-blue-500 font-semibold text-white hover:bg-blue-700 transition duration-300"
-          >
-            <Plus />
-            Add New Company
-          </button> */}
-          <button className="flex items-center rounded-md gap-2 p-3 px-10 bg-blue-500 text-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
+          <button className="flex items-center rounded-md gap-2 p-3 px-10 text-blue-600 bg-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
             <CloudDownload />
+            Import
+          </button>
+          <button className="flex items-center rounded-md gap-2 p-3 px-10 bg-blue-500 text-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
+            <CloudUpload />
             Export
           </button>
         </div>
@@ -192,26 +182,9 @@ const Clients: React.FC = () => {
           <PaginationDemo />
         </div>
       </div>
+
       <hr className="border border-black/10 my-4" />
-      {/* <div className="flex p-2 flex-col w-full lg:w-[90%] mx-auto items-center justify-center md:flex-row gap-4">
-        {[
-          { name: "Add Corporate Client" },
-          { name: "Activate/Deactivate" },
-          // { name: "Assign HR Managers" },
-          { name: "View Employees" },
-        ].map((item, index) => (
-          <div
-            onClick={() => {
-              if (index === 0) {
-                setAddClient(true);
-              }
-            }}
-            className="p-6 w-full lg:w-1/3 rounded-xl shadow-xl bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-95 transition duration-300 ease-in-out hover:text-sky-400"
-          >
-            <h4 className="text-center">{item.name}</h4>
-          </div>
-        ))}
-      </div> */}
+
       {addClient && <AddCorporateClient setAddClient={setAddClient} />}
       {showEditCompany && (
         <EditCompany

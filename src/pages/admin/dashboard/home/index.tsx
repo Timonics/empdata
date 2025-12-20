@@ -35,14 +35,14 @@ const Home: React.FC = () => {
         })}
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 p-4 min-h-[400px] overflow-auto mt-4">
+      <div className="flex flex-col  gap-8 p-4 min-h-[400px] overflow-auto mt-4">
         <PendingApprovals />
         <RecentActivityTimeline />
       </div>
 
-      <div className="p-4">
+      {/* <div className="p-4">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 w-full h-[400px]"></div>
-      </div>
+      </div> */}
 
       {/* <hr className="border border-black/10 my-4" /> */}
       {addClient && <AddCorporateClient setAddClient={setAddClient} />}

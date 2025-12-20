@@ -22,7 +22,7 @@ export const adminEmployeeApi = {
     return response.data;
   },
 
-  getEmployeeByIdFromAdmin: async (employeeId: number) => {
+  getEmployeeByIdFromAdmin: async (employeeId: number | string) => {
     const response = await api.get(`${employeeBaseUrl}/${employeeId}`, {
       headers: {
         "x-auth-type": "admin",

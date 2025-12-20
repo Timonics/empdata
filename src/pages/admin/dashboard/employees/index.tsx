@@ -76,7 +76,8 @@ const Employees: React.FC = () => {
                 employee.employment_status
               )}`}
             >
-              {employee.employment_status.charAt(0).toUpperCase() + employee.employment_status.slice(1)}
+              {employee.employment_status.charAt(0).toUpperCase() +
+                employee.employment_status.slice(1)}
             </p>
             <p className="text-black/80 text-xs">{employee.email}</p>
             <p className="text-black/80">----</p>
@@ -162,6 +163,10 @@ const Employees: React.FC = () => {
             <Plus />
             Add New Employee
           </button> */}
+          <button className="flex items-center rounded-md gap-2 p-3 px-10 text-blue-600 bg-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
+            <CloudDownload />
+            Import
+          </button>
           <button className="flex items-center rounded-md gap-2 p-3 px-10 bg-blue-500 text-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
             <CloudDownload />
             Export

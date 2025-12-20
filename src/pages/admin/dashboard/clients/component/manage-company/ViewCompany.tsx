@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 type IProps = {
-  companyId: number;
+  companyId: number | string;
   showViewCompany: boolean;
   setShowViewCompany: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -42,7 +42,7 @@ const ViewCompany: React.FC<IProps> = ({
       )}
 
       {isError && (
-        <div className="h-[300px] flex flex-col items-center">
+        <div className="h-[300px] flex flex-col items-center gap-4 mt-10">
           Company Details Not Found
           <button
             className="px-6 py-3 rounded-lg bg-black text-sky-300 hover:bg-sky-200 hover:text-black text-xl"
@@ -87,11 +87,20 @@ const ViewCompany: React.FC<IProps> = ({
             </div>
             <div className="p-4 mt-4">
               {showNav === "Documents" ? (
-                <CompanyDocuments />
+                <CompanyDocuments
+                  applicantType="corporate"
+                  applicantData={data}
+                />
               ) : showNav === "Verification Status" ? (
-                <VerificationStatus />
+                <VerificationStatus
+                  currentStatus={"verified"}
+                  applicantType={"corporate"}
+                />
               ) : (
-                <CompanyOverview companyData={data} />
+                <CompanyOverview
+                  applicantType="corporate"
+                  applicantData={data}
+                />
               )}
             </div>
           </div>

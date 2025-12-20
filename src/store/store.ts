@@ -2,6 +2,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import adminAuthReducer from "./slices/admin_auth.slice";
 import clientsAuthReducer from "./slices/clients_auth.slice";
+import registrationsReducer from "./slices/onboarding.slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
@@ -18,6 +19,11 @@ const clientsAuthPersistConfig = {
   blacklist: ["loading", "error"],
 };
 
+const registrationsPersistConfig = {
+  key: "registrations",
+  storage,
+};
+
 const rootPersistConfig = {
   key: "root",
   storage,
@@ -27,6 +33,7 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
   adminAuth: persistReducer(adminAuthPersistConfig, adminAuthReducer),
   clientsAuth: persistReducer(clientsAuthPersistConfig, clientsAuthReducer),
+  registrations: persistReducer(registrationsPersistConfig, registrationsReducer),
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

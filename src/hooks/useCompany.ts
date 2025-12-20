@@ -9,7 +9,7 @@ const companyKeys = {
   lists: () => [...companyKeys.all, "list"] as const,
   list: (filters: string) => [...companyKeys.lists(), { filters }] as const,
   details: () => [...companyKeys.all, "detail"] as const,
-  detail: (id: number) => [...companyKeys.details(), id] as const,
+  detail: (id: number | string) => [...companyKeys.details(), id] as const,
 };
 
 const useCreateCompany = () => {
@@ -49,7 +49,7 @@ const useCompanies = () => {
   });
 };
 
-const useCompany = (companyId: number) => {
+const useCompany = (companyId: number | string) => {
   return useQuery({
     queryKey: companyKeys.detail(companyId),
     queryFn: () => companyApi.getCompanyById(companyId),

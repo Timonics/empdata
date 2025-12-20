@@ -1,9 +1,11 @@
 import {
   Building2,
+  CloudDownload,
   ListCheck,
   Shield,
   ShieldCheck,
   ShieldX,
+  User,
   Users2,
 } from "lucide-react";
 
@@ -51,7 +53,7 @@ export const dashboardData = [
   {
     name: "Total Individual Accounts",
     amount: 520,
-    icon: Building2,
+    icon: User,
     bgColor: "from-red-50 to-red-100",
     borderColor: "border-red-200",
     iconColor: "text-red-600",
@@ -60,6 +62,14 @@ export const dashboardData = [
     name: "Total Employee Accounts",
     amount: 12500,
     icon: Users2,
+    bgColor: "from-purple-50 to-purple-100",
+    borderColor: "border-purple-200",
+    iconColor: "text-purple-600",
+  },
+  {
+    name: "Total Imports",
+    amount: 125,
+    icon: CloudDownload,
     bgColor: "from-purple-50 to-purple-100",
     borderColor: "border-purple-200",
     iconColor: "text-purple-600",

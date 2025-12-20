@@ -5,7 +5,7 @@ import React from "react";
 import { toast } from "sonner";
 
 type IProps = {
-  employeeId: number;
+  employeeId: number | string;
   showViewEmployee: boolean;
   setShowViewEmployee: React.Dispatch<React.SetStateAction<boolean>>;
 };

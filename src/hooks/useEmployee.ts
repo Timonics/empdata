@@ -14,7 +14,7 @@ const employeeKeys = {
   lists: () => [...employeeKeys.all, "list"] as const,
   list: (filters: string) => [...employeeKeys.lists(), { filters }] as const,
   details: () => [...employeeKeys.all, "detail"] as const,
-  detail: (id: number) => [...employeeKeys.details(), id] as const,
+  detail: (id: number | string) => [...employeeKeys.details(), id] as const,
 };
 
 const useCreateEmployee = (authType: AuthType) => {
@@ -58,7 +58,7 @@ const useEmployees = (authType: AuthType) => {
   });
 };
 
-const useEmployee = (employeeId: number, authType: AuthType) => {
+const useEmployee = (employeeId: number | string, authType: AuthType) => {
   return useQuery({
     queryKey: employeeKeys.detail(employeeId),
     queryFn:

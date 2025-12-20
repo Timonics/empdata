@@ -1,7 +1,6 @@
 import { onboardingApi } from "@/api/onboarding";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { CompanyResponse } from "@/interfaces/company.interface";
 
 const onboardKeys = {
   all: ["onboard"] as const,
@@ -25,7 +24,7 @@ const useOnboardGroupLifeCompany = () => {
       return { toastId };
     },
 
-    onSuccess: (data: CompanyResponse, _, context) => {
+    onSuccess: (data, _, context) => {
       toast.success(data.message, {
         id: context.toastId,
       });

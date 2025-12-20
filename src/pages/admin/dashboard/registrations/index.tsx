@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { Outlet } from "react-router";
 
 const Registrations: React.FC = () => {
   return (
-    <div>Registrations</div>
-  )
-}
+    <div>
+      <Outlet />
+    </div>
+  );
+};
 
-export default Registrations
+export default Registrations;

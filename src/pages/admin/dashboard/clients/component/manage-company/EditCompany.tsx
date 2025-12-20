@@ -47,101 +47,103 @@ const EditCompany: React.FC<IProps> = ({
       )}
 
       {data && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-          <div className="flex flex-col gap-1">
-            <p>Company Name</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.name}
-            />
-          </div>
+        <div className="flex flex-col border-2 rounded-xl border-black/10 shadow-xl mt-2 max-w-5xl w-full p-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+            <div className="flex flex-col gap-1">
+              <p className="jost">Company Name</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.name}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Company Email</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.email}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">Company Email</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.email}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>RC Number</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.rc_number || "RC Number"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">RC Number</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.rc_number || "RC Number"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Company Address</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.address || "Address"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">Company Address</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.address || "Address"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>City</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.city || "City"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">City</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.city || "City"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>State</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.state || "State"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">State</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.state || "State"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Country</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.country || "Country"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">Country</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.country || "Country"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Insurance Type</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.insurance_type || "Insurance Type"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">Insurance Type</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.insurance_type || "Insurance Type"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Company Registration Date</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.registration_date || "Registration"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">Company Registration Date</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.registration_date || "Registration"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Company Licence Number</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.license_number || "License"}
-            />
-          </div>
+            <div className="flex flex-col gap-1">
+              <p className="jost">Company Licence Number</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.license_number || "License"}
+              />
+            </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Status</p>
-            <input
-              className="w-full h-14 px-4 border border-gray-300 rounded-lg"
-              placeholder={data.status}
-            />
+            <div className="flex flex-col gap-1">
+              <p className="jost">Status</p>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent bg-black/5"
+                placeholder={data.status}
+              />
+            </div>
           </div>
         </div>
       )}
-      {/* {!isLoading && !isError && data && (
-        <button className="px-6 py-3 rounded-lg bg-black text-sky-300 hover:bg-sky-200 hover:text-black text-xl">
+      {!isLoading && !isError && data && (
+        <button className="px-10 py-3 rounded-lg bg-black text-sky-300 hover:bg-sky-200 hover:text-black text-xl">
           Submit
         </button>
-      )} */}
+      )}
     </SlideDrawer>
   );
 };

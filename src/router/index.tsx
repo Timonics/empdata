@@ -1,0 +1,223 @@
+import { createBrowserRouter } from "react-router";
+import {
+  ProtectedRoutes,
+  RedirectRoutes,
+} from "@/components/protected-routes/AdminProtectedRoutes";
+import ForgotPassword from "@/pages/admin/auth/forgot-password";
+import ResetPassword from "@/pages/admin/auth/reset-password";
+import EmailConfirmation from "@/pages/admin/auth/forgot-password/EmailConfirmation";
+import ClientResetPassword from "@/components/set-password";
+import {
+  CompanyRedirectRoutes,
+  CompanyProtectedRoute,
+} from "@/components/protected-routes/CompanyProtectedRoute";
+import AuthLayout from "@/layouts/AuthLayout";
+import ErrorPage from "@/pages/error";
+import Login from "@/pages/admin/auth/login";
+import AdminDashboardLayout from "@/layouts/admin/DashboardLayout";
+import Home from "@/pages/admin/dashboard/home";
+import Clients from "@/pages/admin/dashboard/clients";
+import CompanyLogin from "@/pages/corporate-client/auth/login";
+import DashboardLayout from "@/layouts/client/DashboardLayout";
+import EmployeeLogin from "@/pages/employee/auth/login";
+// import PortalAuthRedirect from "@/components/portal-auth";
+import {
+  EmployeeProtectedRoute,
+  EmployeeRedirectRoutes,
+} from "@/components/protected-routes/EmployeeProtectedRoutes";
+import Employees from "@/pages/admin/dashboard/employees";
+import CompanyHome from "@/pages/corporate-client/dashboard/home";
+import CompanyEmployees from "@/pages/corporate-client/dashboard/employees";
+import VerificationStatus from "@/pages/admin/dashboard/verification-status";
+import EmployeeHome from "@/pages/employee/dashboard/home";
+import Invitations from "@/pages/corporate-client/dashboard/invitations";
+import NINValidation from "@/pages/employee/components/NINValidation";
+import Beneficiaries from "@/pages/employee/dashboard/beneficiaries";
+import OnBoardingForm from "@/pages/onboarding-form";
+import Registrations from "@/pages/admin/dashboard/registrations";
+import GroupLifeRegistrations from "@/pages/admin/dashboard/registrations/components/GroupLifeRegistrations";
+import CorporateRegistrations from "@/pages/admin/dashboard/registrations/components/CorporateRegistrations";
+import IndividualRegistrations from "@/pages/admin/dashboard/registrations/components/IndividualRegistrations";
+import AuditLogs from "@/pages/admin/dashboard/audit-logs";
+import RootLayout from "@/layouts/RootLayout";
+
+export const router = createBrowserRouter([
+  //Admin Routes
+  {
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/admin/auth",
+        element: <RedirectRoutes />,
+        children: [
+          {
+            path: "",
+            element: <AuthLayout />,
+            children: [
+              {
+                path: "",
+                element: <Login />,
+              },
+              {
+                path: "forgot-password",
+                element: <ForgotPassword />,
+              },
+              {
+                path: "forgot-password/confirm-email",
+                element: <EmailConfirmation />,
+              },
+              {
+                path: "reset-password",
+                element: <ResetPassword />,
+              },
+            ],
+          },
+        ],
+      },
+
+      {
+        path: "/admin",
+        element: <ProtectedRoutes />,
+        children: [
+          {
+            path: "",
+            element: <AdminDashboardLayout />,
+            children: [
+              {
+                path: "",
+                element: <Home />,
+              },
+              {
+                path: "registrations",
+                element: <Registrations />,
+                children: [
+                  {
+                    path: "group-life",
+                    element: <GroupLifeRegistrations />,
+                  },
+                  {
+                    path: "individual",
+                    element: <IndividualRegistrations />,
+                  },
+                  {
+                    path: "group-life",
+                    element: <CorporateRegistrations />,
+                  },
+                ],
+              },
+              {
+                path: "company",
+                element: <Clients />,
+              },
+              {
+                path: "employees",
+                element: <Employees />,
+              },
+              {
+                path: "verification-status",
+                element: <VerificationStatus />,
+              },
+              {
+                path: "audit-logs",
+                element: <AuditLogs />,
+              },
+            ],
+          },
+        ],
+      },
+
+      // Client Routes
+      {
+        path: "/portal/auth",
+        element: <AuthLayout />,
+        children: [
+          // {
+          //   path: "",
+          //   element: <PortalAuthRedirect />,
+          // },
+
+          {
+            path: "employee",
+            element: <EmployeeRedirectRoutes />,
+            children: [
+              {
+                index: true,
+                element: <EmployeeLogin />,
+              },
+              {
+                path: "validation",
+                element: <NINValidation />,
+              },
+            ],
+          },
+
+          {
+            path: "",
+            element: <CompanyRedirectRoutes />,
+            children: [
+              {
+                index: true,
+                element: <CompanyLogin />,
+              },
+            ],
+          },
+
+          {
+            path: "set-password",
+            element: <ClientResetPassword />,
+          },
+        ],
+      },
+
+      {
+        path: "/portal",
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: "company",
+            element: <CompanyProtectedRoute />,
+            children: [
+              {
+                path: "",
+                element: <CompanyHome />,
+              },
+              {
+                path: "employees",
+                element: <CompanyEmployees />,
+              },
+              {
+                path: "invitations",
+                element: <Invitations />,
+              },
+            ],
+          },
+          {
+            path: "employee",
+            element: <EmployeeProtectedRoute />,
+            children: [
+              {
+                path: "",
+                element: <EmployeeHome />,
+              },
+              {
+                path: "beneficiaries",
+                element: <Beneficiaries />,
+              },
+            ],
+          },
+        ],
+      },
+
+      {
+        path: "onboarding",
+        element: <OnBoardingForm />,
+      },
+
+      // Catch-all route for undefined paths
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
+    ],
+  },
+]);
