@@ -45,7 +45,7 @@ const CompanyGroupLife: React.FC = () => {
     : [];
 
   const filteredPendingReg = data
-    ? data.filter((item) => item.status === "pending")
+    ? data.filter((item) => item.status === "pending_approval")
     : [];
 
   const pending =
@@ -64,7 +64,13 @@ const CompanyGroupLife: React.FC = () => {
             <p className="col-span-2 text-black/80">
               {(item as CompanyGroupLifeOnboarding).company_name}
             </p>
-            <p className=" text-black/80">pending</p>
+            <p
+              className={`text-black/80 w-fit border capitalize inline-flex items-center px-3 py-1 rounded-full ${getStatusColor(
+                "pending"
+              )}`}
+            >
+              pending
+            </p>
             <p className=" text-black/80">--</p>
             <div className="col-span-2 flex items-center gap-2 font-medium">
               <button className="flex items-center gap-1 px-4 py-2 rounded-md bg-green-500 text-white">
