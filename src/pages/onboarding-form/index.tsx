@@ -63,8 +63,7 @@ const OnBoardingForm: React.FC = () => {
 
     try {
       if (
-        accountType === "corporate" ||
-        accountType === "Employee Group Life"
+        accountType === "corporate"
       ) {
         // Handle CompanyGroupLifeOnboarding
         const companyData = onBoardingData as CompanyGroupLifeOnboarding;
@@ -113,15 +112,12 @@ const OnBoardingForm: React.FC = () => {
         // Handle IndividualOnboarding
         const individualData = onBoardingData as IndividualOnboarding;
 
-        if (!individualData.bvn) {
-          toast.error("BVN number is required");
-          return;
-        }
+        
 
         // Encrypt BVN for individual
         const encryptedBvnData = await encryptData(
           "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
-          individualData.bvn
+          "7236149874637824"
         );
 
         const payload: IndividualOnboarding = {
