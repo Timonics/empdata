@@ -187,9 +187,9 @@ const IndividualRegistrations: React.FC = () => {
       </div>
 
       <div className="flex flex-col mt-25">
-        <h2 className="text-3xl">Employee Registrations</h2>
+        <h2 className="text-3xl">Individual Registrations</h2>
         <div className="p-4 grid grid-cols-1 mt-4 md:grid-cols-6 border-2 border-black/10 rounded-t-lg bg-black/5 font-bold">
-          <h5 className="col-span-2">Employee Name</h5>
+          <h5 className="col-span-2">Individual Name</h5>
           <h5>Status</h5>
           <h5>Created On</h5>
           <h5>Company</h5>

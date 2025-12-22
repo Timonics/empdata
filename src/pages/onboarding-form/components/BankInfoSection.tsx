@@ -57,7 +57,7 @@ const BankInfoSection: React.FC<BankInfoSectionProps> = ({
           <h6 className="text-black/75 text-sm">
             Bank Name <span className="text-red-500">*</span>
           </h6>
-         {accountType !== "corporate" ? (
+          {accountType !== "corporate" ? (
             <input
               type=""
               value={onBoardingData?.bank_name ?? ""}
@@ -121,7 +121,8 @@ const BankInfoSection: React.FC<BankInfoSectionProps> = ({
 
         <label className="space-y-1">
           <h6 className="text-black/75 text-sm">
-            Tax Identification Number or Payer Identification Number
+            Tax Identification Number or Payer Identification Number{" "}
+            <span className="text-red-500">*</span>
           </h6>
           <input
             type=""

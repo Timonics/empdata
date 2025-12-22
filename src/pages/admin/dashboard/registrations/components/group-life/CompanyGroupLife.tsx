@@ -2,30 +2,22 @@ import { Check, Eye, Filter, LoaderCircle, UserPlus, X } from "lucide-react";
 import React, { useState } from "react";
 import { PaginationDemo } from "../../../../../../components/pagination";
 import { useGroupLifeRegistrations } from "@/hooks/useGroupLifeRegistrations";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "@/store/store";
+
 import type { CompanyGroupLifeOnboarding } from "@/types/onboarding.type";
 import { getDisplayStatus, getActions } from "@/utils/registrations.helper";
-import {
-  updateRegistration,
-  updateRegistrationStatus,
-} from "@/store/slices/onboarding.slice";
 import ResendInvite from "../../../../../../components/resend-invite";
 import ViewCompany from "../../../clients/component/manage-company/ViewCompany";
 import { getStatusColor } from "@/utils/statusColor";
 
 const CompanyGroupLife: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
   const [showSendInvite, setShowSendInvite] = useState(false);
   const [viewCompany, setViewCompany] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState("");
   const [activeFilter, setActiveFilter] = useState<string>("All");
 
-  const { isLoading } = useGroupLifeRegistrations();
+  const { data, isLoading } = useGroupLifeRegistrations();
 
-  const data = useSelector((state: RootState) =>
-    state.registrations.records.filter((r) => r.type === "company")
-  );
+  console.log(data);
 
   const companyFilters = [
     "All",
@@ -49,16 +41,12 @@ const CompanyGroupLife: React.FC = () => {
   const baseFilter = data
     ? activeFilter === "All"
       ? data
-      : data
-          .filter((item) => item.type === "company")
-          .filter(
-            (company) => company.data.status === activeFilter.toLowerCase()
-          )
+      : data.filter((company) => company.status === activeFilter.toLowerCase())
     : [];
 
-  const filteredPendingReg = data.filter(
-    (item) => item.data.status === "pending-approval"
-  );
+  const filteredPendingReg = data
+    ? data.filter((item) => item.status === "pending")
+    : [];
 
   const pending =
     filteredPendingReg.length !== 0 ? (
@@ -74,29 +62,12 @@ const CompanyGroupLife: React.FC = () => {
             }`}
           >
             <p className="col-span-2 text-black/80">
-              {(item.data as CompanyGroupLifeOnboarding).company_name}
+              {(item as CompanyGroupLifeOnboarding).company_name}
             </p>
             <p className=" text-black/80">pending</p>
             <p className=" text-black/80">--</p>
             <div className="col-span-2 flex items-center gap-2 font-medium">
-              <button
-                onClick={() => {
-                  return dispatch(
-                    updateRegistration({
-                      id: item.id,
-                      updates: {
-                        status: "approved",
-                      },
-                    }),
-
-                    updateRegistrationStatus({
-                      id: item.id,
-                      status: "approved",
-                    })
-                  );
-                }}
-                className="flex items-center gap-1 px-4 py-2 rounded-md bg-green-500 text-white"
-              >
+              <button className="flex items-center gap-1 px-4 py-2 rounded-md bg-green-500 text-white">
                 <Check size={15} />
                 Approve
               </button>
@@ -106,23 +77,7 @@ const CompanyGroupLife: React.FC = () => {
                 View
               </button>
 
-              <button
-                onClick={() =>
-                  dispatch(
-                    updateRegistration({
-                      id: item.id,
-                      updates: {
-                        status: "rejected",
-                      },
-                    }),
-                    updateRegistrationStatus({
-                      id: item.id,
-                      status: "approved",
-                    })
-                  )
-                }
-                className="flex items-center gap-1 px-4 py-2 rounded-md bg-red-500 text-white"
-              >
+              <button className="flex items-center gap-1 px-4 py-2 rounded-md bg-red-500 text-white">
                 <X size={15} />
                 Reject
               </button>
@@ -139,19 +94,19 @@ const CompanyGroupLife: React.FC = () => {
   const companiesGroupLifeElements =
     baseFilter.length !== 0 ? (
       baseFilter.map((company, index) => {
-        const displayStatus = getDisplayStatus(company.data);
-        const actions = getActions(company.data);
+        const displayStatus = getDisplayStatus(company);
+        const actions = getActions(company);
         return (
           <div
             key={company.id}
             className={`px-4 py-3 grid grid-cols-1 md:grid-cols-6 border-x-2 border-b-2 border-black/10 ${
-              index === data.length - 1 && "shadow-md"
+              index === data!.length - 1 && "shadow-md"
             } bg-white items-center outfit text-sm ${
-              index === data.length - 1 && "rounded-b-xl"
+              index === data!.length - 1 && "rounded-b-xl"
             }`}
           >
             <p className="col-span-2 text-black/80">
-              {(company.data as CompanyGroupLifeOnboarding).company_name}
+              {(company as CompanyGroupLifeOnboarding).company_name}
             </p>
             <p
               className={`text-black/80 w-fit border capitalize inline-flex items-center px-3 py-1 rounded-full ${getStatusColor(
@@ -180,7 +135,7 @@ const CompanyGroupLife: React.FC = () => {
                 <button
                   onClick={() => {
                     setShowSendInvite(true);
-                    setSelectedCompanyId(company.id);
+                    setSelectedCompanyId(company.id.toString());
                   }}
                   className="flex items-center gap-1 px-4 py-2 rounded-md bg-purple-500 text-white cursor-pointer"
                 >
@@ -206,7 +161,7 @@ const CompanyGroupLife: React.FC = () => {
                 <button
                   onClick={() => {
                     setViewCompany(true);
-                    setSelectedCompanyId(company.id);
+                    setSelectedCompanyId(company.id.toString());
                   }}
                   className="flex items-center gap-1 px-4 py-2 rounded-md bg-blue-500 text-white"
                 >

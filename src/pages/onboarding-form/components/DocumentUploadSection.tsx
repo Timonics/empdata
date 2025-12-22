@@ -32,7 +32,14 @@ const DocumentUploadSection: React.FC<DocumentUploadSectionProps> = ({
   passportPreview,
   setPassportPreview,
 }) => {
-  const handleIdentityCardUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIdentityCardUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    currentAccountType:
+      | "individual"
+      | "corporate"
+      | "Employee Group Life"
+      | null
+  ) => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
@@ -48,8 +55,8 @@ const DocumentUploadSection: React.FC<DocumentUploadSectionProps> = ({
 
     setOnBoardingData((prevState) => {
       if (
-        accountType === "corporate" ||
-        accountType === "Employee Group Life"
+        currentAccountType === "corporate" ||
+        currentAccountType === "Employee Group Life"
       ) {
         return {
           ...prevState,
@@ -64,9 +71,7 @@ const DocumentUploadSection: React.FC<DocumentUploadSectionProps> = ({
     });
   };
 
-  const removeImage = (
-    type: "identity_card" | "cac" | "passport",
-  ) => {
+  const removeImage = (type: "identity_card" | "cac" | "passport") => {
     if (type === "identity_card") {
       setIdentityCardPreview("");
       setOnBoardingData((prevState) => {
@@ -191,7 +196,7 @@ const DocumentUploadSection: React.FC<DocumentUploadSectionProps> = ({
                 <input
                   type="file"
                   accept="application/pdf,image/png,image/jpeg"
-                  onChange={handleIdentityCardUpload}
+                  onChange={(e) => handleIdentityCardUpload(e, accountType)}
                   className="hidden"
                 />
               </label>

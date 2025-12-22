@@ -27,7 +27,7 @@ const RecentActivitiesComponent: React.FC = () => {
   const activities: Activity[] = [
     {
       id: "1",
-      user: "John Smith",
+      user: "Olumide Bolaji",
       action: "submitted",
       target: "new onboarding application",
       timestamp: "2024-01-15T10:30:00",
@@ -45,7 +45,7 @@ const RecentActivitiesComponent: React.FC = () => {
     },
     {
       id: "3",
-      user: "Sarah Johnson",
+      user: "Mohammed Sulieman",
       action: "uploaded",
       target: "additional identity documents",
       timestamp: "2024-01-14T16:45:00",
@@ -63,7 +63,7 @@ const RecentActivitiesComponent: React.FC = () => {
     },
     {
       id: "5",
-      user: "Michael Brown",
+      user: "Chukwuemeka Nnamdi",
       action: "completed",
       target: "KYC verification process",
       timestamp: "2024-01-14T11:10:00",
@@ -81,7 +81,7 @@ const RecentActivitiesComponent: React.FC = () => {
     },
     {
       id: "7",
-      user: "Emma Wilson",
+      user: "Emma Adniji",
       action: "created",
       target: "new policy application",
       timestamp: "2024-01-13T15:45:00",
@@ -99,9 +99,9 @@ const RecentActivitiesComponent: React.FC = () => {
     },
     {
       id: "9",
-      user: "David Chen",
+      user: "David Idoko",
       action: "processed",
-      target: "premium payment of $2,500",
+      target: "premium payment of ₦2,500",
       timestamp: "2024-01-12T16:15:00",
       icon: <DollarSign className="w-4 h-4" />,
       type: "success"

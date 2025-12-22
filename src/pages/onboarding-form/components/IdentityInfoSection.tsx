@@ -25,7 +25,7 @@ const IdentityInfoSection: React.FC<IdentityInfoSectionProps> = ({
   const identityCardType: {
     name: string;
     type:
-      | "National Identification Number"
+      | "National Identity Number"
       | "Driver's License"
       | "International Passport"
       | "Voter's Card";
@@ -35,7 +35,7 @@ const IdentityInfoSection: React.FC<IdentityInfoSectionProps> = ({
     { name: "International Passport", type: "International Passport" },
     {
       name: "National Identification Number",
-      type: "National Identification Number",
+      type: "National Identity Number",
     },
   ];
 

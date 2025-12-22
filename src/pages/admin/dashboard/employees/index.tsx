@@ -6,7 +6,6 @@ import {
   Eye,
   Filter,
   LoaderCircle,
-  Trash,
   UserPlus,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -106,14 +105,6 @@ const Employees: React.FC = () => {
                   setShowResendEmployeeInvite(true);
                 }}
               />
-              <Trash
-                size={30}
-                className="hover:cursor-pointer text-gray-700 hover:text-red-500 hover:bg-black/10 p-1.5 rounded-full"
-                onClick={() => {
-                  setSelectedEmployeeId(employee.id);
-                  // setShowDeleteCompany(true);
-                }}
-              />
             </div>
           </div>
         ))
@@ -156,14 +147,8 @@ const Employees: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {/* <button
-            onClick={() => setAddEmployee(true)}
-            className="flex p-4 rounded-lg items-center gap-2 shadow-lg bg-blue-500 font-semibold text-white hover:bg-blue-700 transition duration-300"
-          >
-            <Plus />
-            Add New Employee
-          </button> */}
-          <button className="flex items-center rounded-md gap-2 p-3 px-10 text-blue-600 bg-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
+          
+          <button className="flex items-center rounded-md gap-2 p-3 px-10 text-white bg-green-400 shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
             <CloudDownload />
             Import
           </button>

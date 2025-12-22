@@ -21,7 +21,7 @@ export type CompanyGroupLifeOnboarding = {
   director_tax_identification_number?: string;
   director_national_identification_number?: string;
   identity_card_type?:
-    | "National Identification Number"
+    | "National Identity Number"
     | "Driver's License"
     | "International Passport"
     | "Voter's Card";
@@ -66,7 +66,7 @@ export type IndividualOnboarding = {
   bvn_tag?: string;
   national_identification_number?: string;
   identity_card_type?:
-    | "National Identification Number"
+    | "National Identity Number"
     | "Driver's License"
     | "International Passport"
     | "Voter's Card";

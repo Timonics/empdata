@@ -23,8 +23,10 @@ interface OverviewComponentProps {
 
 const OverviewComponent: React.FC<OverviewComponentProps> = ({ 
   applicantType, 
+  applicantData
 }) => {
   // Dummy data - replace with actual props
+
   const data = {
     id: "APP-001",
     name: applicantType === "corporate" ? "Tech Solutions Inc." : "John Doe",
@@ -43,8 +45,8 @@ const OverviewComponent: React.FC<OverviewComponentProps> = ({
     lastUpdated: "2024-01-18",
     policyType: "Employee Group Life",
     beneficiaries: 3,
-    totalCoverage: "$500,000",
-    premiumAmount: "$5,000/year",
+    totalCoverage: "₦500,000",
+    premiumAmount: "₦5,000/year",
     dateOfBirth: "1985-01-15",
     gender: "Male",
     nationality: "Nigerian",
@@ -126,20 +128,20 @@ const OverviewComponent: React.FC<OverviewComponentProps> = ({
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium text-gray-500">Full Name</label>
-              <p className="mt-1 text-gray-900">{data.name}</p>
+              <p className="mt-1 text-gray-900">{applicantData.company_name}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">Email Address</label>
               <div className="mt-1 flex items-center gap-2">
                 <Mail className="w-4 h-4 text-gray-400" />
-                <p className="text-gray-900">{data.email}</p>
+                <p className="text-gray-900">{applicantData.email_address}</p>
               </div>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">Primary Phone</label>
               <div className="mt-1 flex items-center gap-2">
                 <Phone className="w-4 h-4 text-gray-400" />
-                <p className="text-gray-900">{data.phone}</p>
+                <p className="text-gray-900">{applicantData.phone_number}</p>
               </div>
             </div>
             {applicantType === "corporate" && (
@@ -147,7 +149,7 @@ const OverviewComponent: React.FC<OverviewComponentProps> = ({
                 <label className="text-sm font-medium text-gray-500">Secondary Phone</label>
                 <div className="mt-1 flex items-center gap-2">
                   <Phone className="w-4 h-4 text-gray-400" />
-                  <p className="text-gray-900">{data.phoneSecondary}</p>
+                  <p className="text-gray-900">{applicantData.secondary_phone ? applicantData.secondary_phone : "--"}</p>
                 </div>
               </div>
             )}
@@ -158,28 +160,28 @@ const OverviewComponent: React.FC<OverviewComponentProps> = ({
               <label className="text-sm font-medium text-gray-500">Address</label>
               <div className="mt-1 flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
-                <p className="text-gray-900">{data.address}</p>
+                <p className="text-gray-900">{applicantData.house_address}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-gray-500">City</label>
-                <p className="mt-1 text-gray-900">{data.city}</p>
+                <p className="mt-1 text-gray-900">{applicantData.city}</p>
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-500">State</label>
-                <p className="mt-1 text-gray-900">{data.state}</p>
+                <p className="mt-1 text-gray-900">{applicantData.state}</p>
               </div>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">Country</label>
-              <p className="mt-1 text-gray-900">{data.country}</p>
+              <p className="mt-1 text-gray-900">{applicantData.country}</p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">Date Submitted</label>
               <div className="mt-1 flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-gray-400" />
-                <p className="text-gray-900">{formatDate(data.submittedDate)}</p>
+                <p className="text-gray-900">{formatDate(applicantData.aubmitted_at)}</p>
               </div>
             </div>
           </div>

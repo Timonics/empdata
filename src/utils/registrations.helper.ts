@@ -1,4 +1,4 @@
-import type { CompanyGroupLifeOnboarding, IndividualOnboarding } from "@/types/onboarding.type";
+import type { CompanyGroupLifeOnboarding } from "@/types/onboarding.type";
 
 export type DisplayStatus =
   | "pending"
@@ -10,13 +10,13 @@ export type DisplayStatus =
   | "--";
 
 export const getDisplayStatus = (
-  data: CompanyGroupLifeOnboarding | IndividualOnboarding
+  data: CompanyGroupLifeOnboarding
 ): DisplayStatus => {
   if (data.status === "rejected") return "rejected";
 
   if (data.verification_status === "verified") return "verified";
 
-  if (data.status === "pending-approval") return "pending";
+  if (data.status === "pending_approval") return "pending";
 
   if (data.status === "approved") {
     if (data.account_status === "pending") return "approved";

@@ -3,13 +3,13 @@ export const validateFiles = (accountType: string, onBoardingData: any) => {
 
   // Validate identity cards
   if (accountType === "corporate" || accountType === "Employee Group Life") {
-    const identityCards = onBoardingData?.director_identity_cards || [];
-    if (identityCards.length === 0) {
+    const identityCards = onBoardingData?.director_identity_cards;
+    if (!identityCards) {
       errors.push("At least one director identity card is required");
     }
   } else if (accountType === "individual") {
-    const identityCards = onBoardingData?.identity_cards || [];
-    if (identityCards.length === 0) {
+    const identityCards = onBoardingData?.identity_cards;
+    if (!identityCards) {
       errors.push("At least one identity card is required");
     }
   }

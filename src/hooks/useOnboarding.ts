@@ -24,10 +24,8 @@ const useOnboardGroupLifeCompany = () => {
       return { toastId };
     },
 
-    onSuccess: (data, _, context) => {
-      toast.success(data.message, {
-        id: context.toastId,
-      });
+    onSuccess: () => {
+      toast.success("Successfully onboarded");
       query.invalidateQueries({ queryKey: onboardKeys.lists() });
     },
 

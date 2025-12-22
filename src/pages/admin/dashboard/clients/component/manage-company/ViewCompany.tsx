@@ -3,8 +3,10 @@ import CompanyOverview from "@/components/company-details/CompanyOverview";
 import VerificationStatus from "@/components/company-details/VerificationStatus";
 import SlideDrawer from "@/components/slider-drawer";
 import { useCompany } from "@/hooks/useCompany";
+import { useGroupLifeRegistration } from "@/hooks/useGroupLifeRegistrations";
 import { LoaderCircle } from "lucide-react";
 import React, { useState } from "react";
+import { useLocation } from "react-router";
 import { toast } from "sonner";
 
 type IProps = {
@@ -18,11 +20,18 @@ const ViewCompany: React.FC<IProps> = ({
   showViewCompany,
   setShowViewCompany,
 }) => {
-  const { isLoading, error, isError, refetch, data } = useCompany(companyId);
+  const location = useLocation();
+  const companyToView = location.pathname.includes("group-life")
+    ? useGroupLifeRegistration(companyId as number)
+    : useCompany(companyId);
+
+  const { isLoading, error, isError, refetch, data } = companyToView;
 
   if (error) {
     toast.error(error.message || "Failed to fetch company details");
   }
+
+  console.log(data);
 
   const [showNav, setShowNav] = useState<
     "" | "Documents" | "Verification Status"

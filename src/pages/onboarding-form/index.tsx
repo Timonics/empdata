@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import Logo from "../../components/logo";
@@ -44,6 +44,7 @@ const OnBoardingForm: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<null | Date>(null);
 
   const [showSuccessMsg, setShowSuccessMsg] = useState<boolean>(false);
+  const [hasShownSuccess, setHasShownSuccess] = useState(false);
 
   const [onBoardingData, setOnBoardingData] = useState<
     CompanyGroupLifeOnboarding | IndividualOnboarding | null
@@ -64,8 +65,6 @@ const OnBoardingForm: React.FC = () => {
       fileErrors.forEach((error) => toast.error(error));
       return;
     }
-
-    console.log("All Validations Passed");
 
     try {
       if (
@@ -95,7 +94,7 @@ const OnBoardingForm: React.FC = () => {
 
         // Encrypt NIN only if needed
         if (
-          payload.identity_card_type === "National Identification Number" &&
+          payload.identity_card_type === "National Identity Number" &&
           payload.director_national_identification_number
         ) {
           const encryptedNinData = await encryptData(
@@ -113,21 +112,6 @@ const OnBoardingForm: React.FC = () => {
 
         const formData = buildFormData(payload, accountType || "");
         debugFormData(formData);
-
-        //for Dummy Data
-        dispatch(
-          addRegistration({
-            id: crypto.randomUUID(),
-            type: "individual",
-            createdAt: new Date().toISOString(),
-            data: {
-              ...payload,
-              status: "pending-approval",
-              account_status: "pending",
-              verification_status: "not-verified",
-            },
-          })
-        );
 
         await onboardCompanyGroupLife.mutateAsync(formData);
       } else {
@@ -154,7 +138,7 @@ const OnBoardingForm: React.FC = () => {
 
         // Encrypt NIN for individual if needed
         if (
-          payload.identity_card_type === "National Identification Number" &&
+          payload.identity_card_type === "National Identity Number" &&
           payload.national_identification_number
         ) {
           const encryptedNinData = await encryptData(
@@ -170,21 +154,6 @@ const OnBoardingForm: React.FC = () => {
         const formData = buildFormData(payload, accountType || "");
         debugFormData(formData);
 
-        //for Dummy Data
-        dispatch(
-          addRegistration({
-            id: crypto.randomUUID(),
-            type: "individual",
-            createdAt: new Date().toISOString(),
-            data: {
-              ...payload,
-              status: "pending-approval",
-              account_status: "pending",
-              verification_status: "not-verified",
-            },
-          })
-        );
-
         // You'll need a different hook for individual onboarding
         // await onboardIndividual.mutateAsync(formData);
         toast.success("You have successfully onboarded...");
@@ -195,13 +164,44 @@ const OnBoardingForm: React.FC = () => {
     }
   };
 
-  if (!onboardCompanyGroupLife.isSuccess && onboardCompanyGroupLife.isPending) {
-    setOnBoardingData(null);
-    setShowSuccessMsg(true);
-    setTimeout(() => {
-      setShowSuccessMsg(false);
-    }, 4000);
-  }
+  useEffect(() => {
+    if (onboardCompanyGroupLife.isSuccess && !hasShownSuccess) {
+      setShowSuccessMsg(true);
+      setHasShownSuccess(true);
+
+      // Reset form data
+      setOnBoardingData(null);
+      setAccountType("individual");
+      setSelectedPlan("");
+      setGender("");
+      setSelectedDate(null);
+      setIdentityCardPreview("");
+      setCacPreview("");
+      setPassportPreview("");
+
+      const timer = setTimeout(() => {
+        setShowSuccessMsg(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+
+    // Reset hasShownSuccess when mutation resets
+    if (onboardCompanyGroupLife.isIdle) {
+      setHasShownSuccess(false);
+    }
+  }, [
+    onboardCompanyGroupLife.isSuccess,
+    onboardCompanyGroupLife.isIdle,
+    hasShownSuccess,
+  ]);
+
+  // Handle error state
+  useEffect(() => {
+    if (onboardCompanyGroupLife.isError) {
+      toast.error("Submission failed. Please try again.");
+    }
+  }, [onboardCompanyGroupLife.isError]);
 
   // if(onboardIndividual.isSuccess && !onboardIndividual.isPending) {
   // }
@@ -299,13 +299,23 @@ const OnBoardingForm: React.FC = () => {
                   }
                 />
                 <p className="font-medium text-lg">
-                  By completing this form, you consent to us collecting and
-                  processing your personal information to provide services to
-                  you. You further consent that this information shall be
-                  available to third-party service providers if required to
-                  carry out this service(s). You agree that your personal data
-                  may be released in compliance with a legal obligation to which
-                  we are subject.
+                  I hereby consent to Scib Nigeria & Co. Limited collecting,
+                  processing, and transferring my personal and employment
+                  information to the relevant insurer(s) for the purpose of
+                  administering and managing the Group Life Insurance Policy. I
+                  confirm that the information provided is true and accurate to
+                  the best of my knowledge.
+                  <br />
+                  <br />I understand that my data is being collected and
+                  processed in compliance with applicable legal and regulatory
+                  requirements, including data protection and insurance
+                  regulations. All information will be handled confidentially
+                  and in accordance with Scib's Data Protection and Privacy
+                  Policy and applicable data protection laws.
+                  <br />
+                  <br />I further acknowledge that my data may be used for
+                  policy administration, underwritingm claims processing,
+                  regulatory compliance, and related communications.
                 </p>
               </div>
 

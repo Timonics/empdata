@@ -1,10 +1,11 @@
 // components/PolicyPlanSelector.tsx
 import React from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader, Loader2 } from "lucide-react";
 import {
   companyPolicyPlan,
   individualPolicyPlan,
 } from "@/lib/onboarding/policy_plan";
+import { useCompaniesOnGroupLife } from "@/hooks/useGroupLifeRegistrations";
 
 interface PolicyPlanSelectorProps {
   accountType: "individual" | "corporate" | "Employee Group Life" | null;
@@ -21,12 +22,30 @@ const PolicyPlanSelector: React.FC<PolicyPlanSelectorProps> = ({
   setSelectedPlan,
   setOpenPolicyPlan,
 }) => {
+  const { isLoading, data, error } = useCompaniesOnGroupLife();
+
+  const companiesElements =
+    data && data.length > 0
+      ? data.map((company, index) => (
+          <div
+            key={index}
+            className={`text-sm p-2 px-4 border-b border-black/10 hover:bg-black/3 ${
+              index === data.length ? "border-none" : "border-b"
+            }`}
+          >
+            {company.name}
+          </div>
+        ))
+      : !isLoading && (
+          <div className="flex gap-2 h-[200px] items-center justify-center w-full">
+            No Companies found
+          </div>
+        );
+
   return (
     <label className="space-y-1">
       <h6 className="text-black/75 text-sm">
-        {accountType !== "Employee Group Life"
-          ? "Policy Plan"
-          : "Company"}
+        {accountType !== "Employee Group Life" ? "Policy Plan" : "Company"}
       </h6>
       <div
         className="border rounded-sm border-black/10 w-full h-8 flex items-center pl-3 relative transition-transform"
@@ -92,6 +111,17 @@ const PolicyPlanSelector: React.FC<PolicyPlanSelectorProps> = ({
                   {policy_plan.name}
                 </div>
               ))}
+          </div>
+        )}
+        {openPolicyPlan && accountType === "Employee Group Life" && (
+          <div className="border rounded-sm w-full absolute top-8 left-0 flex flex-col max-h-[250px] overflow-auto border-black/10 bg-white shadow-sm jost">
+            {isLoading && (
+              <div className="flex gap-2 h-[200px] items-center justify-center w-full">
+                <Loader2 className="animate-spin" />
+                Loading companies
+              </div>
+            )}
+            {companiesElements}
           </div>
         )}
       </div>

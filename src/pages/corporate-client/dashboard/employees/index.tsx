@@ -7,7 +7,6 @@ import {
   Eye,
   Filter,
   LoaderCircle,
-  Plus,
   Trash,
 } from "lucide-react";
 import React, { useState } from "react";

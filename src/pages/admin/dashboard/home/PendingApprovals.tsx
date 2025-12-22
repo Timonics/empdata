@@ -23,7 +23,7 @@ const PendingApprovalComponent: React.FC = () => {
   const pendingItems: PendingItem[] = [
     {
       id: "APP-001",
-      name: "John Doe",
+      name: "Ayodeji Balogun",
       type: "Individual",
       submittedDate: "2024-01-15",
       status: "pending",
@@ -41,7 +41,7 @@ const PendingApprovalComponent: React.FC = () => {
     },
     {
       id: "APP-003",
-      name: "Sarah Johnson",
+      name: "John Ndidi",
       type: "Individual",
       submittedDate: "2024-01-13",
       status: "pending",
@@ -59,7 +59,7 @@ const PendingApprovalComponent: React.FC = () => {
     },
     {
       id: "APP-005",
-      name: "Michael Brown",
+      name: "Aebola Adeoba",
       type: "Individual",
       submittedDate: "2024-01-11",
       status: "pending",
