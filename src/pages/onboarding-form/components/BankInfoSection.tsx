@@ -24,7 +24,7 @@ const BankInfoSection: React.FC<BankInfoSectionProps> = ({
           <h6 className="text-black/75 text-sm">
             BVN <span className="text-red-500">*</span>
           </h6>
-          {accountType !== "corporate" ? (
+          {accountType === "individual" ? (
             <input
               type=""
               value={onBoardingData?.bvn ?? ""}

@@ -179,7 +179,7 @@ const VerificationStatusPage: React.FC = () => {
     {
       id: "APP-002",
       type: "individual",
-      name: "John Doe",
+      name: "John Abolaji",
       email: "john.doe@email.com",
       phone: "+234 802 345 6789",
       submittedDate: "2024-01-14",
@@ -223,7 +223,7 @@ const VerificationStatusPage: React.FC = () => {
     {
       id: "APP-005",
       type: "individual",
-      name: "Sarah Johnson",
+      name: "Sarah Adeola",
       email: "sarah.j@email.com",
       phone: "+234 805 678 9012",
       submittedDate: "2024-01-11",
@@ -252,7 +252,7 @@ const VerificationStatusPage: React.FC = () => {
     {
       id: "APP-007",
       type: "individual",
-      name: "Michael Brown",
+      name: "Bola Olatunji",
       email: "michael.b@email.com",
       phone: "+234 807 890 1234",
       submittedDate: "2024-01-09",
