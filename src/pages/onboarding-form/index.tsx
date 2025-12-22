@@ -47,7 +47,6 @@ const OnBoardingForm: React.FC = () => {
     CompanyGroupLifeOnboarding | IndividualOnboarding | null
   >(null);
 
-
   console.log(onBoardingData);
 
   const handleSubmit = async () => {
@@ -62,9 +61,7 @@ const OnBoardingForm: React.FC = () => {
     }
 
     try {
-      if (
-        accountType === "corporate"
-      ) {
+      if (accountType === "corporate") {
         // Handle CompanyGroupLifeOnboarding
         const companyData = onBoardingData as CompanyGroupLifeOnboarding;
 
@@ -112,8 +109,6 @@ const OnBoardingForm: React.FC = () => {
         // Handle IndividualOnboarding
         const individualData = onBoardingData as IndividualOnboarding;
 
-        
-
         // Encrypt BVN for individual
         const encryptedBvnData = await encryptData(
           "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
@@ -148,6 +143,8 @@ const OnBoardingForm: React.FC = () => {
         // You'll need a different hook for individual onboarding
         // await onboardIndividual.mutateAsync(formData);
         toast.success("You have successfully onboarded...");
+        setShowSuccessMsg(true);
+        setHasShownSuccess(true);
       }
     } catch (error) {
       toast.error("An error occurred during submission");
