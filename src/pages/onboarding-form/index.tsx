@@ -18,9 +18,6 @@ import DocumentUploadSection from "./components/DocumentUploadSection";
 import { debugFormData } from "@/utils/debug_formdata";
 import { validateFiles } from "@/utils/validateFiles";
 import BeneficariesSection from "./components/BeneficariesSection";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "@/store/store";
-import { addRegistration } from "@/store/slices/onboarding.slice";
 import { validateOnboardingData } from "@/utils/validateOnboardingData";
 import { buildFormData } from "@/utils/build_form_data";
 import SuccessfullyOnboarded from "@/components/successful-onboard";
@@ -50,8 +47,6 @@ const OnBoardingForm: React.FC = () => {
     CompanyGroupLifeOnboarding | IndividualOnboarding | null
   >(null);
 
-  //For Dummy Data
-  const dispatch: AppDispatch = useDispatch();
 
   console.log(onBoardingData);
 

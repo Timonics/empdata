@@ -1,6 +1,6 @@
 // components/PolicyPlanSelector.tsx
 import React from "react";
-import { ChevronDown, Loader, Loader2 } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import {
   companyPolicyPlan,
   individualPolicyPlan,
@@ -22,11 +22,11 @@ const PolicyPlanSelector: React.FC<PolicyPlanSelectorProps> = ({
   setSelectedPlan,
   setOpenPolicyPlan,
 }) => {
-  const { isLoading, data, error } = useCompaniesOnGroupLife();
+  const { isLoading, data } = useCompaniesOnGroupLife();
 
   const companiesElements =
     data && data.length > 0
-      ? data.map((company, index) => (
+      ? data.map((company: any, index: any) => (
           <div
             key={index}
             className={`text-sm p-2 px-4 border-b border-black/10 hover:bg-black/3 ${
