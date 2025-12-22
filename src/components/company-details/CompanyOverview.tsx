@@ -214,7 +214,7 @@ const OverviewComponent: React.FC<OverviewComponentProps> = ({
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-500">Director BVN</label>
-                  <p className="mt-1 text-gray-900 font-mono">{data.directorBvn}</p>
+                  <p className="mt-1 text-gray-900 font-mono">{applicantData.director_bvn ?? "--"}</p>
                 </div>
               </>
             ) : (

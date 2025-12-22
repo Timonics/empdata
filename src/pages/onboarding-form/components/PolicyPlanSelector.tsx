@@ -29,6 +29,9 @@ const PolicyPlanSelector: React.FC<PolicyPlanSelectorProps> = ({
       ? data.map((company: any, index: any) => (
           <div
             key={index}
+            onClick={() => {
+              setSelectedPlan(company.name);
+            }}
             className={`text-sm p-2 px-4 border-b border-black/10 hover:bg-black/3 ${
               index === data.length ? "border-none" : "border-b"
             }`}
