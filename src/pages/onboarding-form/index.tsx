@@ -21,6 +21,9 @@ import BeneficariesSection from "./components/BeneficariesSection";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/store/store";
 import { addRegistration } from "@/store/slices/onboarding.slice";
+import { validateOnboardingData } from "@/utils/validateOnboardingData";
+import { buildFormData } from "@/utils/build_form_data";
+import SuccessfullyOnboarded from "@/components/successful-onboard";
 
 const OnBoardingForm: React.FC = () => {
   const onboardCompanyGroupLife = useOnboardGroupLifeCompany();
@@ -32,13 +35,15 @@ const OnBoardingForm: React.FC = () => {
   const [openAccountType, setOpenAccountType] = useState<boolean>(false);
   const [openPolicyPlan, setOpenPolicyPlan] = useState<boolean>(false);
 
-  const [identityCardPreview, setIdentityCardPreview] = useState<string[]>([]);
+  const [identityCardPreview, setIdentityCardPreview] = useState<string>("");
   const [cacPreview, setCacPreview] = useState<string>("");
   const [passportPreview, setPassportPreview] = useState<string>("");
 
   const [gender, setGender] = useState("");
   const [openGender, setOpenGender] = useState(false);
   const [selectedDate, setSelectedDate] = useState<null | Date>(null);
+
+  const [showSuccessMsg, setShowSuccessMsg] = useState<boolean>(false);
 
   const [onBoardingData, setOnBoardingData] = useState<
     CompanyGroupLifeOnboarding | IndividualOnboarding | null
@@ -49,237 +54,8 @@ const OnBoardingForm: React.FC = () => {
 
   console.log(onBoardingData);
 
-  const buildFormData = (
-    data: CompanyGroupLifeOnboarding | IndividualOnboarding | any,
-    accountType: string
-  ) => {
-    const formData = new FormData();
-
-    // Handle identity cards based on account type
-    if (accountType === "corporate" || accountType === "Employee Group Life") {
-      // Corporate - use director_identity_cards
-      if (
-        data.director_identity_cards &&
-        Array.isArray(data.director_identity_cards)
-      ) {
-        data.director_identity_cards.forEach((file: File) => {
-          // Try with brackets [] since backend seems to expect that format
-          formData.append(`director_identity_cards[]`, file);
-        });
-      }
-    } else if (accountType === "individual") {
-      // Individual - use identity_cards
-      if (data.identity_cards && Array.isArray(data.identity_cards)) {
-        data.identity_cards.forEach((file: File) => {
-          formData.append(`identity_cards[]`, file);
-        });
-      }
-    }
-
-    // Handle CAC document (corporate only)
-    if (
-      accountType === "corporate" &&
-      data.cac_document &&
-      data.cac_document instanceof File
-    ) {
-      formData.append("cac_document", data.cac_document);
-    }
-
-    // Handle passport photograph based on account type
-    if (accountType === "corporate" || accountType === "Employee Group Life") {
-      if (
-        data.director_passport_photograph &&
-        data.director_passport_photograph instanceof File
-      ) {
-        formData.append(
-          "director_passport_photograph",
-          data.director_passport_photograph
-        );
-      }
-    } else if (accountType === "individual") {
-      if (
-        data.passport_photograph &&
-        data.passport_photograph instanceof File
-      ) {
-        formData.append("passport_photograph", data.passport_photograph);
-      }
-    }
-
-    // Append all other fields
-    Object.entries(data).forEach(([key, value]) => {
-      // Skip if it's undefined, null, or we already handled it as a file
-      if (
-        value === undefined ||
-        value === null ||
-        key === "director_identity_cards" ||
-        key === "identity_cards" ||
-        key === "cac_document" ||
-        key === "director_passport_photograph" ||
-        key === "passport_photograph"
-      ) {
-        return;
-      }
-
-      // Handle booleans
-      if (typeof value === "boolean") {
-        formData.append(key, value ? "true" : "false");
-        return;
-      }
-
-      // Handle dates
-      if (value instanceof Date) {
-        formData.append(key, value.toISOString());
-        return;
-      }
-
-      // Handle arrays (non-file arrays)
-      if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-        return;
-      }
-
-      // Everything else (strings, numbers)
-      formData.append(key, String(value));
-    });
-
-    return formData;
-  };
-
-  const validateOnboardingData = () => {
-    if (!onBoardingData) {
-      toast.error("Please fill in all required fields");
-      return false;
-    }
-
-    // Common validations for all account types
-    if (!onBoardingData.phone_number || !onBoardingData.email_address) {
-      toast.error("Phone number and email address are required");
-      return false;
-    }
-
-    // Email confirmation
-    if (onBoardingData.email_address !== onBoardingData.confirm_email_address) {
-      toast.error("Email addresses do not match");
-      return false;
-    }
-
-    // Phone confirmation
-    if (onBoardingData.phone_number !== onBoardingData.confirm_phone_number) {
-      toast.error("Phone numbers do not match");
-      return false;
-    }
-
-    // Account type specific validations
-    if (accountType === "corporate") {
-      const corporateData = onBoardingData as CompanyGroupLifeOnboarding;
-      if (
-        !corporateData.company_name ||
-        !corporateData.rc_number ||
-        !corporateData.director_bvn_number
-      ) {
-        toast.error("Please fill in all required company information");
-        return false;
-      }
-    } else if (accountType === "individual") {
-      const individualData = onBoardingData as IndividualOnboarding;
-      if (
-        !individualData.first_name ||
-        !individualData.last_name ||
-        !individualData.gender
-      ) {
-        toast.error("Please fill in all required personal information");
-        return false;
-      }
-    }
-
-    // Location validation
-    if (
-      !onBoardingData.country ||
-      !onBoardingData.state ||
-      !onBoardingData.city
-    ) {
-      toast.error("Please fill in all location information");
-      return false;
-    }
-
-    // Address validation
-    if (!onBoardingData.house_address || !onBoardingData.previous_address) {
-      toast.error("Please fill in all address information");
-      return false;
-    }
-
-    // Bank information validation - handle both types
-    if (accountType === "corporate") {
-      const corporateData = onBoardingData as CompanyGroupLifeOnboarding;
-      if (
-        !corporateData.director_bank_name ||
-        !corporateData.director_bank_acct_number
-      ) {
-        toast.error("Please fill in all required bank information");
-        return false;
-      }
-    } else {
-      const individualData = onBoardingData as IndividualOnboarding;
-      if (!individualData.bank_name || !individualData.bank_account_number) {
-        toast.error("Please fill in all required bank information");
-        return false;
-      }
-    }
-
-    // Identity validation
-    if (
-      !onBoardingData.identity_card_type ||
-      !onBoardingData.identity_card_number
-    ) {
-      toast.error("Please provide identity information");
-      return false;
-    }
-
-    // Document validation
-    const hasIdentityCards =
-      "director_identity_cards" in onBoardingData
-        ? onBoardingData.director_identity_cards?.length! > 0
-        : "identity_cards" in onBoardingData
-        ? onBoardingData.identity_cards?.length! > 0
-        : false;
-
-    if (!hasIdentityCards) {
-      toast.error("Please upload at least one identity card");
-      return false;
-    }
-
-    const hasPassportPhoto =
-      "director_passport_photograph" in onBoardingData
-        ? !!onBoardingData.director_passport_photograph
-        : "passport_photograph" in onBoardingData
-        ? !!onBoardingData.passport_photograph
-        : false;
-
-    if (!hasPassportPhoto) {
-      toast.error("Please upload passport photograph");
-      return false;
-    }
-
-    // CAC validation for corporate accounts only
-    if (
-      accountType === "corporate" &&
-      !(onBoardingData as CompanyGroupLifeOnboarding).cac_document
-    ) {
-      toast.error("Please upload CAC document");
-      return false;
-    }
-
-    // Consent validation
-    if (!onBoardingData.consent_checkbox) {
-      toast.error("Please agree to the terms and conditions");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleSubmit = async () => {
-    if (!validateOnboardingData()) {
+    if (!validateOnboardingData(accountType, onBoardingData)) {
       return;
     }
 
@@ -319,7 +95,7 @@ const OnBoardingForm: React.FC = () => {
 
         // Encrypt NIN only if needed
         if (
-          payload.identity_card_type === "nin" &&
+          payload.identity_card_type === "National Identification Number" &&
           payload.director_national_identification_number
         ) {
           const encryptedNinData = await encryptData(
@@ -378,7 +154,7 @@ const OnBoardingForm: React.FC = () => {
 
         // Encrypt NIN for individual if needed
         if (
-          payload.identity_card_type === "nin" &&
+          payload.identity_card_type === "National Identification Number" &&
           payload.national_identification_number
         ) {
           const encryptedNinData = await encryptData(
@@ -418,6 +194,17 @@ const OnBoardingForm: React.FC = () => {
       console.error("Submission error:", error);
     }
   };
+
+  if (!onboardCompanyGroupLife.isSuccess && onboardCompanyGroupLife.isPending) {
+    setOnBoardingData(null);
+    setShowSuccessMsg(true);
+    setTimeout(() => {
+      setShowSuccessMsg(false);
+    }, 4000);
+  }
+
+  // if(onboardIndividual.isSuccess && !onboardIndividual.isPending) {
+  // }
 
   return (
     <div
@@ -532,6 +319,7 @@ const OnBoardingForm: React.FC = () => {
           )}
         </div>
       </div>
+      {showSuccessMsg && <SuccessfullyOnboarded />}
     </div>
   );
 };

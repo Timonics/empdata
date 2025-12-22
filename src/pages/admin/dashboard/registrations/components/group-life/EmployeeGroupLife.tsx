@@ -27,13 +27,12 @@ const EmployeeGroupLife: React.FC = () => {
     state.registrations.records.filter((r) => r.type === "individual")
   );
 
-  const companyFilters = [
+  const employeeFilters = [
     "All",
     "Verified",
     "Active",
     "Invited",
     "Pending",
-    "Approved",
     "Rejected",
   ].map((filter) => (
     <button
@@ -51,7 +50,7 @@ const EmployeeGroupLife: React.FC = () => {
     ? activeFilter === "All"
       ? data
       : data
-          .filter((item) => item.type === "company")
+          .filter((item) => item.type === "individual")
           .filter(
             (company) => company.data.status === activeFilter.toLowerCase()
           )
@@ -259,7 +258,7 @@ const EmployeeGroupLife: React.FC = () => {
           Filter By:
         </div>
         <div className="border border-muted-foreground/50 rounded-md flex items-center shadow-md">
-          {companyFilters}
+          {employeeFilters}
         </div>
       </div>
       <div className="p-4 mt-4 grid grid-cols-1 md:grid-cols-6 border-2 border-black/10 rounded-t-lg bg-black/5 font-bold">

@@ -21,15 +21,15 @@ export type CompanyGroupLifeOnboarding = {
   director_tax_identification_number?: string;
   director_national_identification_number?: string;
   identity_card_type?:
-    | "nin"
-    | "drivers_license"
-    | "international_passport"
-    | "voters_card";
+    | "National Identification Number"
+    | "Driver's License"
+    | "International Passport"
+    | "Voter's Card";
   identity_card_number?: string;
   nin_number_iv?: string;
   nin_number_data?: string;
   nin_number_tag?: string;
-  director_identity_cards?: string[] | File[];
+  director_identity_cards?: string | File;
   cac_document?: string | File;
   director_passport_photograph?: string | File;
   consent_checkbox?: boolean;
@@ -66,15 +66,15 @@ export type IndividualOnboarding = {
   bvn_tag?: string;
   national_identification_number?: string;
   identity_card_type?:
-    | "nin"
-    | "drivers_license"
-    | "international_passport"
-    | "voters_card";
+    | "National Identification Number"
+    | "Driver's License"
+    | "International Passport"
+    | "Voter's Card";
   identity_card_number?: string;
   nin_number_iv?: string;
   nin_number_data?: string;
   nin_number_tag?: string;
-  identity_cards?: string[] | File[];
+  identity_cards?: string | File;
   passport_photograph?: string | File;
   consent_checkbox?: boolean;
 

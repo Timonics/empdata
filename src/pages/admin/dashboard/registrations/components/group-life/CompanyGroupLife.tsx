@@ -33,7 +33,6 @@ const CompanyGroupLife: React.FC = () => {
     "Active",
     "Invited",
     "Pending",
-    "Approved",
     "Rejected",
   ].map((filter) => (
     <button

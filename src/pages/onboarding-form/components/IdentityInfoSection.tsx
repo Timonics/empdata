@@ -9,7 +9,9 @@ import {
 interface IdentityInfoSectionProps {
   accountType: "individual" | "corporate" | "Employee Group Life" | null;
   setOnBoardingData: React.Dispatch<
-    React.SetStateAction<CompanyGroupLifeOnboarding | IndividualOnboarding | null>
+    React.SetStateAction<
+      CompanyGroupLifeOnboarding | IndividualOnboarding | null
+    >
   >;
 }
 
@@ -22,12 +24,19 @@ const IdentityInfoSection: React.FC<IdentityInfoSectionProps> = ({
 
   const identityCardType: {
     name: string;
-    type: "nin" | "drivers_license" | "international_passport" | "voters_card";
+    type:
+      | "National Identification Number"
+      | "Driver's License"
+      | "International Passport"
+      | "Voter's Card";
   }[] = [
-    { name: "Voter's Card", type: "voters_card" },
-    { name: "Driver's Licence", type: "drivers_license" },
-    { name: "International Passport", type: "international_passport" },
-    { name: "National Identification Number", type: "nin" },
+    { name: "Voter's Card", type: "Voter's Card" },
+    { name: "Driver's License", type: "Driver's License" },
+    { name: "International Passport", type: "International Passport" },
+    {
+      name: "National Identification Number",
+      type: "National Identification Number",
+    },
   ];
 
   return (
@@ -92,21 +101,25 @@ const IdentityInfoSection: React.FC<IdentityInfoSectionProps> = ({
             onChange={(e) => {
               setOnBoardingData((prevState) => {
                 if (!prevState) return prevState;
-                
+
                 const update: any = {
                   ...prevState,
                   identity_card_number: e.target.value,
                 };
-                
+
                 // Set NIN field if NIN is selected
                 if (identityType === "National Identification Number") {
-                  if (accountType === "corporate" || accountType === "Employee Group Life") {
-                    update.director_national_identification_number = e.target.value;
+                  if (
+                    accountType === "corporate" ||
+                    accountType === "Employee Group Life"
+                  ) {
+                    update.director_national_identification_number =
+                      e.target.value;
                   } else {
                     update.national_identification_number = e.target.value;
                   }
                 }
-                
+
                 return update;
               });
             }}

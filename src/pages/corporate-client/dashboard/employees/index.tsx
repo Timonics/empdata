@@ -2,6 +2,7 @@ import { PaginationDemo } from "@/components/pagination";
 import { useEmployees } from "@/hooks/useEmployee";
 import {
   CloudDownload,
+  CloudUpload,
   Edit,
   Eye,
   Filter,
@@ -136,15 +137,12 @@ const CompanyEmployees: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => setAddEmployee(true)}
-            className="flex p-4 rounded-lg items-center gap-2 shadow-lg bg-blue-500 font-semibold text-white hover:bg-blue-700 transition duration-300"
-          >
-            <Plus />
-            Add New Employee
-          </button>
-          <button className="flex items-center gap-2 p-4 rounded-full px-6 bg-sky-300 shadow-lg bg-linear-to-br from-gray-800 to-black text-gray-400 font-medium hover:scale-105 transition duration-300 ease-in-out hover:text-sky-400">
+          <button className="flex items-center rounded-md gap-2 p-3 px-10 text-blue-600 bg-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
             <CloudDownload />
+            Import
+          </button>
+          <button className="flex items-center rounded-md gap-2 p-3 px-10 bg-blue-500 text-white shadow-lg font-medium hover:scale-105 transition duration-300 ease-in-out">
+            <CloudUpload />
             Export
           </button>
         </div>

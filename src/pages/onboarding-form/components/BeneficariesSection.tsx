@@ -144,7 +144,7 @@ const BeneficiarySection: React.FC<BeneficiarySectionProps> = ({
   return (
     <>
       <div className="my-4">
-        <h2 className="px-4 py-1 rounded-full shadow-md text-sm font-bold bg-yellow-300 text-yellow-900">
+        <h2 className="px-4 py-1 rounded-full shadow-md text-sm font-bold bg-indigo-300 text-indigo-900">
           BENEFICIARIES
         </h2>
       </div>

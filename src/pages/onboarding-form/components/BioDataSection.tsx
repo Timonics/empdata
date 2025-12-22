@@ -403,7 +403,7 @@ const BioDataSection: React.FC<BioDataSectionProps> = ({
         </label>
         <label className="space-y-1">
           <h6 className="text-black/75 text-sm">
-            Previous House Address <span className="text-red-500">*</span>
+            Previous House Address
           </h6>{" "}
           <input
             type="text"

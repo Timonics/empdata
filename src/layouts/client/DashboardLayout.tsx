@@ -37,7 +37,7 @@ const DashboardLayout: React.FC = () => {
         <div
           className={`${
             !navIsOpen ? "w-24" : "w-70"
-          } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-4 bg-linear-to-b from-blue-500 via-blue-400 to-blue-400 border-gray-300 px-2`}
+          } transition-all duration-300 ease-in-out max-xl:hidden flex flex-col h-full border-r-4 bg-linear-to-b from-blue-600 via-blue-500 to-blue-400 border-gray-300 px-2`}
         >
           {isCompany ? (
             <CompanyNavigations navIsOpen={navIsOpen} />

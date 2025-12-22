@@ -31,7 +31,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
     >
       <Logo />
       <div
-        className={`flex flex-col h-full gap-2 mt-4 ${
+        className={`flex flex-col text-white h-full gap-2 mt-4 ${
           navIsOpen ? "" : "items-center"
         }`}
       >
@@ -42,7 +42,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
             `${
               isActive
                 ? "bg-sky-100 text-sky-600 font-bold"
-                : "bg-black/85 text-white/85"
+                : ""
             } p-2 rounded-lg ${
               navIsOpen ? "pl-4" : "px-4 hover:bg-sky-100 hover:text-gray-800"
             } transition duration-300 hover:scale-95 flex text- items-center gap-2`
@@ -68,7 +68,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   `${index === navigations.length - 1 ? "mt-auto" : ""} ${
                     isActive
                       ? "bg-sky-100 text-sky-600 font-bold"
-                      : "opacity-75 font-medium"
+                      : ""
                   } p-2 rounded-lg relative ${
                     navIsOpen ? "pl-4" : "px-4 hover:bg-sky-100"
                   } ${
@@ -136,7 +136,7 @@ const CompanyNavigations: React.FC<NavProps> = ({ navIsOpen }) => {
                   `${index === navigations.length - 1 ? "mt-auto" : ""} ${
                     isActive
                       ? "bg-sky-100 text-sky-600 font-bold"
-                      : "opacity-75 font-medium"
+                      : ""
                   } p-2 rounded-lg ${
                     navIsOpen ? "pl-4" : "px-4 hover:bg-sky-100"
                   } transition duration-300 hover:scale-95 flex text- items-center gap-2`
